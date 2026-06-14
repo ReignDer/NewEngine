@@ -1,8 +1,9 @@
-set_project("Template")
+set_project("SignEngine")
 add_rules("plugin.vsxmake.autoupdate")
 set_arch(os.arch())
 add_rules("mode.debug","mode.release")
 set_defaultmode("debug")
+add_requires("directx-headers")
 
 outputdir = ""
 if is_mode("debug") then
@@ -12,30 +13,32 @@ elseif is_mode("release") then
 end
 
 
-target("Core")
+target("Sign")
 	set_kind("static")
 	set_languages("c++23")
 	set_runtimes("MT")
 
-	set_targetdir("bin/".. outputdir .. "/Core")
-	set_objectdir("bin-int/".. outputdir .. "/Core")
+	set_targetdir("bin/".. outputdir .. "/Sign")
+	set_objectdir("bin-int/".. outputdir .. "/Sign")
 
 	--set_pcxxheader("Core/src/aepch.h")
-	add_headerfiles("Core/src/**.h")
-	add_files("Core/src/**.cpp")
-	add_extrafiles("Core/vendor/**.inl")
+	add_headerfiles("Sign/src/**.h","d3dx12.h")
+	add_files("Sign/src/**.cpp")
+	add_extrafiles("Sign/vendor/**.inl")
 	
+	add_packages("directx-headers")
 	add_defines("_CRT_SECURE_NO_WARNINGS")
 
 	add_includedirs(
 		--"Core/vendor/spdlog/include", 
 		--"Core/vendor/imgui",
-		"Core/src", {public = true} )
+		"Sign/src", {public = true} )
 
 	--add_deps("ImGui")
 	add_links(
 		--"ImGui",
-		"dwmapi.lib",
+		"dwmapi.lib", "d3d12.lib", "dxgi.lib",
+		"d3dcompiler.lib", "dxguid.lib",
 		"user32.lib", "gdi32.lib","shell32.lib"	
 	)
 
@@ -43,7 +46,7 @@ target("Core")
 		set_languages("c++23")
 		add_defines("WINVER=0x0A00")
 		add_defines("_WIN32_WINNT=0x0A00") 
-		add_defines("CORE_PLATFORM_WINDOWS","CORE_BUILD_DLL")
+		add_defines("SIGN__PLATFORM_WINDOWS","SIGN__BUILD_DLL")
 		--add_defines("GLFW_INCLUDE_NONE")
 	end
 
@@ -60,18 +63,18 @@ target("Core")
 
 	if is_mode("debug") then
 		set_runtimes("MTd")
-		add_defines("CORE_DEBUG")
+		add_defines("SIGN_DEBUG")
 		set_symbols("debug")
 	elseif is_mode("release") then 
 		set_runtimes("MT")
-		add_defines("CORE_RELEASE")
+		add_defines("SIGN_RELEASE")
 		set_optimize("fast")
 	end
 
 
 target("App")
 	set_kind("binary")
-	set_languages("c++26")
+	set_languages("c++23")
 	set_runtimes("MT")
 
 	set_targetdir("bin/".. outputdir .. "/App")
@@ -84,9 +87,9 @@ target("App")
 	--add_includedirs(
 		--"Core/vendor/spdlog/include", 
 		--"Core/src")
-	add_deps("Core")
-	add_links("Core")
-	add_linkdirs("bin/"..outputdir.."/Core")
+	add_deps("Sign")
+	add_links("Sign")
+	add_linkdirs("bin/"..outputdir.."/Sign")
 
 
 
@@ -98,13 +101,13 @@ target("App")
 		end
 		add_defines("WINVER=0x0A00")
 		add_defines("_WIN32_WINNT=0x0A00") 
-		add_defines("CORE_PLATFORM_WINDOWS")
+		add_defines("SIGN_PLATFORM_WINDOWS")
 	end
 
 	if is_mode("debug") then
-		add_defines("CORE_DEBUG")
+		add_defines("SIGN_DEBUG")
 		set_symbols("debug")
 	elseif is_mode("release") then 
-		add_defines("CORE_RELEASE")
+		add_defines("SIGN_RELEASE")
 		set_optimize("fast")
 	end

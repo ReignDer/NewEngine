@@ -1,5 +1,10 @@
+#include "Application.h"
 #include "Core.h"
 
 int main() {
-	Core::PrintWorld();
+	Sign::PrintWorld();
+
+
+	Sign::Application application{};
+	application.Run();
 }

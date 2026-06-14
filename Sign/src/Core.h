@@ -1,5 +1,5 @@
 #pragma once
 
-namespace Core {
+namespace Sign {
 	void PrintWorld();
 }

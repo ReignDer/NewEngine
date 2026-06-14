@@ -1,7 +1,7 @@
 #include "Core.h"
 #include <print>
 
-namespace Core {
+namespace Sign {
 	void PrintWorld() {
 		std::println("Hello World!");
 	}
