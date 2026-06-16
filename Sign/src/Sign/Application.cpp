@@ -13,6 +13,7 @@ namespace Sign {
 
 		m_Window = std::make_unique<Window>(m_Specifications.WindowSpec);
 		m_Window->Create();
+		Renderer::Init(m_Window->GetContext());
 
 #if defined(SIGN_DEBUG)
 		Microsoft::WRL::ComPtr<ID3D12Debug> debugController;
@@ -93,7 +94,7 @@ namespace Sign {
 
 	bool Application::OnWindowResizedEvent(WindowResizedEvent& e)
 	{
-
+		Renderer::OnWindowResize();
 		return false;
 	}
 

@@ -3,7 +3,7 @@
 #include <string>
 #include <ranges>
 #include <print>
-#include <directX/d3d12.h>
+#include <directx/d3d12.h>
 #include <wrl.h>
 #include <dxgi1_6.h>
 #include <d3dcompiler.h>
@@ -15,6 +15,7 @@
 #include "LayerStack.h"
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
+#include "Renderer/Renderer.h"
 
 
 namespace Sign {

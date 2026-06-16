@@ -21,3 +21,11 @@ void AppLayer::OnEvent(Sign::Event& event)
 		std::println("{}", (char)e.GetKeyCode());
 	}
 }
+
+void AppLayer::OnRender()
+{
+	FLOAT clearColor[] = { 0.4f, 0.6f, 0.9f, 1.0f };
+	Sign::Renderer::BeginScene(clearColor);
+	Sign::Renderer::Submit();
+	Sign::Renderer::EndScene();
+}

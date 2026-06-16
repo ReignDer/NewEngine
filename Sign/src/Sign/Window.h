@@ -3,12 +3,13 @@
 #include <functional>
 #include <Windows.h>
 
-#include <directX/d3d12.h>
+#include <directx/d3d12.h>
 #include <DirectXMath.h>
 
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
-#include "Events/InputEvents.h"
+#include "Events/KeyEvents.h"
+#include "Events/MouseEvents.h"
 #include "D3D12Context.h"
 
 namespace Sign {
@@ -43,6 +44,7 @@ namespace Sign {
 
 		bool ShouldClose();
 		HWND GetHandle() const { return m_WindowsHandle; }
+		D3D12Context* GetContext() { return m_Context.get(); }
 	private:
 		static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	private:
