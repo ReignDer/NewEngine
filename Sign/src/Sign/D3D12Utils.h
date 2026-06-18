@@ -10,6 +10,10 @@
 namespace D3D12Utils {
 	const uint8_t g_NumFrames = 3;
 
+	static const D3D12_HEAP_PROPERTIES UploadHeapProps = {
+		D3D12_HEAP_TYPE_UPLOAD, D3D12_CPU_PAGE_PROPERTY_UNKNOWN, D3D12_MEMORY_POOL_UNKNOWN, 0,0
+	};
+
 	static bool checkTearingSupport()
 	{
 		BOOL allowTearing = FALSE;
@@ -194,5 +198,27 @@ namespace D3D12Utils {
 
 			UpdateSubresources(commandList.Get(), *pDestinationResource, *pIntermediateResource, 0, 0, 1, &subResourceData);
 		}
+	}
+	
+	static Microsoft::WRL::ComPtr<ID3D12Resource> CreateBuffer(Microsoft::WRL::ComPtr<ID3D12Device2> device
+		,uint64_t size, D3D12_RESOURCE_FLAGS flags, D3D12_RESOURCE_STATES initState, const D3D12_HEAP_PROPERTIES& heapProps )
+	{
+		Microsoft::WRL::ComPtr<ID3D12Resource> bufferResource;
+		D3D12_RESOURCE_DESC bufferDesc = {};
+		bufferDesc.Alignment = 0;
+		bufferDesc.DepthOrArraySize = 1;
+		bufferDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+		bufferDesc.Flags = flags;
+		bufferDesc.Format = DXGI_FORMAT_UNKNOWN;
+		bufferDesc.Height = 1;
+		bufferDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+		bufferDesc.MipLevels = 1;
+		bufferDesc.SampleDesc.Count = 1;
+		bufferDesc.SampleDesc.Quality = 0;
+		bufferDesc.Width = size;
+
+		device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &bufferDesc, initState, nullptr, IID_PPV_ARGS(&bufferResource));
+
+		return bufferResource;
 	}
 }

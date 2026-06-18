@@ -3,14 +3,14 @@
 #include <wrl.h>
 #include <cstdint>
 
-#include "Sign/Renderer/Mesh.h"
+#include "Sign/Renderer/MeshUtils.h"
 
 
 namespace Sign {
 	class VertexBuffer
 	{
 	public:
-		VertexBuffer(VertexPosColor* vertices, uint32_t size);
+		VertexBuffer(const void* vertices, uint32_t size);
 
 		void Bind(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2> commandList);
 		void UnBind();

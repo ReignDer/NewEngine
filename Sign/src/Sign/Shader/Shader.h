@@ -5,6 +5,7 @@
 #include <DirectXMath.h>
 #include <print>
 #include <iostream>
+#include <filesystem>
 namespace Sign {
 	class Shader
 	{
@@ -14,6 +15,8 @@ namespace Sign {
 		void Compile();
 
 		void CompileShader(const WCHAR* path, const char* entryPoint, const char* target, ID3DBlob** blob);
+
+		std::filesystem::path GetExePath();
 
 		Microsoft::WRL::ComPtr<ID3DBlob> GetVertexShaderBlob() { return vertexShaderBlob; }
 		Microsoft::WRL::ComPtr<ID3DBlob> GetPixelShaderBlob() { return pixelShaderBlob; }

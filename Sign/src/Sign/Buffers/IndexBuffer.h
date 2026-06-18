@@ -9,7 +9,7 @@ namespace Sign {
 	class IndexBuffer
 	{
 	public:
-		IndexBuffer(WORD* indices, uint32_t size);
+		IndexBuffer(const WORD* indices, uint32_t size);
 
 		void Bind(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2> commandList);
 		void UnBind();

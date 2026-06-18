@@ -8,12 +8,12 @@ namespace Sign {
 
 	struct PipelineSpecifications {
 		std::vector<D3D12_INPUT_ELEMENT_DESC> InputLayout;
-		D3D12_PRIMITIVE_TOPOLOGY_TYPE Topology;
+		D3D12_PRIMITIVE_TOPOLOGY_TYPE Topology = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		std::shared_ptr<Shader> Shader;
-		bool WireFrame = false;
-		bool DepthTest = true;
+		BOOL WireFrame = FALSE;
+		BOOL DepthTest = TRUE;
 		D3D12_RT_FORMAT_ARRAY RTVFormats= {};
-		DXGI_FORMAT DSVFormat;
+		DXGI_FORMAT DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		UINT NumRenderTargets = 1;
 
 	};

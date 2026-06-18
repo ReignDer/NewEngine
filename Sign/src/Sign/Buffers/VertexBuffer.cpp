@@ -2,7 +2,7 @@
 #include "Sign/D3D12Utils.h"
 #include "Sign/Renderer/Renderer.h"
 namespace Sign {
-	VertexBuffer::VertexBuffer(VertexPosColor* vertices, uint32_t size) : m_NumElem(size)
+	VertexBuffer::VertexBuffer(const void* vertices, uint32_t size) : m_NumElem(size)
 	{
 		m_Size = m_NumElem * sizeof(VertexPosColor);
 		D3D12Utils::UpdateBufferResource(

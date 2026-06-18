@@ -53,10 +53,14 @@ namespace Sign {
 	{
 		m_Running = true;
 		while (m_Running) {
+			auto currentTime = std::chrono::steady_clock::now();
+			std::chrono::duration<float>  deltaTime = currentTime - m_LastFrameTime;
+			m_LastFrameTime = currentTime;
+			float ts = deltaTime.count();
 
 			m_Window->PollEvents();
 
-			float ts = 0;
+
 			for (const auto& layer : m_LayerStack) {
 				layer->OnUpdate(ts);
 			}

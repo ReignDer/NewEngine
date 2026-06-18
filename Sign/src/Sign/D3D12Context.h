@@ -14,37 +14,54 @@ namespace Sign {
 		void Init();
 		void SwapBuffers();
 
-		void CreateDevice();
-		void CreateSwapChain();
-		void CreateRTVHeap();
-		void CreateFence();
-		void FlushCommandQueue();
 
 		Microsoft::WRL::ComPtr<IDXGIAdapter4> GetAdapter(bool useWarp);
 
-		std::shared_ptr<D3D12CommandQueue> GetCommandQueue(D3D12_COMMAND_LIST_TYPE type = D3D12_COMMAND_LIST_TYPE_DIRECT) const;
-		Microsoft::WRL::ComPtr<ID3D12Device2> GetDevice() { return m_Device; }
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetRTVDescriptorHeap() { return m_RTVHeap; }
-		UINT GetRTVDescriptorSize() { return m_RTVDescriptorSize; }
-		Microsoft::WRL::ComPtr<ID3D12Fence> GetFence() { return m_Fence; }
-		HANDLE GetFenceEvent() { return m_FenceEvent; }
-		Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain() { return m_SwapChain; }
-		UINT GetCurrentBackBuffer() { return m_SwapChain->GetCurrentBackBufferIndex(); }
-		CD3DX12_CPU_DESCRIPTOR_HANDLE GetCurrentTargetView();
-		Microsoft::WRL::ComPtr<ID3D12Resource> GetBackBuffer(uint32_t index) const { return m_BackBuffers[index]; }
+		std::shared_ptr<D3D12CommandQueue>				GetCommandQueue(D3D12_COMMAND_LIST_TYPE type = D3D12_COMMAND_LIST_TYPE_DIRECT) const;
+		Microsoft::WRL::ComPtr<ID3D12Device2>			GetDevice() { return m_Device; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	GetRTVDescriptorHeap() { return m_RTVHeap; }
+		UINT											GetRTVDescriptorSize() { return m_RTVDescriptorSize; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	Get_CBV_SRV_UAV_DescriptorHeap() { return m_CBV_SRV_UAV_Heap; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	GetDSVDescriptorHeap() { return m_DSVHeap; }
+		Microsoft::WRL::ComPtr<ID3D12Fence>				GetFence() { return m_Fence; }
+		HANDLE											GetFenceEvent() { return m_FenceEvent; }
+		Microsoft::WRL::ComPtr<IDXGISwapChain4>			GetSwapChain() { return m_SwapChain; }
+		UINT											GetCurrentBackBuffer() { return m_SwapChain->GetCurrentBackBufferIndex(); }
+		CD3DX12_CPU_DESCRIPTOR_HANDLE					GetCurrentTargetView();
+		Microsoft::WRL::ComPtr<ID3D12Resource>			GetBackBuffer(uint32_t index) const { return m_BackBuffers[index]; }
+
+		//CANNOT BE USED FOR SAMPLERS e.g. RTV, DSV
+		CD3DX12_CPU_DESCRIPTOR_HANDLE					GetCPUHandleAt(unsigned int index);
+		CD3DX12_GPU_DESCRIPTOR_HANDLE					GetGPUHandleAt(unsigned int index);
+
+		void ResizeDepthBuffer(int width, int height);
 
 		void SetFrameFenceValues(uint64_t fenceValue);
+
+		void FlushCommandQueue();
+
+	private:
+
+		void CreateDevice();
+		void CreateSwapChain();
+		void CreateRTVHeap();
+		void CreateCBV_SRV_UAV_Heap();
+		void CreateDSVHeap();
+		void CreateFence();
 
 	private:
 		HWND m_WindowHandle;
 		bool m_VSync = true;
 		bool m_TearingSupported = false;
 		unsigned int m_RTVDescriptorSize;
+		unsigned int m_CBV_SRV_UAV_DescriptorSize;
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> m_SwapChain;
 		Microsoft::WRL::ComPtr<IDXGIFactory4> m_Factory4;
 		Microsoft::WRL::ComPtr<ID3D12Device2> m_Device;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_RTVHeap;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_CBV_SRV_UAV_Heap;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_DSVHeap;
 
 		std::shared_ptr<D3D12CommandQueue> m_DirectCommandQueue;
 		std::shared_ptr<D3D12CommandQueue> m_ComputeCommandQueue;
@@ -57,6 +74,7 @@ namespace Sign {
 
 
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_BackBuffers[D3D12Utils::g_NumFrames];
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_DepthBuffer;
 
 		UINT m_CurrentBackBufferIndex;
 

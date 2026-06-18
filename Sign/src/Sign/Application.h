@@ -10,6 +10,7 @@
 #include <DirectXMath.h>
 #include <directx/d3d12sdklayers.h>
 #include <iostream>
+#include <chrono>
 #include "Window.h"
 #include "Layer.h"
 #include "LayerStack.h"
@@ -47,6 +48,8 @@ namespace Sign {
 		ApplicationSpecifications m_Specifications;
 		std::shared_ptr<Window> m_Window;
 		LayerStack m_LayerStack;
+
+		std::chrono::high_resolution_clock::time_point m_LastFrameTime;
 		bool m_Running = false;
 	};
 }

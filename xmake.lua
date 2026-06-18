@@ -83,6 +83,7 @@ target("App")
 
 	add_headerfiles("App/src/**.h")
 	add_files("App/src/**.cpp")
+	add_extrafiles("App/src/**.hlsl")
 
 	
 	--add_includedirs(
@@ -91,7 +92,6 @@ target("App")
 	add_deps("Sign")
 	add_links("Sign")
 	add_linkdirs("bin/"..outputdir.."/Sign")
-
 
 
 	if is_os("windows") then
@@ -104,6 +104,13 @@ target("App")
 		add_defines("_WIN32_WINNT=0x0A00") 
 		add_defines("SIGN_PLATFORM_WINDOWS")
 	end
+
+	after_build(function(target)
+		local shaderSrc = path.join(os.projectdir(), "App/src/Shader")
+		local shaderDesc = path.join(target:targetdir(), "Shader")
+		os.mkdir(shaderDesc)
+		os.cp(shaderSrc .. "/**.hlsl", shaderDesc)
+	end)
 
 	if is_mode("debug") then
 		add_defines("SIGN_DEBUG")

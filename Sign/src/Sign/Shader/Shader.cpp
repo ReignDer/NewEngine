@@ -7,11 +7,15 @@ namespace Sign {
 	}
 	void Shader::Compile()
 	{
-		CompileShader(m_VertexPath, "main", "vs_5_1", &vertexShaderBlob);
-		CompileShader(m_PixelPath, "main", "ps_5_1", &pixelShaderBlob);
+		std::filesystem::path absoluteVertexPath = std::filesystem::absolute(m_VertexPath);
+		std::filesystem::path absolutePixelPath = std::filesystem::absolute(m_PixelPath);
+		CompileShader(absoluteVertexPath.c_str(), "main", "vs_5_1", &vertexShaderBlob);
+		CompileShader(absolutePixelPath.c_str(), "main", "ps_5_1", &pixelShaderBlob);
 
-		if(m_ComputePath)
-			CompileShader(m_ComputePath, "main", "cs_5_1", &computeShaderBlob);
+		if (m_ComputePath) {
+			std::filesystem::path absoluteComputePath = std::filesystem::absolute(m_ComputePath);
+			CompileShader(absoluteComputePath.c_str(), "main", "cs_5_1", &computeShaderBlob);
+		}
 	
 	}
 	void Shader::CompileShader(const WCHAR* path, const char* entryPoint, const char* target, ID3DBlob** blob)
@@ -38,4 +42,12 @@ namespace Sign {
 		}
 
 	}
+
+	std::filesystem::path Shader::GetExePath()
+	{
+		char exePath[MAX_PATH];
+		GetModuleFileName(nullptr, exePath, MAX_PATH);
+		return std::filesystem::path(exePath).parent_path();
+	}
+
 }

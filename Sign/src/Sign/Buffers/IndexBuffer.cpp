@@ -4,7 +4,7 @@
 #include "Sign/D3D12Utils.h"
 #include "Sign/Renderer/Renderer.h"
 namespace Sign{
-	IndexBuffer::IndexBuffer(WORD* indices, uint32_t size) : m_NumElem(size)
+	IndexBuffer::IndexBuffer(const WORD* indices, uint32_t size) : m_NumElem(size)
 	{
 		m_Size = m_NumElem * sizeof(WORD);
 		D3D12Utils::UpdateBufferResource(

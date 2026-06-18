@@ -20,13 +20,13 @@ namespace Sign {
 		GetCursorPos(&p);
 		ScreenToClient(Application::Get().GetWindow().GetHandle(), &p);
 
-		RECT rect;
+		/*RECT rect;
 		GetClientRect(Application::Get().GetWindow().GetHandle(), &rect);
 
 		if (p.x > rect.right || p.x < rect.left
 			|| p.y < rect.top || p.y > rect.bottom) {
 			return { 0.0f,0.0f };
-		}
+		}*/
 		return { (float)p.x,(float)p.y };
 	}
 

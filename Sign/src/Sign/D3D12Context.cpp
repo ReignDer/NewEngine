@@ -10,6 +10,8 @@ namespace Sign {
 		CreateDevice();
 		CreateSwapChain();
 		CreateRTVHeap();
+		CreateCBV_SRV_UAV_Heap();
+		CreateDSVHeap();
 		CreateFence();
 
 		m_CurrentBackBufferIndex = m_SwapChain->GetCurrentBackBufferIndex();
@@ -71,6 +73,17 @@ namespace Sign {
 
 			rtvHandle.Offset(m_RTVDescriptorSize);
 		}
+	}
+
+	void D3D12Context::CreateCBV_SRV_UAV_Heap()
+	{
+		m_CBV_SRV_UAV_Heap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024, true);
+		m_CBV_SRV_UAV_DescriptorSize = m_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	}
+
+	void D3D12Context::CreateDSVHeap()
+	{
+		m_DSVHeap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1, false);
 	}
 
 	void D3D12Context::CreateFence()
@@ -161,6 +174,47 @@ namespace Sign {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE D3D12Context::GetCurrentTargetView()
 	{
 		return CD3DX12_CPU_DESCRIPTOR_HANDLE(m_RTVHeap->GetCPUDescriptorHandleForHeapStart(), GetCurrentBackBuffer(), m_RTVDescriptorSize);
+	}
+
+	CD3DX12_CPU_DESCRIPTOR_HANDLE D3D12Context::GetCPUHandleAt(unsigned int index)
+	{
+		return CD3DX12_CPU_DESCRIPTOR_HANDLE(m_CBV_SRV_UAV_Heap->GetCPUDescriptorHandleForHeapStart(), index, m_CBV_SRV_UAV_DescriptorSize);
+	}
+
+	CD3DX12_GPU_DESCRIPTOR_HANDLE D3D12Context::GetGPUHandleAt(unsigned int index)
+	{
+		return CD3DX12_GPU_DESCRIPTOR_HANDLE(m_CBV_SRV_UAV_Heap->GetGPUDescriptorHandleForHeapStart(), index, m_CBV_SRV_UAV_DescriptorSize);
+	}
+
+	void D3D12Context::ResizeDepthBuffer(int width, int height)
+	{
+		FlushCommandQueue();
+		width = (std::max)(1, width);
+		height = (std::max)(1, height);
+
+		D3D12_CLEAR_VALUE optimizedClearValue = {};
+		optimizedClearValue.Format = DXGI_FORMAT_D32_FLOAT;
+		optimizedClearValue.DepthStencil = { 1.0f,0 };
+
+		auto heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		auto resourceDesc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, width, height, 1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+
+		m_Device->CreateCommittedResource(
+			&heapProps,
+			D3D12_HEAP_FLAG_NONE,
+			&resourceDesc,
+			D3D12_RESOURCE_STATE_DEPTH_WRITE,
+			&optimizedClearValue,
+			IID_PPV_ARGS(&m_DepthBuffer)
+		);
+
+		D3D12_DEPTH_STENCIL_VIEW_DESC dsv = {};
+		dsv.Format = DXGI_FORMAT_D32_FLOAT;
+		dsv.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+		dsv.Texture2D.MipSlice = 0;
+		dsv.Flags = D3D12_DSV_FLAG_NONE;
+
+		m_Device->CreateDepthStencilView(m_DepthBuffer.Get(), &dsv, m_DSVHeap->GetCPUDescriptorHandleForHeapStart());
 	}
 
 	void D3D12Context::SetFrameFenceValues(uint64_t fenceValue)
