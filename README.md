@@ -9,7 +9,7 @@
 9. Install xmake
 10. Click Finish
 11. IDE project files for MSVC will be automatically generated
-12. Go to the vs20XX (depends on what msvc version is installed) folder and the .sln file will be there
+12. There will be a folder with the prefix "vs" following with the current msvc version e.g. vs2026, vs2022. Select that folder and the .sln file is found there
 
 # Entry Point
 Entry Point is located in App/src/App.cpp
