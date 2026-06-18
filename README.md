@@ -10,3 +10,6 @@
 10. Click Finish
 11. IDE project files for MSVC will be automatically generated
 12. Go to the vs2026 folder and the sln file will be there
+
+
+Entry Point is located in App/src/App.cpp
