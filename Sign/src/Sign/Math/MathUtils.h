@@ -1,6 +1,7 @@
 #pragma once
 #include <numbers>
 #include <random>
+#include "Sign/Math/Vector3D.h"
 namespace MathUtils {
 	inline auto PI = std::numbers::pi_v<float>;
 
@@ -23,5 +24,11 @@ namespace MathUtils {
 
 		std::uniform_int_distribution<int> distrib(min, max);
 		return distrib(gen);
+	}
+
+	inline Sign::Vector3D lerp(const Sign::Vector3D& a, const Sign::Vector3D& b, float t) {
+		return { a.x + (b.x - a.x) * t,
+				a.y + (b.y - a.y) * t,
+				a.z + (b.z - a.z) * t};
 	}
 }

@@ -16,6 +16,7 @@
 #include "Sign/Renderer/PlaneEntity.h"
 #include "Sign/Renderer/CircleEntity.h"
 #include "Sign/Renderer/TriangleEntity.h"
+#include "Sign/Renderer/EmptyEntity.h"
 #include "Sign/Ccommand/EditorCommand.h"
 
 #include "Sign/Ccommand/CreateObjectCommand.h"

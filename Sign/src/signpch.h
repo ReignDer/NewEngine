@@ -8,6 +8,7 @@
 #include <sstream>
 #include <print>
 #include <random>
+#include <array>
 
 #include <string>
 #include <vector>

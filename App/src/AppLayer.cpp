@@ -24,42 +24,115 @@ void AppLayer::OnAttach()
 
 	m_Shader = std::make_shared<Sign::Shader>(L"Shader/VertexShader.hlsl", L"Shader/PixelShader.hlsl", pSpecs);*/
 
-	auto triangle = std::make_shared<Sign::TriangleEntity>();
+	/*auto triangle = std::make_shared<Sign::TriangleEntity>();
 
 	m_Meshes.push_back(triangle);
-	m_InitialEntityCount++;
+	m_InitialEntityCount++;*/
+	/*std::array<Sign::Vector3D, 8> col;
+	for (int i = 0; i < col.size(); i++) {
+		col[i] = Sign::Vector3D(1.0f, 1.0f, 1.0f);
+	}*/
+	/*auto Cube = std::make_shared<Sign::CubeEntity>();
+	auto Cube2 = std::make_shared<Sign::CubeEntity>();
+	auto Cube3 = std::make_shared<Sign::CubeEntity>();
 
-/*	auto Cube = std::make_shared<Sign::CubeEntity>();
-	Cube->SetScale(Sign::Vector3D(0.5f, 0.5f, 0.5f));
+	Cube->SetTranslation({ 0.0f, 0.9f, 0.0f });
+	Cube2->SetTranslation({ -1.5f, 2.0f, 0.0f });
+	Cube3->SetTranslation({ -1.5f, 3.0f, -2.0f });
+
+	m_Meshes.push_back(Cube);
+	m_Meshes.push_back(Cube2);
+	m_Meshes.push_back(Cube3);*/
+	/*Cube->SetScale(Sign::Vector3D(0.5f, 0.5f, 0.5f));
 	auto Cube2 = std::make_shared<Sign::CubeEntity>();
 	Cube2->SetTranslation({ 0.0f,0.0f,10.0f });
 	Cube2->SetScale(Sign::Vector3D(0.5f, 0.5f, 0.5f));*/
 
-	auto plane = std::make_shared<Sign::PlaneEntity>();
 
-	auto circle = std::make_shared<Sign::CircleEntity>();
+	for (int i = 0; i < 15; i++) {
+		bool odd = (i % 2) != 0;
+		auto plane = std::make_shared<Sign::PlaneEntity>();
+
+		switch (i) {
+			case 6:
+				m_Meshes.push_back(plane);
+				continue;
+			case 7:
+				m_Meshes.push_back(plane);
+				continue;
+			case 11:
+				m_Meshes.push_back(plane);
+				continue;
+			case 13:
+				m_Meshes.push_back(plane);
+				continue;
+		}
+
+		if (odd) {
+			plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
+			//plane->SetTranslation({ 5.0f *std::cos(MathUtils::ConvertToRadians(70.0f)) * 2 ,0,0 });
+		}
+		else{
+			plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
+		}
+		m_Meshes.push_back(plane);
+	}
+	float currentX = 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
+	m_Meshes[1]->SetTranslation({ currentX, 0.0f,0.0f });
+	currentX += currentX;
+	m_Meshes[2]->SetTranslation({ currentX, 0.0f,0.0f });
+	currentX += currentX;
+	m_Meshes[3]->SetTranslation({ currentX, 0.0f,0.0f });
+	currentX += currentX;
+	m_Meshes[4]->SetTranslation({ currentX, 0.0f,0.0f });
+
+	/*currentX += currentX;
+	m_Meshes[5]->SetTranslation({ currentX, 0.0f,0.0f });
+	currentX += currentX;
+	m_Meshes[6]->SetTranslation({ currentX, 0.0f,0.0f });*/
+	/*int pairTiers[] = { 3,2,1 };
+	for (int tier = 0; tier < 3; tier++) {
+		int pairInTier = pairTiers[tier];
+		int cardsInTier = pairInTier * 2;
+
+		float startTierX = tier;
+
+
+		for (int localCard = 0; localCard < cardsInTier; localCard++) {
+			float currentX = startTierX;
+
+			m_Meshes[localCard]->SetTranslation({currentX,0,0});
+			startTierX += 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
+			
+		}
+	}*/
+
+
+/*	auto circle = std::make_shared<Sign::CircleEntity>();
 	circle->SetTranslation({ 0.0f,0.0f,5.0f });
 
 	auto sphere = std::make_shared<Sign::SphereEntity>();
-	sphere->SetTranslation({ 5.0f,0.0f,5.0f });
+	sphere->SetTranslation({ 5.0f,0.0f,5.0f });*/
 
-	m_Meshes.push_back(sphere);
+	/*m_Meshes.push_back(sphere);
 	m_InitialEntityCount++;
 
 	m_Meshes.push_back(circle);
-	m_InitialEntityCount++;
+	m_InitialEntityCount++;*/
 	//m_Meshes.push_back(Cube);
 	//m_Meshes.push_back(Cube2);
-	m_Meshes.push_back(plane);
-	m_InitialEntityCount++;
+/*	m_Meshes.push_back(plane);
+	m_InitialEntityCount++;*/
 
-	/*for (int i = 0; i < 100; i++) {
+	/*for (int i = 0; i < 50; i++) {
 		auto Cube = std::make_shared<Sign::CubeEntity>();
 		Cube->SetTranslation({ MathUtils::Random_Float(-15.0f,15.0f),MathUtils::Random_Float(-15.0f,15.0f) ,MathUtils::Random_Float(-15.0f,15.0f) });
 		Cube->SetScale(Sign::Vector3D(0.5f, 0.5f, 0.5f));
 		m_Meshes.push_back(Cube);
 		m_InitialEntityCount++;
 	}*/
+
+	std::println("Entity Numbers: {}", m_Meshes.size());
 }
 
 void AppLayer::OnUpdate(Sign::Timestep dt)
@@ -110,7 +183,8 @@ void AppLayer::OnRender()
 	//Sign::Renderer::Submit(m_VertexArray, *m_Shader, Sign::Mat4::identity());
 
 	for (auto& mesh : m_Meshes) {
-		Sign::Renderer::Submit(mesh->GetMesh()->GetVertexArray(), *mesh->GetShader(), mesh->GetTransform());
+		if(mesh->HasMesh())
+			Sign::Renderer::Submit(mesh->GetMesh()->GetVertexArray(), *mesh->GetShader(), mesh->GetTransform());
 	}
 
 	Sign::Renderer::EndScene();

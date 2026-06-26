@@ -29,11 +29,12 @@ namespace Sign {
 		const std::string GetName() const { return m_EntityName; }
 		const std::shared_ptr<Mesh>& GetMesh() const{ return m_Mesh; }
 		const std::shared_ptr<Shader>& GetShader() const{ return m_Shader; }
+		const bool HasMesh() const{ return m_HasMesh; }
 
 		void SetTranslation(const Vector3D& pos) { m_Translation = pos; RecalculateTransform(); }
 		void SetScale(const Vector3D& scale) { m_Scale = scale; RecalculateTransform(); };
 		void SetRotation(const Quaternion& rotation) { m_Rotation = rotation; RecalculateTransform(); }
-		void SetMesh(const std::shared_ptr<Mesh>& mesh) { m_Mesh = mesh; }
+		void SetMesh(const std::shared_ptr<Mesh>& mesh) { m_Mesh = mesh; m_HasMesh = true; }
 		void SetShader(const std::shared_ptr<Shader>& shader) { m_Shader = shader; }
 
 	private:
@@ -47,6 +48,7 @@ namespace Sign {
 		Mat4 m_Transform;
 
 		bool m_Dirty = true;
+		bool m_HasMesh = false;
 
 		std::shared_ptr<Mesh> m_Mesh = nullptr;
 		std::shared_ptr<Shader> m_Shader = nullptr;

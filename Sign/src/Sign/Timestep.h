@@ -8,7 +8,7 @@ public:
 	operator float const() { return m_Time; }
 
 
-	float GetSeconds() { return m_Time; }
+	float GetSeconds() { return m_Time / 1000.0f; }
 	float GetMilliseconds() { return m_Time * 1000.0f; }
 
 
