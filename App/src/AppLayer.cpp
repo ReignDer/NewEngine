@@ -53,38 +53,70 @@ void AppLayer::OnAttach()
 		bool odd = (i % 2) != 0;
 		auto plane = std::make_shared<Sign::PlaneEntity>();
 
-		switch (i) {
-			case 6:
-				m_Meshes.push_back(plane);
-				continue;
-			case 7:
-				m_Meshes.push_back(plane);
-				continue;
-			case 11:
-				m_Meshes.push_back(plane);
-				continue;
-			case 13:
-				m_Meshes.push_back(plane);
-				continue;
+		if (i == 6 || i == 7 || i == 12) {
+			m_Meshes.push_back(plane);
+			continue;
 		}
 
 		if (odd) {
-			plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
+			if (i == 13) {
+				plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
+				
+			}
+			else
+				plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
 			//plane->SetTranslation({ 5.0f *std::cos(MathUtils::ConvertToRadians(70.0f)) * 2 ,0,0 });
 		}
 		else{
-			plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
+			if (i == 14) {
+				plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
+			
+			}
+			else
+				plane->SetRotation(Sign::Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
 		}
 		m_Meshes.push_back(plane);
 	}
-	float currentX = 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
+	float cardDistance = 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
+	float cardDistance2 = 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f));
+	float cardHeight = 5.0f * std::sin(MathUtils::ConvertToRadians(70.0f));
+	float currentX = cardDistance;
+	float currentY = cardHeight;
+
 	m_Meshes[1]->SetTranslation({ currentX, 0.0f,0.0f });
-	currentX += currentX;
+	currentX += cardDistance;
+	float middle = currentX / 2;
 	m_Meshes[2]->SetTranslation({ currentX, 0.0f,0.0f });
-	currentX += currentX;
+	currentX += cardDistance;
 	m_Meshes[3]->SetTranslation({ currentX, 0.0f,0.0f });
-	currentX += currentX;
+	currentX += cardDistance;
 	m_Meshes[4]->SetTranslation({ currentX, 0.0f,0.0f });
+	currentX += cardDistance;
+	m_Meshes[5]->SetTranslation({ currentX, 0.0f,0.0f });
+	m_Meshes[6]->SetTranslation({ middle,currentY,0.0f });
+
+	m_Meshes[7]->SetTranslation({ middle * 4,currentY,0.0f });
+
+	currentX = 0;
+	currentX = cardDistance;
+	currentY += cardHeight;
+	m_Meshes[8]->SetTranslation({currentX, currentY,0.0f});
+	currentX += cardDistance;
+	m_Meshes[9]->SetTranslation({ currentX,currentY,0.0f });
+	currentX += cardDistance;
+	m_Meshes[10]->SetTranslation({ currentX, currentY,0.0f });
+	currentX +=cardDistance;
+	m_Meshes[11]->SetTranslation({ currentX,currentY,0.0f });
+
+	currentY += cardHeight;
+	m_Meshes[12]->SetTranslation({ cardDistance2 *5, currentY,0.0f });
+
+	currentY += cardHeight;
+	currentX = 0;
+	currentX = cardDistance * 2;
+	m_Meshes[13]->SetTranslation({ currentX, currentY,0.0f });
+	currentX += cardDistance;
+	m_Meshes[14]->SetTranslation({ currentX, currentY,0.0f });
 
 	/*currentX += currentX;
 	m_Meshes[5]->SetTranslation({ currentX, 0.0f,0.0f });
@@ -104,7 +136,7 @@ void AppLayer::OnAttach()
 			m_Meshes[localCard]->SetTranslation({currentX,0,0});
 			startTierX += 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
 			
-		}
+		}90
 	}*/
 
 
