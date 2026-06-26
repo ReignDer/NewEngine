@@ -1,5 +1,5 @@
 # About
-This is a DXD12 Game Engine using the Xmake build system
+This is a DXD12 Game Engine by Mathieu Marc I. Pobre using the Xmake build system
 
 # How to Set-Up
 1. Go to Scripts Folder
@@ -14,6 +14,8 @@ This is a DXD12 Game Engine using the Xmake build system
 11. IDE project files for MSVC will be automatically generated
 12. There will be a folder with the prefix "vs" following with the current MSVC version e.g. vs2026, vs2022. Select that folder and the .sln file is found there
 13. Alternatively, there is a Generate.bat file which you can use after installing xmake and it will generate a build for an exe file that can be found on the bin/Debug-x64/App/App.exe.
+
+Only Supports Windows
 
 # Entry Point
 Entry Point is located in App/src/App.cpp
