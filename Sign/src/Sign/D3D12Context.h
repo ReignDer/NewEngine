@@ -5,6 +5,7 @@
 #include <directx/d3dx12.h>
 #include "D3D12Utils.h"
 #include "D3D12CommandQueue.h"
+#include "D3D12DescriptorHeapAllocator.h"
 namespace Sign {
 	class D3D12Context
 	{
@@ -19,10 +20,13 @@ namespace Sign {
 
 		std::shared_ptr<D3D12CommandQueue>				GetCommandQueue(D3D12_COMMAND_LIST_TYPE type = D3D12_COMMAND_LIST_TYPE_DIRECT) const;
 		Microsoft::WRL::ComPtr<ID3D12Device2>			GetDevice() { return m_Device; }
+
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	GetRTVDescriptorHeap() { return m_RTVHeap; }
 		UINT											GetRTVDescriptorSize() { return m_RTVDescriptorSize; }
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	Get_CBV_SRV_UAV_DescriptorHeap() { return m_CBV_SRV_UAV_Heap; }
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	GetDSVDescriptorHeap() { return m_DSVHeap; }
+		D3D12DescriptorHeapAllocator&					Get_CBV_SRV_UAV_Allocator() { return m_CBV_SRV_UAV_Allocator; }
+
 		Microsoft::WRL::ComPtr<ID3D12Fence>				GetFence() { return m_Fence; }
 		HANDLE											GetFenceEvent() { return m_FenceEvent; }
 		Microsoft::WRL::ComPtr<IDXGISwapChain4>			GetSwapChain() { return m_SwapChain; }
@@ -64,9 +68,11 @@ namespace Sign {
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> m_SwapChain;
 		Microsoft::WRL::ComPtr<IDXGIFactory4> m_Factory4;
 		Microsoft::WRL::ComPtr<ID3D12Device2> m_Device;
+
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_RTVHeap;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_CBV_SRV_UAV_Heap;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_DSVHeap;
+		D3D12DescriptorHeapAllocator m_CBV_SRV_UAV_Allocator;
 
 		std::shared_ptr<D3D12CommandQueue> m_DirectCommandQueue;
 		std::shared_ptr<D3D12CommandQueue> m_ComputeCommandQueue;

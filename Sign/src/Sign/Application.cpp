@@ -25,16 +25,20 @@ namespace Sign {
 
 		m_Specifications.WindowSpec.EventCallback = [this](Event& event) {return RaiseEvent(event); };
 
+		
 		m_Window = std::make_unique<Window>(m_Specifications.WindowSpec);
 		m_Window->Create();
 
 		Renderer::Init(m_Window->GetContext());
 		Renderer::Resizebuffers(m_Window->GetFrameBufferSize().x, m_Window->GetFrameBufferSize().y);
 		Renderer::BeginInitializationCommand();
+		m_ImGuiLayer = new ImGuiLayer;
+		PushOverlay(m_ImGuiLayer);
 
 	}
 	Application::~Application()
 	{
+		m_LayerStack.Clear();
 		Renderer::ShutDown();
 		m_Window.reset();
 		std::println("App Destroyed");
@@ -70,10 +74,19 @@ namespace Sign {
 				layer->OnUpdate(deltaTime);
 			}
 
+
 			//If Multi-threaded, implement Rendering in OnUpdate to solve asynchronous problems like race conditions
 			for (const auto& layer : m_LayerStack) {
 				layer->OnRender();
 			}
+
+			m_ImGuiLayer->Begin();
+
+			for (const auto& layer : m_LayerStack) {
+				layer->OnImGuiRender();
+			}
+
+			m_ImGuiLayer->End();
 
 			m_Window->Update();
 

@@ -14,6 +14,8 @@ namespace Sign {
 		void PushOverlay(Layer* layer);
 		void PopOverlay(Layer* layer);
 
+		void Clear();
+
 		auto begin() { return m_LayerStack.begin(); }
 		auto end() { return m_LayerStack.end(); }
 		auto rbegin() { return m_LayerStack.rbegin(); }

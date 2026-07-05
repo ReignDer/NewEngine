@@ -68,6 +68,8 @@ namespace Sign {
 	{
 		m_CBV_SRV_UAV_Heap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024, true);
 		m_CBV_SRV_UAV_DescriptorSize = m_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+		m_CBV_SRV_UAV_Allocator.Create(m_Device.Get(), m_CBV_SRV_UAV_Heap.Get(), 32);
 	}
 
 	void D3D12Context::CreateDSVHeap()

@@ -1,5 +1,7 @@
 #include "Window.h"
+#include "backends/imgui_impl_win32.h"
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 namespace Sign {
 	Window::Window(const WindowSpecifications& specification) : m_WindowsSpecification(specification)
 	{
@@ -106,20 +108,24 @@ namespace Sign {
 		return m_ShouldClose;
 	}
 
+
+
 	LRESULT CALLBACK Window::WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		Window* window = (Window*)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		if(ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
+			return true;
 		switch (msg)
 		{
 		case WM_CLOSE: {
 			window->m_ShouldClose = true;
 			WindowClosedEvent e;
 			window->m_WindowsSpecification.EventCallback(e);
-			break;
+			return 0;
 		}
 		case WM_DESTROY:
 			::PostQuitMessage(0);
-			break;
+			return 0;
 
 		case WM_KEYDOWN:
 		{
@@ -127,13 +133,13 @@ namespace Sign {
 			KeyPressedEvent e((int)wparam, isRepeat);
 			
 			window->m_WindowsSpecification.EventCallback(e);
-			break;
+			return 0;
 		}
 		case WM_KEYUP:
 		{
 			KeyReleasedEvent e((int)wparam);
 			window->m_WindowsSpecification.EventCallback(e);
-			break;
+			return 0;
 		}
 
 		case WM_SIZE:
@@ -146,7 +152,8 @@ namespace Sign {
 				window->m_WindowsSpecification.Height = height;
 				window->m_PendingResize = true;
 			}
-			break;
+
+			return 0;
 		}
 		case WM_EXITSIZEMOVE:  // fires ONCE when user releases the window edge
 		{
@@ -155,13 +162,13 @@ namespace Sign {
 				window->m_WindowsSpecification.EventCallback(e);
 				window->m_PendingResize = false;
 			}
-			break;
+			return 0;
 		}
 		case WM_MBUTTONDOWN:
 		{
 			MouseButtonPressedEvent e((int)wparam);
 			window->m_WindowsSpecification.EventCallback(e);
-			break;
+			return 0;
 		}
 		default:
 			return ::DefWindowProc(hwnd, msg, wparam, lparam);

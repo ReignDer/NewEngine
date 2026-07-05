@@ -15,11 +15,14 @@
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
 #include "Renderer/Renderer.h"
+#include "ImGui/ImGuiLayer.h"
 #include "Sign/Time.h"
 #include "Timestep.h"
 
 
+
 namespace Sign {
+	
 	struct ApplicationSpecifications {
 		std::string name = "Application";
 		float targetFPS = 0.0f;
@@ -48,7 +51,9 @@ namespace Sign {
 	private:
 		ApplicationSpecifications m_Specifications;
 		std::shared_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+		
 
 		float m_LastFrameTime = 0.0f;
 		bool m_Running = false;

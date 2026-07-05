@@ -2,9 +2,7 @@
 
 Sign::LayerStack::~LayerStack()
 {
-	for (const auto& layer: m_LayerStack) {
-		layer->OnDettach();
-	}
+	
 }
 
 void Sign::LayerStack::PushLayer(Layer* layer)
@@ -36,5 +34,12 @@ void Sign::LayerStack::PopOverlay(Layer* layer)
 	{
 		layer->OnDettach();
 		m_LayerStack.erase(currentLayerIt);
+	}
+}
+
+void Sign::LayerStack::Clear()
+{
+	for (const auto& layer : m_LayerStack) {
+		layer->OnDettach();
 	}
 }
