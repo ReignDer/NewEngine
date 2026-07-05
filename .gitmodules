@@ -1,3 +1,6 @@
 [submodule "Sign/vendor/DirectX-Headers"]
 	path = Sign/vendor/DirectX-Headers
 	url = https://github.com/microsoft/DirectX-Headers
+[submodule "Sign/vendor/ImGui"]
+	path = Sign/vendor/ImGui
+	url = https://github.com/ReignDer/imgui

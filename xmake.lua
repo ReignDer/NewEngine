@@ -12,7 +12,7 @@ elseif is_mode("release") then
 	outputdir = "Release-$(arch)"
 end
 
-
+includes("Sign/vendor/ImGui")
 target("Sign")
 	set_kind("static")
 	set_languages("c++23")
@@ -31,11 +31,11 @@ target("Sign")
 
 	add_includedirs(
 		--"Core/vendor/spdlog/include", 
-		--"Core/vendor/imgui",
+		"Sign/vendor/ImGui",
 		"Sign/vendor/DirectX-Headers/include",
 		"Sign/src", {public = true} )
 
-	--add_deps("ImGui")
+	add_deps("ImGui")
 	add_links(
 		--"ImGui",
 		"dwmapi.lib", "d3d12.lib", "dxgi.lib",
