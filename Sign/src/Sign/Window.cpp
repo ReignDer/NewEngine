@@ -62,6 +62,7 @@ namespace Sign {
 	}
 	void Window::Destroy()
 	{
+		m_Context->Shutdown();
 		if (m_WindowsHandle) {
 			DestroyWindow(m_WindowsHandle);
 			m_WindowsHandle = nullptr;
@@ -85,6 +86,46 @@ namespace Sign {
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+		}
+	}
+
+	void Window::SetFullScreen(bool fullScreen)
+	{
+		RECT wr = { 0,0,(LONG)m_WindowsSpecification.Width, (LONG)m_WindowsSpecification.Height };
+		if (m_Fullscreen != fullScreen) {
+			m_Fullscreen = fullScreen;
+
+			::GetWindowRect(m_WindowsHandle, &wr);
+			UINT windowStyle = WS_OVERLAPPEDWINDOW & ~(WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_THICKFRAME | WS_MAXIMIZEBOX);
+			::SetWindowLongW(m_WindowsHandle, GWL_STYLE, windowStyle);
+
+			HMONITOR hMonitor = MonitorFromWindow(m_WindowsHandle, MONITOR_DEFAULTTONEAREST);
+			MONITORINFOEX monitorInfo = {};
+			monitorInfo.cbSize = sizeof(MONITORINFOEX);
+			GetMonitorInfo(hMonitor, &monitorInfo);
+
+			::SetWindowPos(m_WindowsHandle, HWND_TOP,
+				monitorInfo.rcMonitor.left,
+				monitorInfo.rcMonitor.top,
+				monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left,
+				monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top,
+				SWP_FRAMECHANGED | SWP_NOACTIVATE
+			);
+
+			::ShowWindow(m_WindowsHandle, SW_MAXIMIZE);
+		}
+		else {
+			::SetWindowLong(m_WindowsHandle, GWL_STYLE, WS_OVERLAPPEDWINDOW);
+
+			::SetWindowPos(m_WindowsHandle, HWND_NOTOPMOST,
+				wr.left,
+				wr.top,
+				wr.right - wr.left,
+				wr.bottom - wr.top,
+				SWP_FRAMECHANGED | SWP_NOACTIVATE
+			);
+
+			::ShowWindow(m_WindowsHandle, SW_NORMAL);
 		}
 	}
 	
@@ -150,7 +191,15 @@ namespace Sign {
 			if (window && window->m_Context) {
 				window->m_WindowsSpecification.Width = width;
 				window->m_WindowsSpecification.Height = height;
-				window->m_PendingResize = true;
+
+				if (wparam == SIZE_MAXIMIZED || wparam == SIZE_RESTORED) {
+					WindowResizedEvent e(window->m_WindowsSpecification.Width, window->m_WindowsSpecification.Height);
+					window->m_WindowsSpecification.EventCallback(e);
+					window->m_PendingResize = false;
+				}
+				else {
+					window->m_PendingResize = true;
+				}
 			}
 
 			return 0;

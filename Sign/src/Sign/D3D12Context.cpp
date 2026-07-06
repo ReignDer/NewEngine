@@ -18,11 +18,43 @@ namespace Sign {
 
 	}
 
+	void D3D12Context::Shutdown()
+	{
+		FlushCommandQueue();
+		m_CBV_SRV_UAV_Allocator.Destroy();
+		for (uint32_t i = 0; i < D3D12Utils::g_NumFrames; i++) {
+			m_BackBuffers[i].Reset();
+		}
+		m_DepthBuffer.Reset();
+		m_RTVHeap.Reset();
+		m_DSVHeap.Reset();
+		m_CBV_SRV_UAV_Heap.Reset();
+
+		m_Fence.Reset();
+
+		m_DirectCommandQueue.reset();
+		m_CopyCommandQueue.reset();
+		m_ComputeCommandQueue.reset();
+
+		m_SwapChain.Reset();
+		m_Factory4.Reset();
+
+/*#ifdef SIGN_DEBUG
+        Microsoft::WRL::ComPtr<ID3D12DebugDevice> debugDevice;
+        if (SUCCEEDED(m_Device->QueryInterface(IID_PPV_ARGS(&debugDevice))))
+        {
+            debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
+        }
+#endif*/
+		m_Device.Reset();
+	}
+
 	void D3D12Context::SwapBuffers()
 	{
 		UINT syncInterval = m_VSync ? 1 : 0;
 		UINT presentFlags = m_TearingSupported && !m_VSync ? DXGI_PRESENT_ALLOW_TEARING : 0;
 
+		m_FrameFenceValues[m_CurrentBackBufferIndex] = GetCommandQueue()->Signal();
 		m_SwapChain->Present(syncInterval, presentFlags);
 		m_CurrentBackBufferIndex = m_SwapChain->GetCurrentBackBufferIndex();
 		GetCommandQueue()->WaitForFenceValue(m_FrameFenceValues[m_CurrentBackBufferIndex]);
@@ -50,15 +82,17 @@ namespace Sign {
 
 	void D3D12Context::CreateSwapChain()
 	{
+
 		UINT createFactoryFlags = 0;
 		CreateDXGIFactory2(createFactoryFlags, IID_PPV_ARGS(&m_Factory4));
 		
 		m_SwapChain = D3D12Utils::CreateSwapChain(m_WindowHandle, m_Factory4, GetCommandQueue()->GetCommandQueue(), m_Width, m_Height, D3D12Utils::g_NumFrames);
+
 	}
 
 	void D3D12Context::CreateRTVHeap()
 	{
-		m_RTVHeap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, D3D12Utils::g_NumFrames, false);
+		m_RTVHeap = D3D12Utils::CreateDescriptorHeap(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, D3D12Utils::g_NumFrames, false);
 		m_RTVDescriptorSize = m_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		UpdateRenderTargetViews();
@@ -66,7 +100,7 @@ namespace Sign {
 
 	void D3D12Context::CreateCBV_SRV_UAV_Heap()
 	{
-		m_CBV_SRV_UAV_Heap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024, true);
+		m_CBV_SRV_UAV_Heap = D3D12Utils::CreateDescriptorHeap(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024, true);
 		m_CBV_SRV_UAV_DescriptorSize = m_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 		m_CBV_SRV_UAV_Allocator.Create(m_Device.Get(), m_CBV_SRV_UAV_Heap.Get(), 32);
@@ -74,7 +108,7 @@ namespace Sign {
 
 	void D3D12Context::CreateDSVHeap()
 	{
-		m_DSVHeap = D3D12Utils::CreateDescriptorHeap(m_Device, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1, false);
+		m_DSVHeap = D3D12Utils::CreateDescriptorHeap(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1, false);
 	}
 
 	void D3D12Context::CreateFence()

@@ -8,6 +8,11 @@ namespace Sign {
 		}
 		SetMesh(s_DefaultCircleMesh);
 	}
+	CircleEntity::~CircleEntity()
+	{
+		s_DefaultCircleMesh.reset();
+		s_DefaultCircleMesh = nullptr;
+	}
 	void CircleEntity::OnUpdate(Timestep dt)
 	{
 	}

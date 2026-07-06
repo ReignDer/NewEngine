@@ -9,6 +9,10 @@ namespace Sign {
 		SetMesh(s_DefaultPlaneMesh);
 		SetScale(Vector3D(10.f, 1.f, 10.0f));
 	}
+	PlaneEntity::~PlaneEntity()
+	{
+		s_DefaultPlaneMesh.reset();
+	}
 	void PlaneEntity::OnUpdate(Timestep dt)
 	{
 

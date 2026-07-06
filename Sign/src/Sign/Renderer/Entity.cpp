@@ -24,6 +24,10 @@ namespace Sign {
 		m_Shader = s_DefaultShader;
 		RecalculateTransform();
 	}
+	Entity::~Entity()
+	{
+		s_DefaultShader.reset();
+	}
 	const Mat4& Entity::GetTransform()
 	{
 		return m_Transform;

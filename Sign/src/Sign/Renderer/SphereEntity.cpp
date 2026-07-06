@@ -20,6 +20,10 @@ namespace Sign {
 		}
 		SetMesh(s_DefaultSphereMesh);
 	}
+	SphereEntity::~SphereEntity()
+	{
+		s_DefaultSphereMesh.reset();
+	}
 	void SphereEntity::OnUpdate(Timestep dt)
 	{
 	}

@@ -6,7 +6,7 @@ namespace Sign {
 	{
 	public:
 		CircleEntity();
-
+		~CircleEntity();
 		// Inherited via Entity
 		void OnUpdate(Timestep dt) override;
 	private:

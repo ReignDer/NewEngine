@@ -13,6 +13,9 @@ namespace D3D12Utils {
 	inline const D3D12_HEAP_PROPERTIES UploadHeapProps = {
 		D3D12_HEAP_TYPE_UPLOAD, D3D12_CPU_PAGE_PROPERTY_UNKNOWN, D3D12_MEMORY_POOL_UNKNOWN, 0,0
 	};
+	inline const D3D12_HEAP_PROPERTIES DefaultHeapProps = {
+		D3D12_HEAP_TYPE_DEFAULT, D3D12_CPU_PAGE_PROPERTY_UNKNOWN, D3D12_MEMORY_POOL_UNKNOWN, 0,0
+	};
 
 	inline bool checkTearingSupport()
 	{
@@ -125,7 +128,7 @@ namespace D3D12Utils {
 		return m_commandList;
 	}
 
-	inline Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> CreateDescriptorHeap(Microsoft::WRL::ComPtr<ID3D12Device2> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, bool isShaderVisible)
+	inline Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> CreateDescriptorHeap(ID3D12Device2* device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, bool isShaderVisible)
 	{
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap;
 		
@@ -218,6 +221,27 @@ namespace D3D12Utils {
 		bufferDesc.Width = size;
 
 		device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &bufferDesc, initState, nullptr, IID_PPV_ARGS(&bufferResource));
+
+		return bufferResource;
+	}
+	inline Microsoft::WRL::ComPtr<ID3D12Resource> CreateBuffer(ID3D12Device2* device
+		, uint64_t width, uint64_t height, D3D12_RESOURCE_DIMENSION dimension, DXGI_FORMAT format, D3D12_RESOURCE_FLAGS flags, D3D12_RESOURCE_STATES initState, const D3D12_HEAP_PROPERTIES& heapProps, D3D12_CLEAR_VALUE* clearValue = nullptr)
+	{
+		Microsoft::WRL::ComPtr<ID3D12Resource> bufferResource;
+		D3D12_RESOURCE_DESC bufferDesc = {};
+		bufferDesc.Alignment = 0;
+		bufferDesc.DepthOrArraySize = 1;
+		bufferDesc.Dimension = dimension;
+		bufferDesc.Flags = flags;
+		bufferDesc.Format = format;
+		bufferDesc.Height = height;
+		bufferDesc.Layout = (dimension == D3D12_RESOURCE_DIMENSION_BUFFER) ? D3D12_TEXTURE_LAYOUT_ROW_MAJOR : D3D12_TEXTURE_LAYOUT_UNKNOWN;
+		bufferDesc.MipLevels = 1;
+		bufferDesc.SampleDesc.Count = 1;
+		bufferDesc.SampleDesc.Quality = 0;
+		bufferDesc.Width = width;
+
+		device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &bufferDesc, initState, clearValue, IID_PPV_ARGS(&bufferResource));
 
 		return bufferResource;
 	}

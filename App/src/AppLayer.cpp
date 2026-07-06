@@ -1,5 +1,5 @@
 #include "AppLayer.h"
-
+#include <imgui.h>
 AppLayer::AppLayer()
 {
 	std::println("App Layer Created");
@@ -10,6 +10,10 @@ void AppLayer::OnAttach()
 	m_EditorCamera = Sign::PerspectiveCamera(Sign::Application::Get().GetWindow().GetWidth(), Sign::Application::Get().GetWindow().GetHeight());
 	m_EditorCamera.SetPerspective(MathUtils::ConvertToRadians(45.0f), 0.1f, 1000.0f);
 
+	Sign::FrameBufferSpecifications frameSpecs = {};
+	frameSpecs.m_Width = Sign::Application::Get().GetWindow().GetWidth();
+	frameSpecs.m_Height = Sign::Application::Get().GetWindow().GetHeight();
+	m_FrameBuffer = std::make_shared<Sign::FrameBuffer>(frameSpecs, Sign::Renderer::GetContext()->GetDevice().Get());
 	
 	/*Sign::PipelineSpecifications pSpecs = {};
 	pSpecs.Shader = m_Shader;
@@ -168,6 +172,17 @@ void AppLayer::OnAttach()
 	std::println("Entity Numbers: {}", m_Meshes.size());
 }
 
+void AppLayer::OnDettach()
+{
+	m_Meshes.clear();
+	m_PendingMeshes.clear();
+	m_PendingMeshes.clear();
+	m_Meshes.shrink_to_fit();
+	m_VertexArray.reset();
+	m_FrameBuffer.reset();
+	m_Shader.reset();
+}
+
 void AppLayer::OnUpdate(Sign::Timestep dt)
 {
 	//std::println("Delta Time: {} {}", dt.GetSeconds(), dt.GetMilliseconds());
@@ -203,7 +218,16 @@ void AppLayer::OnEvent(Sign::Event& event)
 void AppLayer::OnRender()
 {
 	FLOAT clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	Sign::Renderer::BeginScene(clearColor, m_EditorCamera);
+
+	Sign::Renderer::BeginFrame();
+	m_FrameBuffer->TransitionTo(D3D12_RESOURCE_STATE_RENDER_TARGET);
+	m_FrameBuffer->Bind();
+
+	Sign::Renderer::RenderClearCommand(clearColor);
+	
+	m_FrameBuffer->ClearAttchment();
+
+	Sign::Renderer::BeginScene(m_EditorCamera);
 
 	//Need for open commandlist, might have to make a separate func for this
 	for (auto& pending : m_PendingMeshes) {
@@ -223,9 +247,81 @@ void AppLayer::OnRender()
 	Sign::Renderer::EndScene();
 }
 
+void AppLayer::OnImGuiRender()
+{
+	static int opt_demo_mode = 0;
+	static bool opt_demo_mode_changed = false;
+	static bool dockSpaceOpen = true;
+	bool IsFullscreen = true;
+	bool KeepWindowPadding = true;
+
+	ImGui::DockSpaceOverViewport(0, nullptr, ImGuiDockNodeFlags_None);
+
+	// Refocus our window to minimize perceived loss of focus when changing mode (caused by the fact that each use a different window, which would not happen in a real app)
+	if (opt_demo_mode_changed)
+		ImGui::SetNextWindowFocus();
+	ImGui::Begin("Examples: Dockspace", &dockSpaceOpen, ImGuiWindowFlags_MenuBar);
+
+	m_FrameBuffer->TransitionTo(D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+	opt_demo_mode_changed = false;
+	opt_demo_mode_changed |= ImGui::RadioButton("Basic demo mode", &opt_demo_mode, 0);
+	opt_demo_mode_changed |= ImGui::RadioButton("Advanced demo mode", &opt_demo_mode, 1);
+
+	ImGui::SeparatorText("Options");
+
+	if (opt_demo_mode == 0)
+	{
+		ImGuiDockNodeFlags args = ImGuiDockNodeFlags_None;
+		args &= ImGuiDockNodeFlags_PassthruCentralNode; // Allowed flags
+		ImGui::CheckboxFlags("Flag: PassthruCentralNode", &args, ImGuiDockNodeFlags_PassthruCentralNode);
+	}
+	else if (opt_demo_mode == 1)
+	{
+		ImGuiDockNodeFlags args = ImGuiDockNodeFlags_None;
+		ImGui::Checkbox("Fullscreen", &IsFullscreen);
+		ImGui::Checkbox("Keep Window Padding", &KeepWindowPadding);
+		ImGui::SameLine();
+		//HelpMarker("This is mostly exposed to facilitate understanding that a DockSpace() is _inside_ a window.");
+		ImGui::BeginDisabled(IsFullscreen == false);
+		ImGui::CheckboxFlags("Flag: PassthruCentralNode", &args, ImGuiDockNodeFlags_PassthruCentralNode);
+		ImGui::EndDisabled();
+		ImGui::CheckboxFlags("Flag: NoDockingOverCentralNode", &args, ImGuiDockNodeFlags_NoDockingOverCentralNode);
+		ImGui::CheckboxFlags("Flag: NoDockingSplit", &args, ImGuiDockNodeFlags_NoDockingSplit);
+		ImGui::CheckboxFlags("Flag: NoUndocking", &args, ImGuiDockNodeFlags_NoUndocking);
+		ImGui::CheckboxFlags("Flag: NoResize", &args, ImGuiDockNodeFlags_NoResize);
+		ImGui::CheckboxFlags("Flag: AutoHideTabBar", &args, ImGuiDockNodeFlags_AutoHideTabBar);
+	}
+
+	// Show demo options and help
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("Help"))
+		{
+			ImGui::TextUnformatted(
+				"This demonstrates the use of ImGui::DockSpace() which allows you to manually\ncreate a docking node _within_ another window." "\n"
+				"The \"Basic\" version uses the ImGui::DockSpaceOverViewport() helper. Most applications can probably use this.");
+			ImGui::Separator();
+			ImGui::TextUnformatted("When docking is enabled, you can ALWAYS dock MOST window into another! Try it now!" "\n"
+				"- Drag from window title bar or their tab to dock/undock." "\n"
+				"- Drag from window menu button (upper-left button) to undock an entire node (all windows)." "\n"
+				"- Hold SHIFT to disable docking (if io.ConfigDockingWithShift == false, default)" "\n"
+				"- Hold SHIFT to enable docking (if io.ConfigDockingWithShift == true)");
+			ImGui::Separator();
+			ImGui::TextUnformatted("More details:"); ImGui::Bullet(); ImGui::SameLine(); ImGui::TextLinkOpenURL("Docking Wiki page", "https://github.com/ocornut/imgui/wiki/Docking");
+			ImGui::BulletText("Read comments in ShowExampleAppDockSpace()");
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+	uint32_t coloraAttachment = m_FrameBuffer->GetTextureID();
+	ImGui::Image((void*)coloraAttachment, ImVec2(320.f, 180.f));
+	ImGui::End();
+}
+
 bool AppLayer::OnWindowResizedEvent(Sign::WindowResizedEvent& e)
 {
 	m_EditorCamera.SetViewPortSize(e.GetWidth(), e.GetHeight());
+	m_FrameBuffer->Resize(e.GetWidth(), e.GetHeight());
 	return false;
 }
 

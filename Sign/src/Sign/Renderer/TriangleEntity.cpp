@@ -9,6 +9,10 @@ namespace Sign {
 		}
 		SetMesh(s_DefaultTriangleMesh);
 	}
+	TriangleEntity::~TriangleEntity()
+	{
+		s_DefaultTriangleMesh.reset();
+	}
 	void TriangleEntity::OnUpdate(Timestep dt)
 	{
 	}

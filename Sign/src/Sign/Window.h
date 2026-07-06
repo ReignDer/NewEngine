@@ -37,6 +37,8 @@ namespace Sign {
 		void Update();
 		void PollEvents();
 
+		void SetFullScreen(bool fullScreen);
+
 		Vector2D GetFrameBufferSize() const;
 		Vector2D GetMousePos() const;
 
@@ -58,6 +60,7 @@ namespace Sign {
 
 		bool m_ShouldClose;
 		bool m_PendingResize = false;
+		bool m_Fullscreen = false;
 	};
 }
 

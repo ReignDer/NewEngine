@@ -70,7 +70,10 @@ namespace Sign {
         // (current version of the backend will only allocate one descriptor, future versions will need to allocate more)
         init_info.SrvDescriptorHeap = srvHeap;
         init_info.SrvDescriptorAllocFn = [](ImGui_ImplDX12_InitInfo*, D3D12_CPU_DESCRIPTOR_HANDLE* out_cpu_handle, D3D12_GPU_DESCRIPTOR_HANDLE* out_gpu_handle) { return Renderer::GetContext()->Get_CBV_SRV_UAV_Allocator().Alloc(out_cpu_handle, out_gpu_handle); };
-        init_info.SrvDescriptorFreeFn = [](ImGui_ImplDX12_InitInfo*, D3D12_CPU_DESCRIPTOR_HANDLE cpu_handle, D3D12_GPU_DESCRIPTOR_HANDLE gpu_handle) { return Renderer::GetContext()->Get_CBV_SRV_UAV_Allocator().Free(cpu_handle, gpu_handle); };
+        init_info.SrvDescriptorFreeFn = [](ImGui_ImplDX12_InitInfo*, D3D12_CPU_DESCRIPTOR_HANDLE cpu_handle, D3D12_GPU_DESCRIPTOR_HANDLE gpu_handle) {
+            auto context = Renderer::GetContext();
+            uint64_t currentFenceValue = context->GetCurrentFrameFenceValue();
+            return Renderer::GetContext()->Get_CBV_SRV_UAV_Allocator().Free(cpu_handle, gpu_handle, currentFenceValue); };
         ImGui_ImplDX12_Init(&init_info);
 
         // Before 1.91.6: our signature was using a single descriptor. From 1.92, specifying SrvDescriptorAllocFn/SrvDescriptorFreeFn will be required to benefit from new features.
@@ -101,11 +104,14 @@ namespace Sign {
         ImGui_ImplWin32_Shutdown();
         ImGui::DestroyContext();
 	}
-	void ImGuiLayer::OnImGuiRender()
+    void ImGuiLayer::OnImGuiRender()
+    {
+    }
+/*	void ImGuiLayer::OnImGuiRender()
 	{
         bool show = true;
         ImGui::ShowDemoWindow(&show);
-	}
+	}*/
     void ImGuiLayer::OnEvent(Event& event)
     {
         if (m_BlockEvents) {
@@ -144,15 +150,21 @@ namespace Sign {
         ID3D12DescriptorHeap* heaps[] = { context->Get_CBV_SRV_UAV_DescriptorHeap().Get() };
         uiCommandList->SetDescriptorHeaps(_countof(heaps), heaps);
 
-
+        auto backBuffer = context->GetBackBuffer(context->GetCurrentBackBuffer());
         auto rtv = context->GetCurrentTargetView();
+
+        D3D12Utils::TransitionResource(
+            uiCommandList,
+            backBuffer,
+            D3D12_RESOURCE_STATE_PRESENT,
+            D3D12_RESOURCE_STATE_RENDER_TARGET);
 
         uiCommandList->OMSetRenderTargets(1, &rtv, FALSE, nullptr);
 
 
         ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), uiCommandList.Get());
 
-        auto backBuffer = context->GetBackBuffer(context->GetCurrentBackBuffer());
+       
         {
             D3D12Utils::TransitionResource(
                 uiCommandList,

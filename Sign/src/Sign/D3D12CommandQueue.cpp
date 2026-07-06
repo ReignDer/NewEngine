@@ -104,6 +104,18 @@ void D3D12CommandQueue::Flush()
 
 D3D12CommandQueue::~D3D12CommandQueue()
 {
+	Flush();
+	if (m_FenceEvent) {
+		CloseHandle(m_FenceEvent);
+		m_FenceEvent = nullptr;
+	}
+
+	while (!m_CommandAllocatorQueue.empty()) {
+		m_CommandAllocatorQueue.pop();
+	}
+	while (!m_CommandListQueue.empty()) {
+		m_CommandListQueue.pop();
+	}
 }
 
 Microsoft::WRL::ComPtr<ID3D12CommandAllocator> D3D12CommandQueue::CreateCommandAllocator()

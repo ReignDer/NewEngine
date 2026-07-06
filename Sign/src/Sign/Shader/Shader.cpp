@@ -9,6 +9,14 @@ namespace Sign {
 		Compile();
 		SetGraphicsPipeline(specs);
 	}
+	Shader::~Shader()
+	{
+		vertexShaderBlob.Reset();
+		pixelShaderBlob.Reset();
+		computeShaderBlob.Reset();
+
+		m_GraphicsPipeline.reset();
+	}
 	void Shader::Compile()
 	{
 		std::filesystem::path absoluteVertexPath = std::filesystem::absolute(m_VertexPath);

@@ -16,7 +16,7 @@ namespace Sign {
 	{
 	public:
 		Shader(const WCHAR* vertexSrc, const WCHAR* pixelSrc, const WCHAR* computeSrc = nullptr, const PipelineSpecifications& specs = PipelineSpecifications{});
-
+		~Shader();
 		void Compile();
 
 		void CompileShader(const WCHAR* path, const char* entryPoint, const char* target, ID3DBlob** blob);

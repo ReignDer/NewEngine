@@ -26,7 +26,9 @@ namespace Sign {
 		static void BeginInitializationCommand();
 		static void EndInitializationCommand();
 
-		static void BeginScene(FLOAT* clearColor, const PerspectiveCamera& camera);
+		static void BeginFrame();
+		static void RenderClearCommand(FLOAT* clearColor);
+		static void BeginScene(const PerspectiveCamera& camera);
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform);
 		static void EndScene();
 
@@ -37,6 +39,7 @@ namespace Sign {
 
 		static D3D12Context*										GetContext();
 		static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2>	GetCommandList();
+		static const D3D12_VIEWPORT const							GetViewPort();
 	};
 }
 

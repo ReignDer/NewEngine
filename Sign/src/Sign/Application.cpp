@@ -38,10 +38,22 @@ namespace Sign {
 	}
 	Application::~Application()
 	{
+
+
 		m_LayerStack.Clear();
 		Renderer::ShutDown();
 		m_Window.reset();
 		std::println("App Destroyed");
+
+#ifdef SIGN_DEBUG
+		Microsoft::WRL::ComPtr<IDXGIDebug1> debug;
+		DXGIGetDebugInterface1(0, IID_PPV_ARGS(&debug));
+
+		debug->ReportLiveObjects(
+			DXGI_DEBUG_ALL,
+			DXGI_DEBUG_RLO_DETAIL);
+#endif
+
 		s_Application = nullptr;
 	}
 

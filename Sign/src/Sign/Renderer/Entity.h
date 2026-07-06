@@ -19,7 +19,7 @@ namespace Sign {
 	{
 	public:
 		Entity(const std::string& name = "Entity");
-		virtual ~Entity() = default;
+		virtual ~Entity();
 
 		virtual void OnUpdate(Timestep dt) = 0;
 		const Mat4& GetTransform();

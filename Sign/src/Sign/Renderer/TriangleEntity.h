@@ -6,7 +6,7 @@ namespace Sign {
 	{
 	public:
 		TriangleEntity();
-
+		~TriangleEntity();
 	private:
 		inline static std::shared_ptr<Mesh> s_DefaultTriangleMesh = nullptr;
 

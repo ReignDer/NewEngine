@@ -22,6 +22,12 @@ namespace Sign {
 		SetMesh(Primitive::Cube3D::Create(color));
 	}
 
+	CubeEntity::~CubeEntity()
+	{
+		s_DefaultCubeMesh.reset();
+		s_DefaultCubeMesh = nullptr;
+	}
+
 	void CubeEntity::OnUpdate(Timestep dt)
 	{
 /*		Quaternion rotation = m_Rotation;

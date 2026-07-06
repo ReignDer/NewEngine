@@ -3,6 +3,7 @@
 #include <memory>
 #include <directx/d3d12.h>
 #include <directx/d3dx12.h>
+#include <dxgidebug.h>
 #include "D3D12Utils.h"
 #include "D3D12CommandQueue.h"
 #include "D3D12DescriptorHeapAllocator.h"
@@ -11,8 +12,10 @@ namespace Sign {
 	{
 	public:
 		D3D12Context(HWND windowHandle, uint32_t width, uint32_t height);
+		~D3D12Context() = default;
 
 		void Init();
+		void Shutdown();
 		void SwapBuffers();
 
 
@@ -29,6 +32,7 @@ namespace Sign {
 
 		Microsoft::WRL::ComPtr<ID3D12Fence>				GetFence() { return m_Fence; }
 		HANDLE											GetFenceEvent() { return m_FenceEvent; }
+		const uint64_t									GetCurrentFrameFenceValue() const { return m_FrameFenceValues[m_CurrentBackBufferIndex]; }
 		Microsoft::WRL::ComPtr<IDXGISwapChain4>			GetSwapChain() { return m_SwapChain; }
 		UINT											GetCurrentBackBuffer() { return m_SwapChain->GetCurrentBackBufferIndex(); }
 		CD3DX12_CPU_DESCRIPTOR_HANDLE					GetCurrentTargetView();

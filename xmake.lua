@@ -22,6 +22,7 @@ target("Sign")
 	set_objectdir("bin-int/".. outputdir .. "/Sign")
 
 	set_pcxxheader("Sign/src/signpch.h")
+
 	add_headerfiles("Sign/src/**.h")
 	add_files("Sign/src/**.cpp")
 	add_extrafiles("Sign/vendor/**.inl")

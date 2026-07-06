@@ -8,6 +8,7 @@ namespace Sign {
 	{
 	public:
 		SphereEntity();
+		~SphereEntity();
 
 		// Inherited via Entity
 		void OnUpdate(Timestep dt) override;

@@ -6,7 +6,7 @@ namespace Sign {
 	{
 	public:
 		PlaneEntity();
-
+		~PlaneEntity();
 
 
 		// Inherited via Entity

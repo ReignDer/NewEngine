@@ -11,6 +11,8 @@
 #include "Sign/KeyCodes.h"
 #include "Sign/MouseCodes.h"
 
+
+#include "Sign/ImGui/ImGuiLayer.h"
 #include "Sign/Renderer/CubeEntity.h"
 #include "Sign/Renderer/SphereEntity.h"
 #include "Sign/Renderer/PlaneEntity.h"
@@ -18,6 +20,7 @@
 #include "Sign/Renderer/TriangleEntity.h"
 #include "Sign/Renderer/EmptyEntity.h"
 #include "Sign/Ccommand/EditorCommand.h"
+#include "Sign/Buffers/FrameBuffer.h"
 
 #include "Sign/Ccommand/CreateObjectCommand.h"
 #include "Sign/Ccommand/RemoveObjectCommand.h"

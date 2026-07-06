@@ -20,6 +20,7 @@ public:
 	uint64_t											Signal();
 	bool												IsFenceComplete(uint64_t fenceValue);
 	void												WaitForFenceValue(uint64_t fenceValue);
+	const uint64_t										GetCompletedFenceValue() const { return m_d3d12Fence->GetCompletedValue(); }
 	void												Flush();
 	~D3D12CommandQueue();
 

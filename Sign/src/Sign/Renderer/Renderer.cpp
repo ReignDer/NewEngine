@@ -31,6 +31,10 @@ namespace Sign
 	void Renderer::ShutDown()
 	{
 		s_Data->m_Context->FlushCommandQueue();
+		s_Data->m_CameraConstantBuffer.reset();
+		s_Data->m_CommandList.Reset();
+		s_Data->m_Context = nullptr;
+		delete s_Data->m_Context;
 		delete s_Data;
 		s_Data = nullptr;
 		std::println("Renderer Shutdown");
@@ -48,10 +52,19 @@ namespace Sign
 		s_Data->m_CommandList = nullptr;
 	}
 
-	void Renderer::BeginScene(FLOAT* clearColor, const PerspectiveCamera& camera)
+	void Renderer::BeginFrame()
 	{
+		s_Data->m_Context->Get_CBV_SRV_UAV_Allocator().ProcessDeferredFrees();
 		auto CommandQueue = s_Data->m_Context->GetCommandQueue(D3D12_COMMAND_LIST_TYPE_DIRECT);
 		s_Data->m_CommandList = CommandQueue->GetCommandList();
+
+		s_Data->m_CommandList->RSSetViewports(1, &s_Data->m_Viewport);
+		s_Data->m_CommandList->RSSetScissorRects(1, &s_Data->m_ScissorsRect);
+	}
+
+	void Renderer::RenderClearCommand(FLOAT* clearColor)
+	{
+		
 		auto rtv = s_Data->m_Context->GetCurrentTargetView();
 		auto dsv = s_Data->m_Context->GetDSVDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 		auto backBuffer = s_Data->m_Context->GetBackBuffer(s_Data->m_Context->GetCurrentBackBuffer());
@@ -64,11 +77,16 @@ namespace Sign
 				D3D12_RESOURCE_STATE_PRESENT,
 				D3D12_RESOURCE_STATE_RENDER_TARGET);
 
-
+			s_Data->m_CommandList->OMSetRenderTargets(1, &rtv, FALSE, &dsv);
+			
 			s_Data->m_CommandList->ClearRenderTargetView(rtv, clearColor, 0, nullptr);
 			s_Data->m_CommandList->ClearDepthStencilView(dsv, D3D12_CLEAR_FLAG_DEPTH, depth, 0, 0, nullptr);
 
 		}
+	}
+
+	void Renderer::BeginScene(const PerspectiveCamera& camera)
+	{
 
 		s_Data->m_CameraData.viewMatrix = Mat4::transpose(camera.GetViewMatrix());
 		s_Data->m_CameraData.projectionMatrix = Mat4::transpose(camera.GetProjectionMatrix());
@@ -90,12 +108,6 @@ namespace Sign
 
 		vertexArray->Bind(s_Data->m_CommandList);
 
-		s_Data->m_CommandList->RSSetViewports(1, &s_Data->m_Viewport);
-		s_Data->m_CommandList->RSSetScissorRects(1, &s_Data->m_ScissorsRect);
-
-		auto rtv = s_Data->m_Context->GetCurrentTargetView();
-		auto dsv = s_Data->m_Context->GetDSVDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-		s_Data->m_CommandList->OMSetRenderTargets(1, &rtv, FALSE, &dsv);
 
 		s_Data->m_CommandList->DrawIndexedInstanced(vertexArray->GetIndexBufferCount(), 1, 0, 0, 0);
 	}
@@ -139,8 +151,13 @@ namespace Sign
 	{
 		return s_Data->m_CommandList;
 	}
+	D3D12_VIEWPORT const Renderer::GetViewPort()
+	{
+		return s_Data->m_Viewport;
+	}
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{
+		if (!s_Data) return;
 		if (!s_Data->m_Context) return;
 		SetViewPort(0, 0, width, height);
 		
