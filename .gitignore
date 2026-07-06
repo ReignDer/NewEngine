@@ -404,6 +404,8 @@ FodyWeavers.xsd
 build/
 vs2026/
 vs2022/
+vsxmake2026/
+vsxmake2022/
 .xmake/
 bin/
 bin-int/
