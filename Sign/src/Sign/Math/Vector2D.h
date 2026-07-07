@@ -27,6 +27,7 @@ namespace Sign {
 		Vector2D operator/ (const float v) const noexcept { return Vector2D(this->x / v, this->y / v); }
 		
 		Vector2D operator* (const float scalarMul) const noexcept { return Vector2D(this->x * scalarMul, this->y * scalarMul); }
+
 	public:
 		float x{};
 		float y{};

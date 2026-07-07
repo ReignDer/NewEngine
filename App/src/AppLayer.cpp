@@ -14,9 +14,7 @@ void AppLayer::OnAttach()
 	Sign::FrameBufferSpecifications frameSpecs = {};
 	frameSpecs.m_Width = Sign::Application::Get().GetWindow().GetWidth();
 	frameSpecs.m_Height = Sign::Application::Get().GetWindow().GetHeight();
-	m_FrameBuffer = std::make_shared<Sign::FrameBuffer>(frameSpecs, Sign::Renderer::GetContext()->GetDevice().Get());
 
-	Sign::Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 	
 	/*Sign::PipelineSpecifications pSpecs = {};
 	pSpecs.Shader = m_Shader;
@@ -182,7 +180,6 @@ void AppLayer::OnDettach()
 	m_PendingMeshes.clear();
 	m_Meshes.shrink_to_fit();
 	m_VertexArray.reset();
-	m_FrameBuffer.reset();
 	m_Shader.reset();
 }
 
@@ -223,12 +220,9 @@ void AppLayer::OnRender()
 	FLOAT clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	Sign::Renderer::BeginFrame();
-	m_FrameBuffer->TransitionTo(Sign::Renderer::GetCommandList().Get(), D3D12_RESOURCE_STATE_RENDER_TARGET);
-	m_FrameBuffer->Bind();
-
-	//Sign::Renderer::RenderClearCommand(clearColor);
 	
-	m_FrameBuffer->ClearAttchment(clearColor);
+
+	Sign::Renderer::RenderClearCommand(clearColor);
 
 	Sign::Renderer::BeginScene(m_EditorCamera);
 
@@ -252,7 +246,7 @@ void AppLayer::OnRender()
 
 void AppLayer::OnImGuiRender()
 {
-	static int opt_demo_mode = 0;
+/*	static int opt_demo_mode = 0;
 	static bool opt_demo_mode_changed = false;
 	static bool dockSpaceOpen = true;
 	bool IsFullscreen = true;
@@ -317,13 +311,12 @@ void AppLayer::OnImGuiRender()
 	}
 	UINT64 coloraAttachment = m_FrameBuffer->GetTextureID();
 	ImGui::Image((ImTextureID)coloraAttachment, ImVec2(1024.f, 768.f));
-	ImGui::End();
+	ImGui::End();*/
 }
 
 bool AppLayer::OnWindowResizedEvent(Sign::WindowResizedEvent& e)
 {
 	m_EditorCamera.SetViewPortSize(e.GetWidth(), e.GetHeight());
-	m_FrameBuffer->Resize(e.GetWidth(), e.GetHeight());
 	return false;
 }
 

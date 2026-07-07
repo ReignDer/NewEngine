@@ -1,19 +1,22 @@
 #include "EditorLayer.h"
 #include "Sign/EntryPoint.h"
-class Editor : public Sign::Application {
-public:
-	Editor(const Sign::ApplicationSpecifications& specs)
-		: Sign::Application(specs)
-	{
 
-		PushLayer(new EditorLayer);
+namespace Sign {
+	class Editor : public Application {
+	public:
+		Editor(const ApplicationSpecifications& specs)
+			: Application(specs)
+		{
+
+			PushLayer(new EditorLayer);
+		}
+	};
+
+	Application* CreateApplication() {
+		ApplicationSpecifications specifications = {};
+		specifications.name = "Sign Engine";
+		specifications.WindowSpec.Width = 1280;
+		specifications.WindowSpec.Height = 720;
+		return new Editor(specifications);
 	}
-};
-
-Sign::Application* Sign::CreateApplication() {
-	Sign::ApplicationSpecifications specifications = {};
-	specifications.name = "DirectXEngine";
-	specifications.WindowSpec.Width = 1024;
-	specifications.WindowSpec.Height = 768;
-	return new Editor(specifications);
 }

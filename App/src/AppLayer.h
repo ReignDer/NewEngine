@@ -18,7 +18,6 @@ public:
 
 private:
 	std::shared_ptr<Sign::VertexArray> m_VertexArray;
-	std::shared_ptr<Sign::FrameBuffer> m_FrameBuffer;
 
 	Sign::Vector2D m_ViewportSize = { 0.0f,0.0f };
 
