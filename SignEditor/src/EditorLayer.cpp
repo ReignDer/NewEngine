@@ -333,6 +333,7 @@ namespace Sign {
 		}
 		ImGui::End();
 
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 		ImGui::Begin("Viewport");
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
@@ -340,6 +341,7 @@ namespace Sign {
 		UINT64 coloraAttachment = m_FrameBuffer->GetTextureID();
 		ImGui::Image((ImTextureID)coloraAttachment, ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 		ImGui::End();
+		ImGui::PopStyleVar();
 	}
 
 	bool EditorLayer::OnWindowResizedEvent(WindowResizedEvent& e)
