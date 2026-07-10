@@ -63,6 +63,19 @@ namespace Sign
 
 		s_Data->m_CommandList->RSSetViewports(1, &s_Data->m_Viewport);
 		s_Data->m_CommandList->RSSetScissorRects(1, &s_Data->m_ScissorsRect);
+
+		auto rtv = s_Data->m_Context->GetCurrentTargetView();
+		auto dsv = s_Data->m_Context->GetDSVDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
+		auto backBuffer = s_Data->m_Context->GetBackBuffer(s_Data->m_Context->GetCurrentBackBuffer());
+		FLOAT depth = 1.0f;
+		//Clear
+		{
+			D3D12Utils::TransitionResource(
+				s_Data->m_CommandList,
+				backBuffer,
+				D3D12_RESOURCE_STATE_PRESENT,
+				D3D12_RESOURCE_STATE_RENDER_TARGET);
+		}
 	}
 
 	void Renderer::RenderClearCommand(FLOAT* clearColor)

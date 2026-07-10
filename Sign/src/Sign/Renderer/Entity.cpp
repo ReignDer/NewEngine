@@ -16,7 +16,7 @@ namespace Sign {
 			rtvFormats.RTFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 			pSpecs.RTVFormats = rtvFormats;
 			pSpecs.DepthTest = TRUE;
-			pSpecs.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+			pSpecs.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 			s_DefaultShader = std::make_shared<Sign::Shader>(L"Shader/VertexShader.hlsl", L"Shader/PixelShader.hlsl", nullptr, pSpecs);
 		}

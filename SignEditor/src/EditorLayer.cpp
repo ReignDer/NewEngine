@@ -299,8 +299,8 @@ namespace Sign {
 
 		if (Input::IsMouseButtonPressed(Mouse::LeftButton)) {
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y) {
-				int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-				std::println("Pixel Data: {}", pixelData);
+				//int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+				//std::println("Pixel Data: {}", pixelData);
 			}
 		}
 	}
