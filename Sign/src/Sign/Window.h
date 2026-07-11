@@ -11,6 +11,7 @@
 #include "Events/WindowEvents.h"
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"
+#include "Sign/MouseCodes.h"
 #include "D3D12Context.h"
 
 namespace Sign {

@@ -33,7 +33,7 @@ namespace Sign {
 			D3D12_CLEAR_VALUE clearValue = {};
 
 			clearValue.Format = format;
-			if (format == DXGI_FORMAT_R32_SINT) {
+			if (format == DXGI_FORMAT_R32G32_SINT) {
 				clearValue.Color[0] = -1.0f;
 				clearValue.Color[1] = -1.0f;
 				clearValue.Color[2] = -1.0f;
@@ -142,10 +142,10 @@ namespace Sign {
 	{
 		return m_ColorAttachments[attachmentIndex].m_SRVGpuHandle.ptr;
 	}
-	int FrameBuffer::ReadPixel(uint32_t attachmentID, int x, int y)
+	PixelData FrameBuffer::ReadPixel(uint32_t attachmentID, int x, int y)
 	{
 		if (x < 0 || y < 0 || x >= (int)m_FrameBufferSpecifications.m_Width || y >= (int)m_FrameBufferSpecifications.m_Height)
-			return -1;
+			return PixelData{};
 
 		auto& attachment = m_ColorAttachments[attachmentID];
 		
@@ -194,11 +194,11 @@ namespace Sign {
 
 		Renderer::GetContext()->FlushCommandQueue();
 
-		int result = -1;
-		D3D12_RANGE readRange = { 0, sizeof(int) };
+		PixelData result;
+		D3D12_RANGE readRange = { 0, sizeof(int32_t) * 2};
 		void* mapped = nullptr;
 		m_ReadBackBuffer->Map(0, &readRange, &mapped);
-		memcpy(&result, mapped, sizeof(int));
+		memcpy(&result, mapped, sizeof(int32_t) * 2);
 		D3D12_RANGE writeRange = { 0, 0 };
 		m_ReadBackBuffer->Unmap(0, &writeRange);
 
@@ -215,7 +215,7 @@ namespace Sign {
 
 		for (auto& attch : m_ColorAttachments) {
 
-			const float* c = (attch.m_Format == DXGI_FORMAT_R32_SINT) ? pickClear : color;
+			const float* c = (attch.m_Format == DXGI_FORMAT_R32G32_SINT) ? pickClear : color;
 			cmdList->ClearRenderTargetView(attch.m_Handle, c, 0, nullptr);
 		}
 

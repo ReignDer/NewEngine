@@ -16,6 +16,7 @@ namespace Sign {
 
 		bool OnWindowResizedEvent(WindowResizedEvent& e);
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
+		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 
 	private:
 		std::shared_ptr<VertexArray> m_VertexArray;
@@ -23,8 +24,14 @@ namespace Sign {
 
 		Vector2D m_ViewportSize = { 0.0f,0.0f };
 		Vector2D m_ViewportBounds[2];
+		bool m_ViewportHovered;
+		bool m_PickRequest = false;
+		Vector2D m_PickCoords;
 
 		std::shared_ptr<Scene> m_ActiveScene;
+		EntityECS m_SelectedEntity;
+		int32_t m_SelectedFaceID;
+
 
 		std::shared_ptr<Shader> m_Shader;
 		std::vector<std::shared_ptr<Entity>> m_Meshes;

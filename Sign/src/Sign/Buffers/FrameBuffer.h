@@ -4,6 +4,10 @@
 #include "Sign/D3D12Utils.h"
 
 namespace Sign {
+	struct PixelData {
+		int32_t entityID = -1;
+		int32_t faceID = -1;
+	};
 
 	struct FrameBufferAttachment {
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_Resource;
@@ -37,7 +41,7 @@ namespace Sign {
 		UINT64 GetTextureID(uint32_t attachmentIndex = 0);
 
 		//TODO: Have mouse clicking detect if a specific entity gets clicked in the viewport
-		int ReadPixel(uint32_t attachmentID, int x, int y);
+		PixelData ReadPixel(uint32_t attachmentID, int x, int y);
 		void ClearAttchment(const float clearColor[4] = nullptr);
 
 		const FrameBufferSpecifications& GetSpecifications() const { return m_FrameBufferSpecifications; }

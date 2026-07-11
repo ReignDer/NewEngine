@@ -48,6 +48,7 @@ namespace Sign {
 		bool OnWindowResizedEvent(WindowResizedEvent& e);
 
 
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 		static Application& Get();
 	private:
 		ApplicationSpecifications m_Specifications;

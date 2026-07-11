@@ -17,16 +17,16 @@ struct PixelShaderOutput
     int2 IDs : SV_Target1;
 };
 
-/*PixelShaderOutput main(PixelShaderInput IN, uint primID : SV_PrimitiveID)
+PixelShaderOutput main(PixelShaderInput IN, uint primID : SV_PrimitiveID)
 {
     PixelShaderOutput OUT;
     OUT.Color = IN.Color;
     OUT.IDs = int2(EntityIDCB.entityID, (int) primID);
     return OUT;
-}*/
+}
 
-float4 main(PixelShaderInput IN) : SV_TARGET
+/*float4 main(PixelShaderInput IN) : SV_TARGET
 {
    
     return IN.Color;
-}
+}*/

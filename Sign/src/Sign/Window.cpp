@@ -182,7 +182,42 @@ namespace Sign {
 			window->m_WindowsSpecification.EventCallback(e);
 			return 0;
 		}
-
+		case WM_MBUTTONDOWN:
+		{
+			MouseButtonPressedEvent e((int)Mouse::MiddleButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
+		case WM_RBUTTONDOWN:
+		{
+			MouseButtonPressedEvent e((int)Mouse::RightButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
+		case WM_LBUTTONDOWN:
+		{
+			MouseButtonPressedEvent e((int)Mouse::LeftButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
+		case WM_MBUTTONUP:
+		{
+			MouseButtonReleasedEvent e((int)Mouse::MiddleButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
+		case WM_LBUTTONUP:
+		{
+			MouseButtonReleasedEvent e((int)Mouse::LeftButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
+		case WM_RBUTTONUP:
+		{
+			MouseButtonReleasedEvent e((int)Mouse::RightButton);
+			window->m_WindowsSpecification.EventCallback(e);
+			return 0;
+		}
 		case WM_SIZE:
 		{
 			uint32_t width = LOWORD(lparam);
@@ -211,12 +246,6 @@ namespace Sign {
 				window->m_WindowsSpecification.EventCallback(e);
 				window->m_PendingResize = false;
 			}
-			return 0;
-		}
-		case WM_MBUTTONDOWN:
-		{
-			MouseButtonPressedEvent e((int)wparam);
-			window->m_WindowsSpecification.EventCallback(e);
 			return 0;
 		}
 		default:

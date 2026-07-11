@@ -128,6 +128,25 @@ namespace Sign
 		s_Data->m_CommandList->DrawIndexedInstanced(vertexArray->GetIndexBufferCount(), 1, 0, 0, 0);
 	}
 
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform, uint32_t entity)
+	{
+		shader.Bind(s_Data->m_CommandList);
+		ID3D12DescriptorHeap* heaps[] = { s_Data->m_Context->Get_CBV_SRV_UAV_DescriptorHeap().Get() };
+		s_Data->m_CommandList->SetDescriptorHeaps(_countof(heaps), heaps);
+
+
+		s_Data->m_CommandList->SetGraphicsRootDescriptorTable(0, s_Data->m_Context->GetGPUHandleAt(s_Data->m_Context->GetCurrentBackBuffer()));
+
+		auto model = Mat4::transpose(transform);
+		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(1, sizeof(Mat4) / 4, &model, 0);
+		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(2, 1, &entity, 0);
+
+		vertexArray->Bind(s_Data->m_CommandList);
+
+
+		s_Data->m_CommandList->DrawIndexedInstanced(vertexArray->GetIndexBufferCount(), 1, 0, 0, 0);
+	}
+
 	void Renderer::EndScene()
 	{
 		auto backBuffer = s_Data->m_Context->GetBackBuffer(s_Data->m_Context->GetCurrentBackBuffer());

@@ -37,10 +37,12 @@ namespace Sign {
             if (!component)
                 continue;
 
+            
             Renderer::Submit(
                 renderer.Mesh->GetVertexArray(),
                 *renderer.Shader,
-                component->GetTransform()
+                component->GetTransform(),
+                entity
             );
         }
     }

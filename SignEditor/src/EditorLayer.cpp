@@ -15,7 +15,7 @@ namespace Sign {
 		FrameBufferSpecifications frameSpecs = {};
 		frameSpecs.m_Width = Application::Get().GetWindow().GetWidth();
 		frameSpecs.m_Height = Application::Get().GetWindow().GetHeight();
-		frameSpecs.m_ColorFormats = { DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_R32_SINT };
+		frameSpecs.m_ColorFormats = { DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_R32G32_SINT };
 		m_FrameBuffer = std::make_shared<FrameBuffer>(frameSpecs, Renderer::GetContext()->GetDevice().Get());
 
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
@@ -27,6 +27,11 @@ namespace Sign {
 		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create());
 		auto& CubeTransform = CubeECS.GetComponent<TransformComponent>();
 		CubeTransform.Translation = { 5.0f,0.0f,5.0f };
+
+		auto CubeECS2 = m_ActiveScene->CreateEntity();
+		CubeECS2.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create());
+		auto& CubeTransform2 = CubeECS2.GetComponent<TransformComponent>();
+		CubeTransform2.Translation = { -5.0f,0.0f,5.0f };
 		/***********************************************/
 
 		/*************** OOP VERSION ********************/
@@ -242,6 +247,7 @@ namespace Sign {
 		EventDispatcher dispatch(event);
 		dispatch.Dispatch<WindowResizedEvent>([this](WindowResizedEvent& event) {return OnWindowResizedEvent(event); });
 		dispatch.Dispatch<KeyPressedEvent>([this](KeyPressedEvent& event) {return OnKeyPressedEvent(event); });
+		dispatch.Dispatch<MouseButtonPressedEvent>([this](MouseButtonPressedEvent& event) {return OnMouseButtonPressedEvent(event); });
 
 	}
 
@@ -259,9 +265,7 @@ namespace Sign {
 		}
 		m_FrameBuffer->TransitionTo(Renderer::GetCommandList().Get(), D3D12_RESOURCE_STATE_RENDER_TARGET);
 		m_FrameBuffer->Bind();
-		auto [mx, my] = ImGui::GetMousePos();
-		mx -= m_ViewportBounds[0].x;
-		my -= m_ViewportBounds[0].y;
+		
 
 		//Renderer::RenderClearCommand(clearColor);
 
@@ -277,6 +281,7 @@ namespace Sign {
 		}
 		m_PendingMeshes.clear();
 
+		
 
 		/*******ECS********/
 		m_ActiveScene->RenderScene();
@@ -284,21 +289,29 @@ namespace Sign {
 
 
 
-		for (auto& mesh : m_Meshes) {
+		/*for (auto& mesh : m_Meshes) {
 			if (mesh->HasMesh())
 				Renderer::Submit(mesh->GetMesh()->GetVertexArray(), *mesh->GetShader(), mesh->GetTransform());
-		}
-		Vector2D viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
-		my = viewportSize.y - my;
-		int mouseX = (int)mx;
-		int mouseY = (int)my;
+		}*/
 
-		if (Input::IsMouseButtonPressed(Mouse::LeftButton)) {
-			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y) {
-				int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-				std::println("Pixel Data: {}", pixelData);
+		if (m_PickRequest) {
+			PixelData pixelData = m_FrameBuffer->ReadPixel(1,(int)m_PickCoords.x, (int)m_PickCoords.y);
+			std::println("Pixel Data: {}", pixelData.entityID);
+			if (pixelData.entityID == -1) {
+				m_SelectedEntity = EntityECS();
+				m_SelectedFaceID = -1;
 			}
+			else {
+				EntityID id = (uint32_t)pixelData.entityID;
+				m_SelectedEntity = EntityECS(id, m_ActiveScene.get());
+				m_SelectedFaceID = pixelData.faceID;
+				std::println("Entity: {}", m_SelectedEntity.GetID());
+				std::println("FaceID: {}", m_SelectedFaceID);
+			}
+			m_PickRequest = false;
 		}
+		
+		
 		Renderer::EndScene();
 
 
@@ -377,6 +390,9 @@ namespace Sign {
 		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
 		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
 		auto viewportOffset = ImGui::GetWindowPos();
+
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportHovered);
 		m_ViewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
 		m_ViewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
@@ -440,6 +456,36 @@ namespace Sign {
 			break;
 		}
 		}
+		return false;
+	}
+	bool EditorLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
+	{
+		switch (e.GetMouseButton()) 
+		{
+		case Mouse::RightButton:
+		{
+			auto [mx, my] = ImGui::GetMousePos();
+			mx -= m_ViewportBounds[0].x;
+			my -= m_ViewportBounds[0].y;
+
+			Vector2D viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+			my = viewportSize.y - my;
+			int mouseX = (int)mx;
+			int mouseY = (int)my;
+
+			
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y) {
+				
+				m_PickCoords.x = mouseX;
+				m_PickCoords.y = mouseY;
+
+				m_PickRequest = true;
+				
+			}
+			break;
+		}
+		}
+
 		return false;
 	}
 }
