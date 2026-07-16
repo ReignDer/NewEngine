@@ -18,4 +18,4 @@ This is a DXD12 Game Engine by Mathieu Marc I. Pobre using the Xmake build syste
 Only Supports Windows
 
 # Entry Point
-Entry Point is located in App/src/App.cpp
+Entry Point is located in Sign/src/Sign/EntryPoint.h

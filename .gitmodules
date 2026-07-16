@@ -4,3 +4,6 @@
 [submodule "Sign/vendor/ImGui"]
 	path = Sign/vendor/ImGui
 	url = https://github.com/ReignDer/imgui
+[submodule "Sign/vendor/DirectXTex"]
+	path = Sign/vendor/DirectXTex
+	url = https://github.com/ReignDer/DirectXTex

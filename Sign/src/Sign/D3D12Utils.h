@@ -205,7 +205,47 @@ namespace D3D12Utils {
 			UpdateSubresources(commandList.Get(), *pDestinationResource, *pIntermediateResource, 0, 0, 1, &subResourceData);
 		}
 	}
-	
+	inline void UpdateTextureBufferResource(Microsoft::WRL::ComPtr<ID3D12Device2> device, Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2> commandList,
+		ID3D12Resource** pDestinationResource, ID3D12Resource** pIntermediateResource,
+		size_t numElements, size_t elementSize, const void* bufferData, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE)
+	{
+		size_t bufferSize = numElements * elementSize;
+
+
+		auto heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		auto resourceDescription = CD3DX12_RESOURCE_DESC::Buffer(bufferSize, flags);
+		//Create Destination Resource
+		device->CreateCommittedResource(
+			&heapProperty,
+			D3D12_HEAP_FLAG_NONE,
+			&resourceDescription,
+			D3D12_RESOURCE_STATE_COMMON,
+			nullptr,
+			IID_PPV_ARGS(pDestinationResource));
+
+		//Create Intermediate Resource
+		if (bufferData)
+		{
+			auto uploadHeap = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+			auto uploadBufferDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
+			device->CreateCommittedResource(
+				&uploadHeap,
+				D3D12_HEAP_FLAG_NONE,
+				&uploadBufferDesc,
+				D3D12_RESOURCE_STATE_GENERIC_READ,
+				nullptr,
+				IID_PPV_ARGS(pIntermediateResource));
+
+			//Transfer CPU buffer to GPU resources
+
+			D3D12_SUBRESOURCE_DATA subResourceData = {};
+			subResourceData.pData = bufferData;
+			subResourceData.RowPitch = bufferSize;
+			subResourceData.SlicePitch = subResourceData.RowPitch;
+
+			UpdateSubresources(commandList.Get(), *pDestinationResource, *pIntermediateResource, 0, 0, 1, &subResourceData);
+		}
+	}
 	inline Microsoft::WRL::ComPtr<ID3D12Resource> CreateBuffer(Microsoft::WRL::ComPtr<ID3D12Device2> device
 		,uint64_t size, D3D12_RESOURCE_FLAGS flags, D3D12_RESOURCE_STATES initState, const D3D12_HEAP_PROPERTIES& heapProps )
 	{
@@ -247,5 +287,14 @@ namespace D3D12Utils {
 		device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &bufferDesc, initState, clearValue, IID_PPV_ARGS(&bufferResource));
 
 		return bufferResource;
+	}
+	inline void CreateShaderResourceView(ID3D12Device2* device, ID3D12Resource* resource, DXGI_FORMAT internalFormat, D3D12_CPU_DESCRIPTOR_HANDLE* cpuHandle) {
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Format = internalFormat;
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Texture2D.MipLevels = resource->GetDesc().MipLevels;
+
+		device->CreateShaderResourceView(resource, &srvDesc, *cpuHandle);
 	}
 }

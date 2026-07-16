@@ -2,6 +2,8 @@
 #include <imgui.h>
 
 namespace Sign {
+	static bool p_open = false;
+	static bool p_Credits = false;
 	EditorLayer::EditorLayer()
 	{
 		std::println("Editor Layer Created");
@@ -20,6 +22,7 @@ namespace Sign {
 
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 
+		m_Texture2D = std::make_shared<Texture2D>("SignEditor/assets/dlsu-logo.png");
 		/*************** ECS VERSION ********************/
 		m_ActiveScene = std::make_shared<Scene>();
 
@@ -362,8 +365,47 @@ namespace Sign {
 			{
 				ImGui::EndMenu();
 			}
+
+			if (ImGui::BeginMenu("Tools")) {
+				ImGui::MenuItem("Color Picker", NULL, &p_open);
+			
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("About")) {
+				ImGui::MenuItem("Credits", NULL, &p_Credits);
+
+				ImGui::EndMenu();
+			}
 			ImGui::EndMainMenuBar();
 		}
+
+		if (p_open) {
+			ColorPicker();
+		}
+		if (p_Credits) {
+			ImGui::SetNextWindowSize(ImVec2(800, 900), ImGuiCond_FirstUseEver);
+			if (!ImGui::Begin("Credits", &p_Credits))
+			{
+				ImGui::End();
+				return;
+			}
+			float contentWidth = ImGui::GetContentRegionAvail().x;
+
+			float texWidth = (float)m_Texture2D->GetWidth();
+			float texHeight = (float)m_Texture2D->GetHeight();
+			float aspectHeight = (texHeight / texWidth) * contentWidth;
+			ImVec2 displaySize(contentWidth, aspectHeight);
+			ImGui::Image((ImTextureID)m_Texture2D->GetGpuHandle().ptr, displaySize);
+			ImGui::Text("About");
+			ImGui::Text("DX12 Engine by Mathieu Marc I. Pobre");
+			ImGui::NewLine();
+			ImGui::Text("Acknoledgements:");
+			ImGui::Text("The Cherno Hazel  Game Engine Tutorial");
+			ImGui::Text("Dr. Neil De Gallego and Sir Martin Laureta's GDENG03 course");
+			ImGui::End();
+		}
+		
+
 		ImGui::Begin("Examples: Dockspace", &dockSpaceOpen, ImGuiWindowFlags_MenuBar);
 
 		opt_demo_mode_changed = false;
@@ -439,6 +481,25 @@ namespace Sign {
 		m_ViewportBounds[1] = { ImageMax.x, ImageMax.y };
 		ImGui::End();
 		ImGui::PopStyleVar();
+	}
+
+	void EditorLayer::ColorPicker()
+	{
+		static ImVec4 color = ImVec4(114.0f / 255.0f, 144.0f / 255.0f, 154.0f / 255.0f, 255.0f / 255.0f);
+		static ImGuiColorEditFlags base_flags = ImGuiColorEditFlags_None;
+		ImGui::SetNextWindowSize(ImVec2(430, 450), ImGuiCond_FirstUseEver);
+		if (!ImGui::Begin("Color Picker", &p_open))
+		{
+			ImGui::End();
+			return;
+		}
+		ImGui::ColorPicker3("##MyColor##6", (float*)&color, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoAlpha);
+		ImGui::SameLine();
+		ImGui::Text("Color");
+		ImGui::SameLine();
+		ImVec2 size = ImVec2(100.f, 100.f);
+		ImGui::ColorButton("##MyColor##6", color, ImGuiColorEditFlags_NoAlpha,size);
+		ImGui::End();
 	}
 
 	bool EditorLayer::OnWindowResizedEvent(WindowResizedEvent& e)

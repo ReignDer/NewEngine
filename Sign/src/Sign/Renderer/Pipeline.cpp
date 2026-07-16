@@ -28,7 +28,7 @@ namespace Sign {
 			//CAREFUL, ONLY ALLOW WHEN READING TEXTURES ... REMOVE ONLY ON APPLYING TEXTURES OR CHANGING LIGHTING/COLOR THROUGH CONSTANT BUFFER
 			//D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS;
 
-		CD3DX12_ROOT_PARAMETER1 rootParameters[5];
+		CD3DX12_ROOT_PARAMETER1 rootParameters[6];
 
 		CD3DX12_DESCRIPTOR_RANGE1 cbvRange[1];
 		cbvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
@@ -40,9 +40,20 @@ namespace Sign {
 		rootParameters[3].InitAsConstants(1, 3, 0, D3D12_SHADER_VISIBILITY_PIXEL);
 		rootParameters[4].InitAsConstants(1, 4, 0, D3D12_SHADER_VISIBILITY_PIXEL);
 
+		CD3DX12_DESCRIPTOR_RANGE1 srvRange[1];
+		srvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+		rootParameters[5].InitAsDescriptorTable(1, &srvRange[0], D3D12_SHADER_VISIBILITY_PIXEL);
+
+		CD3DX12_STATIC_SAMPLER_DESC linearSampler(
+			0,                                
+			D3D12_FILTER_MIN_MAG_MIP_LINEAR, 
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP, 
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP
+		);
 
 		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDescription;
-		rootSignatureDescription.Init_1_1(_countof(rootParameters), rootParameters, 0, nullptr, rootSignatureFlags);
+		rootSignatureDescription.Init_1_1(_countof(rootParameters), rootParameters, 0, &linearSampler, rootSignatureFlags);
 		//rootSignatureDescription.Init_1_1(0, nullptr, 0, nullptr, rootSignatureFlags);
 
 		Microsoft::WRL::ComPtr<ID3DBlob> rootSignatureBlob;

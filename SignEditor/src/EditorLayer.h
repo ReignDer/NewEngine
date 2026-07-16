@@ -14,11 +14,14 @@ namespace Sign {
 		virtual void OnRender() override;
 		virtual void OnImGuiRender() override;
 
+		void ColorPicker();
+
 		bool OnWindowResizedEvent(WindowResizedEvent& e);
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 
 	private:
+
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<FrameBuffer> m_FrameBuffer;
 
@@ -33,6 +36,7 @@ namespace Sign {
 		int32_t m_SelectedFaceID;
 		SceneHierarchy m_SceneHierarchyPanel;
 
+		std::shared_ptr<Texture2D> m_Texture2D;
 
 		std::shared_ptr<Shader> m_Shader;
 		std::vector<std::shared_ptr<Entity>> m_Meshes;

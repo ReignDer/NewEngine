@@ -13,6 +13,7 @@ elseif is_mode("release") then
 end
 
 includes("Sign/vendor/ImGui")
+includes("Sign/vendor/DirectXTex")
 target("Sign")
 	set_kind("static")
 	set_languages("c++23")
@@ -34,15 +35,17 @@ target("Sign")
 		--"Core/vendor/spdlog/include", 
 		"Sign/vendor/ImGui",
 		"Sign/vendor/DirectX-Headers/include",
+		"Sign/vendor/DirectXTex/DirectXTex",
 		"Sign/src", {public = true} )
 
-	add_deps("ImGui")
+	add_deps("ImGui", "DirectXTex", {public = true})
 	add_links(
 		--"ImGui",
 		"dwmapi.lib", "d3d12.lib", "dxgi.lib",
 		"d3dcompiler.lib", "dxguid.lib",
-		"user32.lib", "gdi32.lib","shell32.lib"	
+		"user32.lib", "gdi32.lib","shell32.lib"
 	)
+
 
 	if is_os("windows") then
 		set_languages("c++23")
@@ -84,7 +87,7 @@ target("SignEditor")
 
 	add_headerfiles("SignEditor/src/**.h")
 	add_files("SignEditor/src/**.cpp")
-	add_extrafiles("SignEditor/src/**.hlsl", {type = "plain"})
+	add_extrafiles("SignEditor/src/**.hlsl", "SignEditor/assets/**.png",{type = "plain"})
 
 	
 	--add_includedirs(
