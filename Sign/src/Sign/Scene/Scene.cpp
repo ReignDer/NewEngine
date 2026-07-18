@@ -27,6 +27,7 @@ namespace Sign {
 
     void Scene::RenderScene(EntityID selectedEntity, uint32_t selectedFaceID)
     {
+        m_SelectedFaceID = selectedFaceID;
         auto& meshPool = m_Registry.GetPool<MeshRendererComponent>();
         auto& transform = m_Registry.GetPool<TransformComponent>();
 
@@ -38,6 +39,7 @@ namespace Sign {
             if (!component)
                 continue;
 
+            renderer.Mesh->UploadIfDirty();
             
             Renderer::Submit(
                 renderer.Mesh->GetVertexArray(),

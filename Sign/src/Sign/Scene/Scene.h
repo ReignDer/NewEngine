@@ -16,11 +16,14 @@ namespace Sign {
 		void DestroyEntity(EntityECS entity);
 
 		Registry& GetRegistry() { return m_Registry; }
+
+		uint32_t GetSelectedFaceID() const { return m_SelectedFaceID; }
 	//Make render Scene private in the FUTURE
 	public:
 		void RenderScene(EntityID selectedEntity, uint32_t selectedFaceID);
 	private:
 		Registry m_Registry;
+		uint32_t m_SelectedFaceID;
 		friend class EntityECS;
 		friend class SceneHierarchy;
 	};

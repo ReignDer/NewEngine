@@ -20,6 +20,10 @@ namespace Sign {
 	private:
 		std::shared_ptr<Scene> m_Context;
 		EntityECS m_SelectedEntity;
+		uint32_t m_LastEditedFaceID;
+		Vector3D m_FaceEditOffset;
+		Vector3D m_FaceRotationOffset;
+		Vector3D m_FaceScaleOffset;
 	};
 }
 

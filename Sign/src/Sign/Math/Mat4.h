@@ -175,6 +175,16 @@ namespace Sign {
 			}
 			return res;
 		}
+
+		Vector3D TransformPoint(const Vector3D& v) const noexcept
+		{
+			// row-vector convention: result = v * M  (w assumed = 1)
+			float x = v.x * matrix[0][0] + v.y * matrix[1][0] + v.z * matrix[2][0] + matrix[3][0];
+			float y = v.x * matrix[0][1] + v.y * matrix[1][1] + v.z * matrix[2][1] + matrix[3][1];
+			float z = v.x * matrix[0][2] + v.y * matrix[1][2] + v.z * matrix[2][2] + matrix[3][2];
+			return Vector3D(x, y, z);
+		}
+
 	private:
 		float matrix[4][4]{};
 	};

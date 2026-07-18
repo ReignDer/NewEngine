@@ -5,7 +5,7 @@ namespace Sign {
 		std::shared_ptr<Mesh> Cube3D::Create(const std::array<Vector3D, 6>& color)
 		{
 
-			return ResourceCache::GetOrCreate<Mesh>("DefaultCube", [&]() -> std::shared_ptr<Mesh>{
+			
 				VertexPosColor CubeVertices[24] = {
 					//Back Face
 					{cubePosition[0], color[0],0}, {cubePosition[1], color[0],0},{cubePosition[2],color[0],0}, {cubePosition[3], color[0],0},
@@ -24,7 +24,7 @@ namespace Sign {
 
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));
-			});
+		
 
 
 		}

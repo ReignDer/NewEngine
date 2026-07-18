@@ -30,4 +30,26 @@ namespace Sign {
 	void VertexBuffer::UnBind()
 	{
 	}
+	void VertexBuffer::SetData(const void* vertices, uint32_t size)
+	{
+		Renderer::GetContext()->FlushCommandQueue();
+		D3D12Utils::UpdateBufferResource(
+			Renderer::GetContext()->GetDevice(),
+			Renderer::GetCommandList(),
+			&m_VertexBuffer,
+			&m_intermediateBuffer,
+			size,
+			sizeof(VertexPosColor),
+			vertices);
+
+		D3D12Utils::TransitionResource(
+			Renderer::GetCommandList(),
+			m_VertexBuffer,
+			D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+		m_NumElem = size;
+		m_Size = m_NumElem * sizeof(VertexPosColor);
+		m_VertexBufferView.BufferLocation = m_VertexBuffer->GetGPUVirtualAddress();
+		m_VertexBufferView.SizeInBytes = m_Size;
+		m_VertexBufferView.StrideInBytes = sizeof(VertexPosColor);
+	}
 }

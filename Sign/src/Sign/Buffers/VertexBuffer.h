@@ -14,6 +14,7 @@ namespace Sign {
 
 		void Bind(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2> commandList);
 		void UnBind();
+		void SetData(const void* vertices, uint32_t size);
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_VertexBuffer;

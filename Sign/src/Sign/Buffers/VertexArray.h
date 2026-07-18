@@ -16,6 +16,7 @@ namespace Sign {
 		void AddVertexBuffers(const std::shared_ptr<VertexBuffer>& vertexBuffer);
 		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer);
 		size_t GetIndexBufferCount() const;
+		std::shared_ptr<VertexBuffer> GetVertexBuffer() const { return m_VertexBuffers[0]; }
 
 
 	private:

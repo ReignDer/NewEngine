@@ -2,7 +2,7 @@
 
 Sign::LayerStack::~LayerStack()
 {
-	
+
 }
 
 void Sign::LayerStack::PushLayer(Layer* layer)
