@@ -11,6 +11,9 @@ struct PixelShaderInput
 
 };
 
+Texture2D AlbedoTexture : register(t0);
+SamplerState SampleTexture : register(s0);
+
 struct PixelShaderOutput
 {
     float4 Color : SV_Target0;
@@ -21,7 +24,8 @@ PixelShaderOutput main(PixelShaderInput IN)
 {
     PixelShaderOutput OUT;
     float4 baseColor = IN.Color;
-    OUT.Color = baseColor;
+    float4 texColor = AlbedoTexture.Sample(SampleTexture, IN.TexCoord * 0.5);
+    OUT.Color = baseColor * texColor;
     return OUT;
 }
 

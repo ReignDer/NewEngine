@@ -124,55 +124,5 @@ namespace Sign {
 			}
 		}
 
-		if (entity.HasComponent<MeshRendererComponent>())
-		{
-			uint32_t selectedFaceID = m_Context->GetSelectedFaceID();
-
-			if (selectedFaceID != UINT32_MAX)
-			{
-				if (selectedFaceID != m_LastEditedFaceID)
-				{
-					m_FaceEditOffset = Vector3D(0.0f, 0.0f, 0.0f);
-					m_LastEditedFaceID = selectedFaceID;
-				}
-
-				if (ImGui::TreeNodeEx((void*)typeid(MeshRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Face"))
-				{
-					Vector3D prevOffset = m_FaceEditOffset;
-					DrawVec3Control("Position", m_FaceEditOffset);
-					Vector3D deltaTranslate = m_FaceEditOffset - prevOffset;
-
-					Vector3D prevRotation = m_FaceRotationOffset;
-					DrawVec3Control("Rotation", m_FaceRotationOffset);
-					Vector3D deltaRotationDeg = m_FaceRotationOffset - prevRotation;
-
-					Vector3D prevScale = m_FaceScaleOffset;
-					DrawVec3Control("Scale", m_FaceScaleOffset, 1.0f);
-					Vector3D deltaScale = m_FaceScaleOffset - prevScale; 
-
-					bool changed = deltaTranslate.x != 0.0f || deltaTranslate.y != 0.0f || deltaTranslate.z != 0.0f
-						|| deltaRotationDeg.x != 0.0f || deltaRotationDeg.y != 0.0f || deltaRotationDeg.z != 0.0f
-						|| deltaScale.x != 0.0f || deltaScale.y != 0.0f || deltaScale.z != 0.0f;
-
-					if (changed)
-					{
-						Vector3D deltaRotationRad = MathUtils::ConvertToRadiansVec3(deltaRotationDeg);
-	
-						Vector3D scaleMultiplier = Vector3D(1.0f, 1.0f, 1.0f) + deltaScale;
-
-						Mat4 scaleMat = Mat4::scale(scaleMultiplier);
-						Mat4 rotMat = Mat4::rotateX(deltaRotationRad.x) * Mat4::rotateY(deltaRotationRad.y) * Mat4::rotateZ(deltaRotationRad.z);
-						Mat4 translateMat = Mat4::translate(deltaTranslate);
-
-						Mat4 combinedDelta = scaleMat * rotMat * translateMat;
-
-						auto& meshRenderer = entity.GetComponent<MeshRendererComponent>();
-						meshRenderer.Mesh->TransformFace(selectedFaceID, combinedDelta);
-					}
-
-					ImGui::TreePop();
-				}
-			}
-		}
 	}
 }

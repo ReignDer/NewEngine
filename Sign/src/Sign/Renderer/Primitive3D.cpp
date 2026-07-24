@@ -2,30 +2,18 @@
 
 namespace Sign {
 	namespace Primitive {
-		std::shared_ptr<Mesh> Cube3D::Create(const std::array<Vector3D, 6>& color)
+		std::shared_ptr<Mesh> Cube3D::Create(const std::array<Vector3D, 8>& color)
 		{
 
-			
-				VertexPosColor CubeVertices[24] = {
-					//Back Face
-					{cubePosition[0], color[0],0}, {cubePosition[1], color[0],0},{cubePosition[2],color[0],0}, {cubePosition[3], color[0],0},
-					//Front Face
-					{cubePosition[4], color[1],1}, {cubePosition[5],color[1],1}, {cubePosition[6],color[1],1}, {cubePosition[7],color[1],1},
-					//Left Face
-					{cubePosition[0], color[2],2}, {cubePosition[1],color[2],2}, {cubePosition[5],color[2],2}, {cubePosition[4],color[2],2},
-					//Right Face
-					{cubePosition[3], color[3],3}, {cubePosition[2],color[3],3}, {cubePosition[6],color[3],3}, {cubePosition[7],color[3],3},
-					//Top Face
-					{cubePosition[1], color[4],4}, {cubePosition[5],color[4],4}, {cubePosition[6],color[4],4}, {cubePosition[2],color[4],4},
-					//Bottom Face
-					{cubePosition[0], color[5],5}, {cubePosition[4],color[5],5}, {cubePosition[7],color[5],5}, {cubePosition[3],color[5],5}
-				};
+			return ResourceCache::GetOrCreate<Mesh>("DefaultCube", [&]()->std::shared_ptr<Mesh> {
+				VertexPosColor CubeVertices[8];
 
-
+				for (size_t i = 0; i < 8; i++) {
+					CubeVertices[i] = { cubePosition[i], Vector3D(0,0,0), color[i]};
+				}
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));
-		
-
+				});
 
 		}
 		std::shared_ptr<Mesh> Sphere::Create(const Vector3D& Color)
@@ -37,7 +25,7 @@ namespace Sign {
 				float radius = 1.0f;
 
 				std::vector<float> vertices;
-				std::vector<WORD> indices;
+				std::vector<uint32_t> indices;
 				int row_1, row_2;
 				float z, xy;
 				float hAngle1 = -MathUtils::PI / 2 - H_ANGLE / 2;
@@ -86,10 +74,10 @@ namespace Sign {
 				const int SUBDIVISION = 3;
 				for (int s = 0; s < SUBDIVISION; s++) {
 					std::vector<float> tmpVertices = vertices;
-					std::vector<WORD> tmpIndices = indices;
+					std::vector<uint32_t> tmpIndices = indices;
 					vertices.clear();
 					indices.clear();
-					WORD index = 0;
+					uint32_t index = 0;
 					for (int i = 0; i < (int)tmpIndices.size(); i += 3)
 					{
 						const float* v1 = &tmpVertices[tmpIndices[i] * 3];
@@ -120,8 +108,8 @@ namespace Sign {
 						{
 							for (int k = 0; k < j; k++)
 							{
-								WORD i1 = (j - 1) * j / 2 + k;
-								WORD i2 = j * (j + 1) / 2 + k;
+								uint32_t i1 = (j - 1) * j / 2 + k;
+								uint32_t i2 = j * (j + 1) / 2 + k;
 
 								const float* sv1 = &newVs[i1 * 3];
 								const float* sv2 = &newVs[i2 * 3];
@@ -134,7 +122,7 @@ namespace Sign {
 
 								if (k < j - 1)
 								{
-									WORD i2b = i1 + 1;
+									uint32_t i2b = i1 + 1;
 									const float* sv2b = &newVs[i2b * 3];
 									vertices.insert(vertices.end(), sv1, sv1 + 3);
 									vertices.insert(vertices.end(), sv3, sv3 + 3);
@@ -158,7 +146,7 @@ namespace Sign {
 				return std::make_shared<Mesh>(finalVertices.data(), (uint32_t)finalVertices.size(), indices.data(), (uint32_t)indices.size());
 				});
 		}
-		void Sphere::AddIndices(std::vector<WORD>& indices, int i1, int i2, int i3)
+		void Sphere::AddIndices(std::vector<uint32_t>& indices, int i1, int i2, int i3)
 		{
 			indices.push_back(i1);
 			indices.push_back(i2);
@@ -181,7 +169,7 @@ namespace Sign {
 				VertexPosColor planeVertices[4];
 
 				for (size_t i = 0; i < 4; i++) {
-					planeVertices[i] = { planePosition[i], color[i],0 };
+					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i]};
 				}
 				return std::make_shared<Mesh>(planeVertices, _countof(planeVertices), quadIndices, _countof(quadIndices));
 				});

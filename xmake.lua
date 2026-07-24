@@ -90,7 +90,7 @@ target("SignEditor")
 
 	add_headerfiles("SignEditor/src/**.h")
 	add_files("SignEditor/src/**.cpp")
-	add_extrafiles("SignEditor/src/**.hlsl", "SignEditor/assets/**.png",{type = "plain"})
+	add_extrafiles("SignEditor/src/**.hlsl", "SignEditor/assets/**.png", "SignEditor/assets/**.obj",{type = "plain"})
 
 	
 	--add_includedirs(

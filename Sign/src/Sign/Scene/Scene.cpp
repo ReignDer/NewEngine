@@ -39,15 +39,12 @@ namespace Sign {
             if (!component)
                 continue;
 
-            renderer.Mesh->UploadIfDirty();
-            
+            auto texture = (renderer.Texture && renderer.Texture->IsLoaded()) ? renderer.Texture : Renderer::GetWhiteTexture();
             Renderer::Submit(
                 renderer.Mesh->GetVertexArray(),
                 *renderer.Shader,
                 component->GetTransform(),
-                entity,
-                selectedEntity,
-                selectedFaceID
+                *texture
             );
         }
     }

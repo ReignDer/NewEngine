@@ -23,25 +23,57 @@ namespace Sign {
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 
 		m_Texture2D = std::make_shared<Texture2D>("SignEditor/assets/dlsu-logo.png");
+		m_TeapotTexture = std::make_shared<Texture2D>("SignEditor/assets/brick.png");
 		/*************** ECS VERSION ********************/
 		m_ActiveScene = std::make_shared<Scene>();
 
 		auto CubeECS = m_ActiveScene->CreateEntity("Cube1");
-		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create());
+		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
 		auto& CubeTransform = CubeECS.GetComponent<TransformComponent>();
 		CubeTransform.Translation = { 5.0f,0.0f,5.0f };
 
 		auto CubeECS2 = m_ActiveScene->CreateEntity("Cube2");
-		CubeECS2.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create());
+		CubeECS2.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
 		auto& CubeTransform2 = CubeECS2.GetComponent<TransformComponent>();
 		CubeTransform2.Translation = { -5.0f,0.0f,5.0f };
 
 		auto Plane = m_ActiveScene->CreateEntity("Plane");
-		Plane.AddComponent<MeshRendererComponent>(Primitive::Plane::Create());
+		Plane.AddComponent<MeshRendererComponent>(Primitive::Plane::Create(), m_ShaderLibrary.GetDefault());
 		auto& PlaneTransform = Plane.GetComponent<TransformComponent>();
 		PlaneTransform.Scale = { 5.0f,0.0f,5.0f };
 		PlaneTransform.Translation = { 0.0f,-0.5f,0.0f };
 
+
+		PipelineSpecifications specs = {};
+		specs.InputLayout = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "FACEID", 0, DXGI_FORMAT_R32_UINT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0} };
+		D3D12_RT_FORMAT_ARRAY rtvFormats = {};
+		rtvFormats.NumRenderTargets = 1;
+		rtvFormats.RTFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+		specs.RTVFormats = rtvFormats;
+		specs.DepthTest = TRUE;
+		specs.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
+
+		
+
+		auto teapot = m_ActiveScene->CreateEntity("Teapot");
+		teapot.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/teapot.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs), m_TeapotTexture);
+		auto& teapotTransform = teapot.GetComponent<TransformComponent>();
+		teapotTransform.Translation = { 0.0f,0.0f,5.0f };
+
+		auto bunny = m_ActiveScene->CreateEntity("Bunny");
+		bunny.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/bunny.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs));
+		auto& bunnyTransform = bunny.GetComponent<TransformComponent>();
+		bunnyTransform.Translation = { 3.0f,0.0f,5.0f };
+
+		auto armadillo = m_ActiveScene->CreateEntity("Armadillo");
+		armadillo.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/armadillo.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs));
+		auto& armadilloTransform = armadillo.GetComponent<TransformComponent>();
+		armadilloTransform.Translation = { -3.0f,0.0f,5.0f };
 		//int index = 0;
 		//for (int i = 0; i < 10000; i++) {
 		//	

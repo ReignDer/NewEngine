@@ -24,6 +24,8 @@
 #include "Sign/Scene/EntityECS.h"
 #include "Sign/Scene/ECS/Components.h"
 #include "Sign/Renderer/Texture.h"
+#include "Sign/Shader/Shader.h"
+#include "Sign/Asset/MeshImporter.h"
 
 #include "Sign/Ccommand/EditorCommand.h"
 #include "Sign/Buffers/FrameBuffer.h"

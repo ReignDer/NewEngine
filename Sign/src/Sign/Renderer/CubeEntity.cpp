@@ -15,7 +15,7 @@ namespace Sign {
 		}
 		SetMesh(s_DefaultCubeMesh);
 	}
-	CubeEntity::CubeEntity(const std::array<Vector3D, 6>& color)
+	CubeEntity::CubeEntity(const std::array<Vector3D, 8>& color)
 	{
 		SetMesh(Primitive::Cube3D::Create(color));
 	}

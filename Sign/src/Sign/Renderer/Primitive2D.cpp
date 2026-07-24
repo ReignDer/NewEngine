@@ -5,7 +5,7 @@ namespace Sign {
 		std::shared_ptr<Mesh> Circle::Create(const Vector3D& centerColor, const Vector3D& outerColor)
 		{
 			std::vector<VertexPosColor> vertices;
-			std::vector<WORD> indices;
+			std::vector<uint32_t> indices;
 
 			VertexPosColor centerVertex;
 			centerVertex.Position = Vector3D(0.0f, 0.0f, 0.0f);

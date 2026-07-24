@@ -16,6 +16,8 @@ namespace Sign
 		D3D12_RECT						m_ScissorsRect{};
 		std::shared_ptr<ConstantBuffer>	m_CameraConstantBuffer;
 		CameraData						m_CameraData{};
+
+		std::shared_ptr<Texture2D> m_WhiteTexture;
 	};
 
 	static RendererData* s_Data = nullptr;
@@ -23,11 +25,14 @@ namespace Sign
 	void Renderer::Init(D3D12Context* context)
 	{
 		s_Data = new RendererData();
+
 		s_Data->m_Context = context;
 
 		SetViewPort(0, 0, s_Data->m_Context->GetWidth(), s_Data->m_Context->GetHeight());
 		
 		s_Data->m_CameraConstantBuffer = std::make_shared<ConstantBuffer>(sizeof(CameraData), 0);
+
+		
 	}
 
 	void Renderer::ShutDown()
@@ -36,6 +41,7 @@ namespace Sign
 		s_Data->m_ActiveFrameBuffers.clear();
 		s_Data->m_CameraConstantBuffer.reset();
 		s_Data->m_CommandList.Reset();
+		s_Data->m_WhiteTexture.reset();
 		s_Data->m_Context = nullptr;
 		delete s_Data->m_Context;
 		delete s_Data;
@@ -47,6 +53,16 @@ namespace Sign
 	void Renderer::BeginInitializationCommand()
 	{
 		s_Data->m_CommandList = s_Data->m_Context->GetCommandQueue(D3D12_COMMAND_LIST_TYPE_DIRECT)->GetCommandList();
+
+		TextureSpecifications specs = {};
+		specs.Format = ImageFormat::RGBA8;
+		specs.GenerateMips = false;
+		specs.Width = 1;
+		specs.Height = 1;
+
+		s_Data->m_WhiteTexture = std::make_shared<Texture2D>(specs);
+		uint32_t whitePixel = 0xffffffff;
+		s_Data->m_WhiteTexture->SetData(&whitePixel, sizeof(whitePixel));
 	}
 
 	void Renderer::EndInitializationCommand()
@@ -134,6 +150,25 @@ namespace Sign
 		s_Data->m_CommandList->DrawIndexedInstanced(vertexArray->GetIndexBufferCount(), 1, 0, 0, 0);
 	}
 
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform, const Texture2D& texture)
+	{
+		shader.Bind(s_Data->m_CommandList);
+		ID3D12DescriptorHeap* heaps[] = { s_Data->m_Context->Get_CBV_SRV_UAV_DescriptorHeap().Get() };
+		s_Data->m_CommandList->SetDescriptorHeaps(_countof(heaps), heaps);
+
+
+		s_Data->m_CommandList->SetGraphicsRootDescriptorTable(0, s_Data->m_Context->GetGPUHandleAt(s_Data->m_Context->GetCurrentBackBuffer()));
+
+		auto model = Mat4::transpose(transform);
+		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(1, sizeof(Mat4) / 4, &model, 0);
+
+		texture.Bind(s_Data->m_CommandList.Get());
+		vertexArray->Bind(s_Data->m_CommandList);
+
+
+		s_Data->m_CommandList->DrawIndexedInstanced(vertexArray->GetIndexBufferCount(), 1, 0, 0, 0);
+	}
+
 	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform, uint32_t entity, uint32_t selectedEntityID, uint32_t selectedFace)
 	{
 		shader.Bind(s_Data->m_CommandList);
@@ -213,6 +248,10 @@ namespace Sign
 	D3D12_VIEWPORT const Renderer::GetViewPort()
 	{
 		return s_Data->m_Viewport;
+	}
+	std::shared_ptr<Texture2D> Renderer::GetWhiteTexture()
+	{
+		return s_Data->m_WhiteTexture;
 	}
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{

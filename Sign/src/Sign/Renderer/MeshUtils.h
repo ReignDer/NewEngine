@@ -5,20 +5,22 @@
 struct VertexPosColor
 {
 	Sign::Vector3D Position;
+	Sign::Vector3D Normals;
 	Sign::Vector3D Color;
+	Sign::Vector2D TexCoord;
 	uint32_t FaceID;
 
 };
 
 //Indices
-static WORD trianlgeIndices[3] = { 0,1,2 };
-static WORD quadIndices[6] = { 0,1,2 , 0,2,3 };
-static WORD cubeIndices[36] =
+static uint32_t trianlgeIndices[3] = { 0,1,2 };
+static uint32_t quadIndices[6] = { 0,1,2 , 0,2,3 };
+static uint32_t cubeIndices[36] =
 {	
 	0,1,2 , 0,2,3,
 	4,6,5 , 4,7,6,
-	8,11,10, 8,10,9,
-	12,13,14 , 12,14,15,
-	16,17,18 , 16,18,19,
-	20,23,22 , 20,22,21
+	4,5,1 , 4,1,0,
+	3,2,6 , 3,6,7,
+	1,5,6 , 1,6,2,
+	4,0,3 , 4,3,7
 };

@@ -5,6 +5,7 @@
 #include "Sign/Math/SignMath.h"
 #include "Sign/Renderer/Mesh.h"
 #include "Sign/Shader/Shader.h"
+#include "Sign/Renderer/Texture.h"
 namespace Sign {
 
 	inline ComponentType GetNextComponentTypeID() {
@@ -39,9 +40,11 @@ namespace Sign {
 	struct MeshRendererComponent {
 		std::shared_ptr<Mesh> Mesh;
 		std::shared_ptr<Shader> Shader;
+		std::shared_ptr<Texture2D> Texture;
 		MeshRendererComponent() = default;
 		MeshRendererComponent(const MeshRendererComponent&) = default;
-		MeshRendererComponent(const std::shared_ptr<Sign::Mesh>& mesh, const std::shared_ptr<Sign::Shader>& shader = Sign::Shader::GetDefault()) : Mesh(mesh), Shader(shader) {}
+		MeshRendererComponent(const std::shared_ptr<Sign::Mesh>& mesh, const std::shared_ptr<Sign::Shader>& shader, const std::shared_ptr<Texture2D>& texture = nullptr) 
+			: Mesh(mesh), Shader(shader), Texture(texture) {}
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
 

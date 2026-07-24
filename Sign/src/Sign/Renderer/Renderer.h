@@ -11,7 +11,7 @@
 #include "PerspectiveCamera.h"
 #include "Sign/Math/SignMath.h"
 #include "Sign/Buffers/FrameBuffer.h"
-
+#include "Texture.h"
 namespace Sign {
 	struct alignas(256) CameraData {
 		Mat4 viewMatrix;
@@ -31,6 +31,7 @@ namespace Sign {
 		static void								RenderClearCommand(FLOAT* clearColor);
 		static void								BeginScene(const PerspectiveCamera& camera);
 		static void								Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform);
+		static void								Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform, const Texture2D& texture);
 		static void								Submit(const std::shared_ptr<VertexArray>& vertexArray, const Shader& shader, const Mat4& transform, uint32_t entity, uint32_t selectedEntityID, uint32_t selectedFace);
 		static void								EndScene();
 
@@ -47,6 +48,7 @@ namespace Sign {
 		static D3D12Context*										GetContext();
 		static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2>	GetCommandList();
 		static const D3D12_VIEWPORT const							GetViewPort();
+		static std::shared_ptr<Texture2D>							GetWhiteTexture();
 	};
 }
 

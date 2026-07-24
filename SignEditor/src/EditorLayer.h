@@ -21,6 +21,7 @@ namespace Sign {
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 
 	private:
+		ShaderLibrary m_ShaderLibrary;
 
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<FrameBuffer> m_FrameBuffer;
@@ -37,6 +38,7 @@ namespace Sign {
 		SceneHierarchy m_SceneHierarchyPanel;
 
 		std::shared_ptr<Texture2D> m_Texture2D;
+		std::shared_ptr<Texture2D> m_TeapotTexture;
 
 		std::shared_ptr<Shader> m_Shader;
 		std::vector<std::shared_ptr<Entity>> m_Meshes;

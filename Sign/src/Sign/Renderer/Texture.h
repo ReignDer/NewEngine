@@ -3,7 +3,7 @@
 #include <wrl.h>
 #include <DirectXTex.h>
 #include <filesystem>
-#include "Renderer.h"
+
 #include "Sign/Asset/Asset.h"
 
 namespace Sign {
@@ -32,7 +32,7 @@ namespace Sign {
 
 		virtual const std::string& GetPath() const = 0;
 
-		virtual void Bind(uint32_t slot = 5) const = 0;
+		virtual void Bind(ID3D12GraphicsCommandList* cmdList, uint32_t slot) const = 0;
 
 		virtual void SetData(void* data, uint32_t size) = 0;
 
@@ -54,13 +54,13 @@ namespace Sign {
 		uint32_t GetHeight() const override { return m_Height; }
 		const std::string& GetPath() const override { return m_Path; }
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle() const { return m_SRVGpuHandle; }
-		void Bind(uint32_t slot) const override;
+		void Bind(ID3D12GraphicsCommandList* cmdList, uint32_t slot = 5) const override;
 		void SetData(void* data, uint32_t size) override;
 		bool IsLoaded() const override;
 		bool operator==(const Texture& other) const override;
 
 		static AssetType GetStaticType() { return AssetType::Texture2D; }
-		virtual AssetType GetType() const { GetStaticType(); }
+		virtual AssetType GetType() const { return GetStaticType(); }
 	private:
 		TextureSpecifications m_Specifications;
 		std::string m_Path;

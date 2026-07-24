@@ -8,7 +8,7 @@ namespace Sign {
 	{
 	public:
 		CubeEntity();
-		CubeEntity(const std::array<Vector3D, 6>& color);
+		CubeEntity(const std::array<Vector3D, 8>& color);
 		~CubeEntity();
 
 		

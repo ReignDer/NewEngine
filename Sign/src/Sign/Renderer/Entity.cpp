@@ -7,12 +7,7 @@ namespace Sign {
 		m_Scale(Vector3D(1.0f,1.0f,1.0f)), 
 		m_Rotation(Quaternion(0.0f,0.0f,0.0f,0.0f))
 	{
-		if (s_DefaultShader == nullptr) {
-
-			s_DefaultShader = Shader::GetDefault();
-		}
-
-		m_Shader = s_DefaultShader;
+	
 		RecalculateTransform();
 	}
 	Entity::~Entity()

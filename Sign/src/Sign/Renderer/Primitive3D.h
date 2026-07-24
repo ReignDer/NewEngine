@@ -24,7 +24,8 @@ namespace Sign {
 		{
 		public:
 			static std::shared_ptr<Mesh> Create(
-				const std::array<Vector3D,6>& color = {{
+				const std::array<Vector3D,8>& color = {{
+					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f},
 					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f},
 					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f},
 					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f}}}
@@ -39,7 +40,7 @@ namespace Sign {
 				const Vector3D& centerColor = Vector3D(1.0f, 1.0f, 1.0f));
 
 		private:
-			static void AddIndices(std::vector<WORD>& indices, int i1, int i2, int i3);
+			static void AddIndices(std::vector<uint32_t>& indices, int i1, int i2, int i3);
 			static void Interpolate(const float* v1, const float* v2, float t, float radius, float* out);
 		};
 

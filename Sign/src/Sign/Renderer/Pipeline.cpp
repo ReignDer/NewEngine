@@ -53,7 +53,7 @@ namespace Sign {
 		);
 
 		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDescription;
-		rootSignatureDescription.Init_1_1(_countof(rootParameters), rootParameters, 0, &linearSampler, rootSignatureFlags);
+		rootSignatureDescription.Init_1_1(_countof(rootParameters), rootParameters, 1, &linearSampler, rootSignatureFlags);
 		//rootSignatureDescription.Init_1_1(0, nullptr, 0, nullptr, rootSignatureFlags);
 
 		Microsoft::WRL::ComPtr<ID3DBlob> rootSignatureBlob;
