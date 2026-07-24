@@ -13,3 +13,6 @@
 [submodule "Sign/vendor/tinyobjloader"]
 	path = Sign/vendor/tinyobjloader
 	url = https://github.com/tinyobjloader/tinyobjloader
+[submodule "Sign/vendor/ReactPhysics"]
+	path = Sign/vendor/ReactPhysics
+	url = https://github.com/ReignDer/reactphysics3d
