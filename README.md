@@ -13,7 +13,7 @@ This is a DXD12 Game Engine by Mathieu Marc I. Pobre using the Xmake build syste
 10. Click Finish
 11. IDE project files for MSVC will be automatically generated
 12. There will be a folder with the prefix "vsxmake" following with the current MSVC version e.g. vsxmake2026, vsxmake2022. Select that folder and the .sln file is found there
-13. Alternatively, there is a Generate.bat file which you can use after installing xmake and it will generate a build for an exe file that can be found on the bin/Debug-x64/SignEditor/SignEditor.exe.
+13. Alternatively, there is a Generate.bat file which you can use after installing xmake and it will generate a build for an exe file that can be found on the bin/Debug-x64/SignEditor/SignEditor.exe. (Currently does not work)
 
 Only Supports Windows
 
