@@ -4,6 +4,7 @@
 #include <DirectXTex.h>
 #include <filesystem>
 #include "Renderer.h"
+#include "Sign/Asset/Asset.h"
 
 namespace Sign {
 	enum class ImageFormat {
@@ -20,7 +21,7 @@ namespace Sign {
 		bool GenerateMips = true;
 
 	};
-	class Texture
+	class Texture : public Asset
 	{
 	public:
 		virtual ~Texture() = default;
@@ -57,6 +58,9 @@ namespace Sign {
 		void SetData(void* data, uint32_t size) override;
 		bool IsLoaded() const override;
 		bool operator==(const Texture& other) const override;
+
+		static AssetType GetStaticType() { return AssetType::Texture2D; }
+		virtual AssetType GetType() const { GetStaticType(); }
 	private:
 		TextureSpecifications m_Specifications;
 		std::string m_Path;

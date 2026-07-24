@@ -20,6 +20,7 @@ namespace Sign {
 		for (uint32_t i = 0; i < vertexCount; ++i)
 			m_FaceToVertexIndices[m_Vertices[i].FaceID].push_back(i);
 	}
+
 	void Mesh::TransformFace(uint32_t faceID, const Mat4& delta)
 	{
 		auto it = m_FaceToVertexIndices.find(faceID);

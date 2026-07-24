@@ -119,7 +119,7 @@ namespace Sign {
 				Vector3D rotation = MathUtils::ConvertToDegreesVec3(transform.Rotation);
 				DrawVec3Control("Rotation", rotation);
 				transform.Rotation = MathUtils::ConvertToRadiansVec3(rotation);
-				DrawVec3Control("Scale", transform.Scale);
+				DrawVec3Control("Scale", transform.Scale, 1.0f);
 				ImGui::TreePop();
 			}
 		}
@@ -139,11 +139,11 @@ namespace Sign {
 				if (ImGui::TreeNodeEx((void*)typeid(MeshRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Face"))
 				{
 					Vector3D prevOffset = m_FaceEditOffset;
-					DrawVec3Control("Position", m_FaceEditOffset, 0.0f);
+					DrawVec3Control("Position", m_FaceEditOffset);
 					Vector3D deltaTranslate = m_FaceEditOffset - prevOffset;
 
 					Vector3D prevRotation = m_FaceRotationOffset;
-					DrawVec3Control("Rotation", m_FaceRotationOffset, 0.0f);
+					DrawVec3Control("Rotation", m_FaceRotationOffset);
 					Vector3D deltaRotationDeg = m_FaceRotationOffset - prevRotation;
 
 					Vector3D prevScale = m_FaceScaleOffset;

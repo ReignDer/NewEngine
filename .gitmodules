@@ -10,3 +10,6 @@
 [submodule "Sign/vendor/ImGuizmo"]
 	path = Sign/vendor/ImGuizmo
 	url = https://github.com/ReignDer/ImGuizmo
+[submodule "Sign/vendor/tinyobjloader"]
+	path = Sign/vendor/tinyobjloader
+	url = https://github.com/tinyobjloader/tinyobjloader

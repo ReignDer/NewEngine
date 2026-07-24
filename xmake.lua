@@ -38,6 +38,7 @@ target("Sign")
 		"Sign/vendor/DirectX-Headers/include",
 		"Sign/vendor/DirectXTex/DirectXTex",
 		"Sign/vendor/ImGuizmo/src",
+		"Sign/vendor/tinyobjloader",
 		"Sign/src", {public = true} )
 
 	add_deps("ImGui", "DirectXTex", "ImGuizmo",{public = true})
