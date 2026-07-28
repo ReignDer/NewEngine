@@ -22,7 +22,7 @@ namespace Sign {
 		void End();
 
 		void BlockEvents(bool block) { m_BlockEvents = block; }
-
+		void SetDarkColoredTheme();
 
 	private:
 		float m_Time = 0.0f;

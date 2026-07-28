@@ -296,8 +296,8 @@ namespace Sign {
 
 
 		
-	
-		m_EditorCamera.OnUpdate(dt);
+		if(m_ViewportFocused)
+			m_EditorCamera.OnUpdate(dt);
 
 		if(StartSimulation)
 			m_ActiveScene->OnUpdateRuntime(dt);
@@ -397,7 +397,13 @@ namespace Sign {
 		bool IsFullscreen = true;
 		bool KeepWindowPadding = true;
 
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370.f;
+
 		ImGui::DockSpaceOverViewport(0, nullptr, ImGuiDockNodeFlags_None);
+
+		style.WindowMinSize.x = minWinSizeX;
 
 		// Refocus our window to minimize perceived loss of focus when changing mode (caused by the fact that each use a different window, which would not happen in a real app)
 		if (opt_demo_mode_changed)
@@ -511,12 +517,18 @@ namespace Sign {
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-		ImGui::Begin("Viewport");
+
+		ImGuiWindowClass window_class;
+		window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_AutoHideTabBar;
+
+		ImGui::SetNextWindowClass(&window_class);
+		ImGui::Begin("Viewport", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
 		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
 		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
 		auto viewportOffset = ImGui::GetWindowPos();
 
 		m_ViewportHovered = ImGui::IsWindowHovered();
+		m_ViewportFocused = ImGui::IsWindowFocused();
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportHovered);
 		
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();

@@ -15,8 +15,8 @@ namespace Sign {
 	Application* CreateApplication() {
 		ApplicationSpecifications specifications = {};
 		specifications.name = "Sign Engine";
-		specifications.WindowSpec.Width = 1280;
-		specifications.WindowSpec.Height = 720;
+		specifications.WindowSpec.Width = 1600;
+		specifications.WindowSpec.Height = 900;
 		return new Editor(specifications);
 	}
 }

@@ -14,6 +14,8 @@ namespace Sign {
 
 		void OnImGuiRender();
 	private:
+		template<typename T>
+		void DisplayAddComponentEntry(std::string_view entryName);
 		void DrawTreeNode(EntityECS entity);
 		void DrawComponents(EntityECS entity);
 

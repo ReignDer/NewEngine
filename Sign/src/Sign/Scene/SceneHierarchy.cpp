@@ -40,6 +40,7 @@ namespace Sign {
 	{
 		auto& tag= entity.GetComponent<TagComponent>().Tag;
 		ImGuiTreeNodeFlags flags = (m_SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+		flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
 		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
 
 		if (ImGui::IsItemClicked()) {
@@ -67,18 +68,18 @@ namespace Sign {
 
 			float lineHeight = ImGui::GetFontSize() + GImGui->Style.FramePadding.y * 2.0f;
 
-			ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+			ImVec2 buttonSize = { lineHeight + 2.0f, lineHeight };
 			if (ImGui::Button("X", buttonSize))
 				vec.x = resetValue;
 			ImGui::SameLine();
-			ImGui::DragFloat("##X", &vec.x, 0.1f);
+			ImGui::DragFloat("##X", &vec.x, 0.1f, 0.0f, 0.0f,"%.2f");
 			ImGui::PopItemWidth();
 			ImGui::SameLine();
 
 			if (ImGui::Button("Y", buttonSize))
 				vec.y = resetValue;
 			ImGui::SameLine();
-			ImGui::DragFloat("##Y", &vec.y, 0.1f);
+			ImGui::DragFloat("##Y", &vec.y, 0.1f, 0.0f, 0.0f, "%.2f");
 			ImGui::PopItemWidth();
 			ImGui::SameLine();
 
@@ -86,7 +87,7 @@ namespace Sign {
 			if (ImGui::Button("Z", buttonSize))
 				vec.z = resetValue;
 			ImGui::SameLine();
-			ImGui::DragFloat("##Z", &vec.z, 0.1f);
+			ImGui::DragFloat("##Z", &vec.z, 0.1f, 0.0f, 0.0f, "%.2f");
 			ImGui::PopItemWidth();
 
 			ImGui::PopStyleVar();
@@ -98,6 +99,54 @@ namespace Sign {
 		}
 		
 	}
+
+	template <typename T, typename UIFunction>
+	static void DrawComponent(std::string_view name, EntityECS entity, UIFunction uiFunction) {
+		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowOverlap | ImGuiTreeNodeFlags_FramePadding;
+
+		if (entity.HasComponent<T>()) {
+			auto& component = entity.GetComponent<T>();
+			ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4,4 });
+			float lineHeight = ImGui::GetFontSize() + GImGui->Style.FramePadding.y * 2.0f;
+			ImGui::Separator();
+			bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.data());
+			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5);
+			if (ImGui::Button("+", ImVec2{ lineHeight,lineHeight })) {
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings")) {
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+				ImGui::EndPopup();
+			}
+
+			if (open) {
+				uiFunction(component);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent) {
+				entity.RemoveComponent<T>();
+			}
+		}
+	}
+
+	template<typename T>
+	void SceneHierarchy::DisplayAddComponentEntry(std::string_view entryName) {
+		if (!m_SelectedEntity.HasComponent<T>()) {
+			if (ImGui::MenuItem(entryName.data()))
+			{
+				m_SelectedEntity.AddComponent<T>();
+				ImGui::CloseCurrentPopup();
+			}
+		}
+	}
+	
 	void SceneHierarchy::DrawComponents(EntityECS entity)
 	{
 		if (entity.HasComponent<TagComponent>()) {
@@ -106,23 +155,32 @@ namespace Sign {
 			memset(buffer, 0, sizeof(buffer));
 			strcpy_s(buffer, sizeof(buffer), tag.c_str());
 
-			if (ImGui::InputText("Name", buffer, sizeof(buffer))) {
+			if (ImGui::InputText("##Name", buffer, sizeof(buffer))) {
 				tag = std::string(buffer);
 			}
 			
 		}
 
-		if (entity.HasComponent<TransformComponent>()) {
-			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen,"Transform")) {
-				auto& transform = entity.GetComponent<TransformComponent>();
-				DrawVec3Control("Position", transform.Translation);
-				Vector3D rotation = MathUtils::ConvertToDegreesVec3(transform.Rotation);
-				DrawVec3Control("Rotation", rotation);
-				transform.Rotation = MathUtils::ConvertToRadiansVec3(rotation);
-				DrawVec3Control("Scale", transform.Scale, 1.0f);
-				ImGui::TreePop();
-			}
+		ImGui::SameLine();
+		ImGui::PushItemWidth(-1);
+
+		if (ImGui::Button("Add Component"))
+			ImGui::OpenPopup("AddComponent");
+
+		if (ImGui::BeginPopup("AddComponent"))
+		{
+			DisplayAddComponentEntry<TransformComponent>("Transform");
+
+			ImGui::EndPopup();
 		}
+		DrawComponent<TransformComponent>("Transform", entity, [](auto& component) 
+		{
+			DrawVec3Control("Position", component.Translation);
+			Vector3D rotation = MathUtils::ConvertToDegreesVec3(component.Rotation);
+			DrawVec3Control("Rotation", rotation);
+			component.Rotation = MathUtils::ConvertToRadiansVec3(rotation);
+			DrawVec3Control("Scale", component.Scale, 1.0f);
+		});
 
 	}
 }
