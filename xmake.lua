@@ -88,7 +88,7 @@ target("SignEditor")
 
 	set_targetdir("bin/".. outputdir .. "/SignEditor")
 	set_objectdir("bin-int/".. outputdir .. "/SignEditor")
-	set_rundir("$(projectdir)")
+	
 
 	add_headerfiles("SignEditor/src/**.h")
 	add_files("SignEditor/src/**.cpp")
@@ -121,6 +121,12 @@ target("SignEditor")
 		local shaderDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "Shader")
 		os.mkdir(shaderDest)
         os.cp(shaderSrc .. "/**.hlsl", shaderDest)
+
+		local assetSrc = path.join(os.projectdir(), "SignEditor/assets")
+		local assetDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "SignEditor", "assets")
+		os.mkdir(assetDest)
+	    os.cp(assetSrc .. "/**", assetDest)
+
 	end)
 
 	after_build(function(target)
@@ -130,6 +136,11 @@ target("SignEditor")
 		local shaderDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "Shader")
 		os.mkdir(shaderDest)
         os.cp(shaderSrc .. "/**.hlsl", shaderDest)
+
+		local assetSrc = path.join(os.projectdir(), "SignEditor/assets")
+		local assetDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "assets")
+		os.mkdir(assetDest)
+	    os.cp(assetSrc .. "/**", assetDest)
 	end)
 
 	if is_mode("debug") then

@@ -323,7 +323,7 @@ namespace Sign {
 
 	void EditorLayer::OnRender()
 	{
-		FLOAT clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		FLOAT clearColor[] = { 0.15f, 0.14f, 0.13f, 1.0f };
 
 		Renderer::BeginFrame();
 		if (FrameBufferSpecifications spec = m_FrameBuffer->GetSpecifications();
