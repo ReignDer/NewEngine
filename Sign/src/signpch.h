@@ -17,4 +17,5 @@
 #include <ranges>
 #include <chrono>
 
+#define NOMINMAX
 #include "Windows.h"

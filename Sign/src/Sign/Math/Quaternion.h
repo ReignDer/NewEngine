@@ -61,6 +61,38 @@ namespace Sign {
 
 		}
 
+		Vector3D ToEulerAngles() const noexcept {
+			float xx = x * x, yy = y * y, zz = z * z;
+			float xy = x * y, xz = x * z, yz = y * z;
+			float wx = w * x, wy = w * y, wz = w * z;
+
+			float m00 = 1 - 2 * (yy + zz);
+			float m01 = 2 * (xy + wz);
+			float m02 = 2 * (xz - wy);
+
+			float m10 = 2 * (xy - wz);
+			float m11 = 1 - 2 * (xx + zz);
+			float m12 = 2 * (yz + wx);
+
+			float m22 = 1 - 2 * (xx + yy);
+
+
+			float cos2 = m00 * m00 + m01 * m01;
+
+			if (cos2 < 1e-6f) {
+				return Vector3D(
+					0.0f,
+					m02 < 0 ? static_cast<float>(0.5f * MathUtils::PI) : static_cast<float>(-0.5f * MathUtils::PI),
+					-std::atan2(m10, m11)
+				);
+			}
+			else {
+				return Vector3D(std::atan2(m12, m22),
+					std::atan2(-m02, std::sqrt(cos2)),
+					std::atan2(m01, m00));
+			}
+		}
+
 		//https://fgiesen.wordpress.com/2019/02/09/rotating-a-single-vector-using-a-quaternion/
 		Vector3D rotate(const Vector3D& vec) const noexcept
 		{

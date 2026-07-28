@@ -22,6 +22,7 @@ namespace Sign {
 
 	private:
 		ShaderLibrary m_ShaderLibrary;
+		bool StartSimulation = false;
 
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<FrameBuffer> m_FrameBuffer;

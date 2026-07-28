@@ -30,7 +30,13 @@ namespace Sign {
 		auto CubeECS = m_ActiveScene->CreateEntity("Cube1");
 		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
 		auto& CubeTransform = CubeECS.GetComponent<TransformComponent>();
-		CubeTransform.Translation = { 5.0f,0.0f,5.0f };
+		CubeTransform.Translation = { 0.0f,5.0f,3.0f };
+
+		CubeECS.AddComponent<RigidBody3D>();
+		auto& CubeRb = CubeECS.GetComponent<RigidBody3D>();
+		CubeRb.Type = RigidBody3D::BodyType::Dynamic;
+
+		CubeECS.AddComponent<Box3DColliderComponent>();
 
 		auto CubeECS2 = m_ActiveScene->CreateEntity("Cube2");
 		CubeECS2.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
@@ -40,9 +46,16 @@ namespace Sign {
 		auto Plane = m_ActiveScene->CreateEntity("Plane");
 		Plane.AddComponent<MeshRendererComponent>(Primitive::Plane::Create(), m_ShaderLibrary.GetDefault());
 		auto& PlaneTransform = Plane.GetComponent<TransformComponent>();
-		PlaneTransform.Scale = { 5.0f,0.0f,5.0f };
+		PlaneTransform.Scale = { 10.0f,0.005f,10.0f };
 		PlaneTransform.Translation = { 0.0f,-0.5f,0.0f };
 
+		Plane.AddComponent<RigidBody3D>();
+		auto& PlaneRb = Plane.GetComponent<RigidBody3D>();
+		PlaneRb.Type = RigidBody3D::BodyType::Static;
+
+		Plane.AddComponent<Box3DColliderComponent>();
+		auto& PlaneCol = Plane.GetComponent<Box3DColliderComponent>();
+		PlaneCol.Size = { 0.5f, 0.005f, 0.5f };
 
 		PipelineSpecifications specs = {};
 		specs.InputLayout = {
@@ -66,12 +79,12 @@ namespace Sign {
 		teapotTransform.Translation = { 0.0f,0.0f,5.0f };
 
 		auto bunny = m_ActiveScene->CreateEntity("Bunny");
-		bunny.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/bunny.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs));
+		bunny.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/bunny.obj"), m_ShaderLibrary.Get("MeshShader"));
 		auto& bunnyTransform = bunny.GetComponent<TransformComponent>();
 		bunnyTransform.Translation = { 3.0f,0.0f,5.0f };
 
 		auto armadillo = m_ActiveScene->CreateEntity("Armadillo");
-		armadillo.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/armadillo.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs));
+		armadillo.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/armadillo.obj"), m_ShaderLibrary.Get("MeshShader"));
 		auto& armadilloTransform = armadillo.GetComponent<TransformComponent>();
 		armadilloTransform.Translation = { -3.0f,0.0f,5.0f };
 		//int index = 0;
@@ -96,6 +109,7 @@ namespace Sign {
 		m_Meshes.push_back(Cube);
 		m_Meshes.push_back(plane);
 		/***********************************************/
+
 
 
 		/*PipelineSpecifications pSpecs = {};
@@ -282,8 +296,11 @@ namespace Sign {
 
 
 		
-		if(m_ViewportHovered)
-			m_EditorCamera.OnUpdate(dt);
+	
+		m_EditorCamera.OnUpdate(dt);
+
+		if(StartSimulation)
+			m_ActiveScene->OnUpdateRuntime(dt);
 
 		for (auto& entity : m_Meshes) {
 			entity->OnUpdate(dt);
@@ -585,6 +602,24 @@ namespace Sign {
 				std::println("Undo");
 			}
 			break;
+		}
+
+		case Key::S:
+		{
+
+			if (control) {
+				if (!StartSimulation) {
+					std::println("Sim Start");
+					m_ActiveScene->OnPhysics3DStart();
+					StartSimulation = true;
+
+				}
+				else {
+					std::println("Sim Stop");
+					m_ActiveScene->OnPhysics3DStop();
+					StartSimulation = false;
+				}
+			}break;
 		}
 		}
 		return false;
