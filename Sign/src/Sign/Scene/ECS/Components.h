@@ -82,6 +82,22 @@ namespace Sign {
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
 
+	struct SphereColliderComponent
+	{
+		Vector3D Offset = { 0.0f,0.0f,0.0f };
+		float Radius =  0.5f;
+
+		float Density = 1.0f;
+		float Friction = 0.5f;
+		float Restitution = 0.5f;
+		float RestitutionThreshold = 0.5f;
+		SphereColliderComponent() = default;
+		SphereColliderComponent(const SphereColliderComponent&) = default;
+
+		void* RuntimeFixture = nullptr;
+		EntityID m_entity = INVALID_ENTITY_ID;
+	};
+
 
 
 }

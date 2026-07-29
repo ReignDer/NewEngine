@@ -10,16 +10,25 @@ namespace Sign {
 	{
 
 		if (Input::IsMouseButtonPressed(Mouse::LeftButton)) {
-			const Vector2D& mouse = { Input::GetMouseX(), Input::GetMouseY() };
-			float deltaMouseX = mouse.x - m_InitialMousePosition.x;
-			float deltaMouseY = mouse.y - m_InitialMousePosition.y;
-			m_InitialMousePosition = mouse;
-			m_Yaw += deltaMouseX * RotationSpeed() * dt;
-			m_Pitch += deltaMouseY * RotationSpeed() * dt;
 
-			m_Pitch = std::clamp(m_Pitch, MathUtils::ConvertToRadians(-89.5), MathUtils::ConvertToRadians(89.5));
+			const Vector2D& mouse = { Input::GetMouseX(), Input::GetMouseY() };
+
+			if (!m_IsDragging) {
+				m_InitialMousePosition = mouse;
+				m_IsDragging = true;
+			}
+			else {
+				float deltaMouseX = mouse.x - m_InitialMousePosition.x;
+				float deltaMouseY = mouse.y - m_InitialMousePosition.y;
+				m_InitialMousePosition = mouse;
+				m_Yaw += deltaMouseX * RotationSpeed() * dt;
+				m_Pitch += deltaMouseY * RotationSpeed() * dt;
+
+				m_Pitch = std::clamp(m_Pitch, MathUtils::ConvertToRadians(-89.5), MathUtils::ConvertToRadians(89.5));
+			}
 		}
 		else {
+			m_IsDragging = false;
 			m_InitialMousePosition = { Input::GetMouseX(), Input::GetMouseY() };
 		}
 

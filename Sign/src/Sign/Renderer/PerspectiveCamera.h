@@ -27,6 +27,7 @@ namespace Sign {
 		void SetPerspectiveFarClip(float farClip) { m_PerspectiveFarClip = farClip; RecalculateProjection(); }
 		float GetPerspectiveNearClip() const { return m_PerspectiveNearClip; }
 		void SetPerspectiveNearClip(float nearClip) { m_PerspectiveNearClip = nearClip; RecalculateProjection(); }
+		void ResetDragState() { m_IsDragging = false; }
 
 		Vector3D GetForwardDirection() const;
 		Vector3D GetRightDirection() const;
@@ -58,6 +59,8 @@ namespace Sign {
 
 		float m_Yaw = 0.0f;
 		float m_Pitch = 0.0f;
+
+		bool m_IsDragging = false;
 	};
 }
 

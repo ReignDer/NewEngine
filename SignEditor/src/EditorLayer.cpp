@@ -296,8 +296,10 @@ namespace Sign {
 
 
 		
-		if(m_ViewportFocused)
+		if (m_ViewportFocused)
 			m_EditorCamera.OnUpdate(dt);
+		else
+			m_EditorCamera.ResetDragState();
 
 		if(StartSimulation)
 			m_ActiveScene->OnUpdateRuntime(dt);

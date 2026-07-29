@@ -136,6 +136,24 @@ namespace Sign {
 
             }
 
+            if (entity.HasComponent<SphereColliderComponent>())
+            {
+                auto& sc3d = entity.GetComponent<SphereColliderComponent>();
+
+                reactphysics3d::SphereShape* sphereShape = m_PhysicsCommon.createSphereShape(sc3d.Radius * transform.Scale.x);
+
+                reactphysics3d::Collider* collider;
+                reactphysics3d::Vector3 offset(sc3d.Offset.x, sc3d.Offset.y, sc3d.Offset.z);
+                reactphysics3d::Quaternion localOrientation = reactphysics3d::Quaternion::identity();
+                reactphysics3d::Transform colTransform(offset, localOrientation);
+                collider = body->addCollider(sphereShape, colTransform);
+                reactphysics3d::Material& material = collider->getMaterial();
+
+                material.setMassDensity(sc3d.Density);
+                material.setFrictionCoefficient(sc3d.Friction);
+                material.setBounciness(sc3d.Restitution);
+            }
+
 
         }
     }

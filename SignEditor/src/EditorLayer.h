@@ -38,8 +38,11 @@ namespace Sign {
 		int32_t m_SelectedFaceID;
 		SceneHierarchy m_SceneHierarchyPanel;
 
-		std::shared_ptr<Texture2D> m_Texture2D;
-		std::shared_ptr<Texture2D> m_TeapotTexture;
+		enum class SceneState{Edit = 0, Play = 1, Simulate = 2};
+
+		SceneState m_SceneState = SceneState::Edit;
+
+		std::shared_ptr<Texture2D> m_Texture2D, m_TeapotTexture;
 
 		std::shared_ptr<Shader> m_Shader;
 		std::vector<std::shared_ptr<Entity>> m_Meshes;

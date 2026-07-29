@@ -170,7 +170,10 @@ namespace Sign {
 		if (ImGui::BeginPopup("AddComponent"))
 		{
 			DisplayAddComponentEntry<TransformComponent>("Transform");
-
+			DisplayAddComponentEntry<RigidBody3D>("Rigidbody 3D");
+			DisplayAddComponentEntry<Box3DColliderComponent>("Box3D Collider");
+			DisplayAddComponentEntry<SphereColliderComponent>("Sphere Collider");
+			
 			ImGui::EndPopup();
 		}
 		DrawComponent<TransformComponent>("Transform", entity, [](auto& component) 
@@ -180,6 +183,49 @@ namespace Sign {
 			DrawVec3Control("Rotation", rotation);
 			component.Rotation = MathUtils::ConvertToRadiansVec3(rotation);
 			DrawVec3Control("Scale", component.Scale, 1.0f);
+		});
+
+		DrawComponent<RigidBody3D>("Rigidbody 3D", entity, [](auto& component)
+		{
+			const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
+			const char* currentBodyTypeString = bodyTypeStrings[(int)component.Type];
+
+			if (ImGui::BeginCombo("Body Type", currentBodyTypeString)) 
+			{
+				for (int i = 0; i < 3; i++) 
+				{
+					bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
+					if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
+					{
+						currentBodyTypeString = bodyTypeStrings[i];
+						component.Type = (RigidBody3D::BodyType)i;
+					}
+					if (isSelected) {
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+
+				ImGui::EndCombo();
+				
+			}			
+		});
+
+		DrawComponent<Box3DColliderComponent>("Box3D Collider", entity, [](auto& component)
+		{
+			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
+			ImGui::DragFloat3("Size", MathUtils::value_ptr(component.Size));
+			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
+		});
+
+		DrawComponent<SphereColliderComponent>("Sphere Collider", entity, [](auto& component)
+		{
+			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
+			ImGui::DragFloat3("Radius", &component.Radius);
+			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
 		});
 
 	}
