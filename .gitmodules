@@ -16,3 +16,6 @@
 [submodule "Sign/vendor/ReactPhysics"]
 	path = Sign/vendor/ReactPhysics
 	url = https://github.com/ReignDer/reactphysics3d
+[submodule "Sign/vendor/yaml-cpp"]
+	path = Sign/vendor/yaml-cpp
+	url = https://github.com/ReignDer/yaml-cpp

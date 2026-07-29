@@ -5,7 +5,7 @@
 #include "Sign/Scene/ECS/Components.h"
 #include "Sign/Renderer/Renderer.h"
 #include "Sign/Physics/PhysicsUtils.h"
-
+#include "Sign/UUID.h"
 namespace Sign {
 	class EntityECS;
 	class Scene
@@ -15,6 +15,7 @@ namespace Sign {
 		~Scene();
 
 		EntityECS CreateEntity(std::string_view name = std::string());
+		EntityECS CreateEntityWithUUID(UUID uuid, std::string_view name);
 
 		void DestroyEntity(EntityECS entity);
 
@@ -36,7 +37,11 @@ namespace Sign {
 		reactphysics3d::PhysicsWorld* m_PhysicsWorld = nullptr;
 
 		uint32_t m_SelectedFaceID;
+
+		std::unordered_map<UUID, EntityECS> m_EntityMap;
+
 		friend class EntityECS;
+		friend class SceneSerializer;
 		friend class SceneHierarchy;
 	};
 }

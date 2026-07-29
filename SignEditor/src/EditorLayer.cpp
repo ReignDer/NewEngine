@@ -1,6 +1,9 @@
 #include "EditorLayer.h"
 #include <imgui.h>
 
+
+#include "Sign/PlatformUtils/WindowsPlatformUtils.h"
+
 namespace Sign {
 	static bool p_open = false;
 	static bool p_Credits = false;
@@ -98,6 +101,8 @@ namespace Sign {
 		//}
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+		
 		/***********************************************/
 
 		/*************** OOP VERSION ********************/
@@ -356,7 +361,7 @@ namespace Sign {
 		
 
 		/*******ECS********/
-		m_ActiveScene->RenderScene(m_SelectedEntity ? m_SelectedEntity.GetID() : INVALID_ENTITY_ID, m_SelectedFaceID);
+		m_ActiveScene->RenderScene(m_SelectedEntity ? m_SelectedEntity : INVALID_ENTITY_ID, m_SelectedFaceID);
 		/*****************/
 
 
@@ -415,7 +420,35 @@ namespace Sign {
 		{
 			if (ImGui::BeginMenu("File"))
 			{
+				if (ImGui::MenuItem("New", "Ctrl+N")) {
+					Renderer::GetContext()->FlushCommandQueue();
+					m_ActiveScene = std::make_shared<Scene>();
+					m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+					
+				}
+				if (ImGui::MenuItem("Open...", "Ctrl+O")) {
+					std::string filepath = FileDialogs::OpenFile("Sign Scene (*.sign) \0*.sign\0");
+					if (!filepath.empty()) {
+						Renderer::GetContext()->FlushCommandQueue();
+						m_ActiveScene = std::make_shared<Scene>();
+						
+						//Resize Viewport if we have a scene camera here
+						m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Deserialize(filepath);
+					}
+					
+				}
+
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+					std::string filepath = FileDialogs::SaveFile("Sign Scene (*.sign) \0*.sign\0");
+					if (!filepath.empty()) {
+
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Serialize(filepath);
+					}
+				}
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Edit"))

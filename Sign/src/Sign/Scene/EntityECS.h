@@ -2,6 +2,7 @@
 #include "Sign/Scene/Scene.h"
 #include "Sign/Scene/ECS/ECSTypes.h"
 #include "Sign/Scene/ECS/Components.h"
+#include "Sign/UUID.h"
 namespace Sign {
 	class EntityECS {
 	public:
@@ -30,7 +31,7 @@ namespace Sign {
 			m_Scene->GetRegistry().RemoveComponent<T>(m_EntityHandle);
 		}
 
-		EntityID GetID() const { return m_EntityHandle; }
+		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
 		operator bool() const { return m_EntityHandle != INVALID_ENTITY_ID; }
 		operator EntityID() const { return m_EntityHandle; }
 

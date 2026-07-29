@@ -7,6 +7,8 @@
 #include "Sign/Renderer/Mesh.h"
 #include "Sign/Shader/Shader.h"
 #include "Sign/Renderer/Texture.h"
+#include "Sign/UUID.h"
+
 namespace Sign {
 
 	inline ComponentType GetNextComponentTypeID() {
@@ -19,6 +21,16 @@ namespace Sign {
 		static ComponentType typeID = GetNextComponentTypeID();
 		return typeID;
 	}
+
+	struct IDComponent {
+		UUID ID;
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+		IDComponent(const UUID& id) : ID(id) {}
+
+		EntityID m_entity = INVALID_ENTITY_ID;
+	};
+
 	struct TransformComponent {
 		Vector3D Translation = { 0.0f,0.0f,0.0f };
 		Vector3D Rotation = { 0.0f,0.0f,0.0f};
@@ -98,6 +110,25 @@ namespace Sign {
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
 
+	struct LightComponent
+	{
+		enum class LightType{Directional, Spot, Point };
 
+		LightType Type = LightType::Directional;
+
+		Vector3D Color = { 1.0f,1.0f,1.0f };
+
+		float Intensity = 1.f;
+
+		float Range = 10.f;
+
+		float InnerConeAngle = 12.5f;
+		float OuterConeAngle = 17.5f;
+
+		LightComponent() = default;
+		LightComponent(const LightComponent&) = default;
+
+		EntityID m_entity = INVALID_ENTITY_ID;
+	};
 
 }

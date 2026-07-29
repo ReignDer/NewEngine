@@ -23,6 +23,7 @@
 #include "Sign/Scene/Scene.h"
 #include "Sign/Scene/EntityECS.h"
 #include "Sign/Scene/ECS/Components.h"
+#include "Sign/Scene/SceneSerializer.h"
 #include "Sign/Renderer/Texture.h"
 #include "Sign/Shader/Shader.h"
 #include "Sign/Asset/MeshImporter.h"

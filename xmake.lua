@@ -16,6 +16,7 @@ includes("Sign/vendor/ImGui")
 includes("Sign/vendor/DirectXTex")
 includes("Sign/vendor/ImGuizmo")
 includes("Sign/vendor/ReactPhysics")
+includes("Sign/vendor/yaml-cpp")
 target("Sign")
 	set_kind("static")
 	set_languages("c++23")
@@ -41,9 +42,10 @@ target("Sign")
 		"Sign/vendor/ImGuizmo/src",
 		"Sign/vendor/tinyobjloader",
 		"Sign/vendor/ReactPhysics/include",
+		"Sign/vendor/yaml-cpp/include",
 		"Sign/src", {public = true} )
 
-	add_deps("ImGui", "DirectXTex", "ImGuizmo","ReactPhysics",{public = true})
+	add_deps("ImGui", "DirectXTex", "ImGuizmo","ReactPhysics","yaml-cpp",{public = true})
 	add_links(
 		--"ImGui",
 		"dwmapi.lib", "d3d12.lib", "dxgi.lib",
@@ -57,6 +59,7 @@ target("Sign")
 		add_defines("WINVER=0x0A00")
 		add_defines("_WIN32_WINNT=0x0A00") 
 		add_defines("SIGN__PLATFORM_WINDOWS","SIGN__BUILD_DLL")
+		add_syslinks("Comdlg32", {public = true})
 		--add_defines("GLFW_INCLUDE_NONE")
 	end
 

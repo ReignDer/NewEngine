@@ -18,6 +18,7 @@ namespace Sign {
 		Mat4 projectionMatrix;
 		float time;
 	};
+
 	class Renderer
 	{
 	public:

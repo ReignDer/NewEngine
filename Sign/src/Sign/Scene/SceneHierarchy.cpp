@@ -14,6 +14,7 @@ namespace Sign {
 	void SceneHierarchy::SetContext(const std::shared_ptr<Scene>& scene)
 	{
 		m_Context = scene;
+		m_SelectedEntity = {};
 	}
 	void SceneHierarchy::OnImGuiRender()
 	{
@@ -25,8 +26,17 @@ namespace Sign {
 			DrawTreeNode(entity);
 			
 		});
+
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Left) && ImGui::IsWindowHovered()) {
 			m_SelectedEntity = {};
+		}
+
+		if (ImGui::BeginPopupContextWindow("PopupContext"))
+		{
+			if (ImGui::MenuItem("Create Empty Entity")) {
+				m_Context->CreateEntity("Empty Entity");
+			}
+			ImGui::EndPopup();
 		}
 		ImGui::End();
 

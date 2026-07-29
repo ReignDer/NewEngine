@@ -16,17 +16,26 @@ namespace Sign {
 
     EntityECS Scene::CreateEntity(std::string_view name)
     {
+        return CreateEntityWithUUID(UUID(), name);
+    }
+
+    EntityECS Scene::CreateEntityWithUUID(UUID uuid, std::string_view name)
+    {
         EntityID id = m_Registry.CreateEntity();
         EntityECS entity(id, this);
+        entity.AddComponent<IDComponent>(uuid);
         entity.AddComponent<TransformComponent>();
         entity.AddComponent<TagComponent>(name.empty() ? "Entity" : name);
+
+        m_EntityMap[uuid] = entity;
 
         return entity;
     }
 
     void Scene::DestroyEntity(EntityECS entity)
     {
-        m_Registry.DestroyEntity(entity.GetID());
+        m_EntityMap.erase(entity.GetUUID());
+        m_Registry.DestroyEntity(entity);
     }
 
     void Scene::OnUpdateRuntime(Timestep ts)

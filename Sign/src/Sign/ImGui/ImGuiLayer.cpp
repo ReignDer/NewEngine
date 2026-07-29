@@ -220,5 +220,32 @@ namespace Sign {
         colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
         colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
         colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+/*        // Headers
+        colors[ImGuiCol_Header] = ImVec4{ 0.85f, 0.45f, 0.0f,  1.0f }; // Base Orange
+        colors[ImGuiCol_HeaderHovered] = ImVec4{ 1.0f,  0.55f, 0.1f,  1.0f }; // Bright Hover Orange
+        colors[ImGuiCol_HeaderActive] = ImVec4{ 0.65f, 0.32f, 0.0f,  1.0f }; // Dark Active Orange
+
+        // Buttons
+        colors[ImGuiCol_Button] = ImVec4{ 0.85f, 0.45f, 0.0f,  1.0f }; // Base Orange
+        colors[ImGuiCol_ButtonHovered] = ImVec4{ 1.0f,  0.55f, 0.1f,  1.0f }; // Bright Hover Orange
+        colors[ImGuiCol_ButtonActive] = ImVec4{ 0.65f, 0.32f, 0.0f,  1.0f }; // Dark Active Orange
+
+        // Frame BG
+        colors[ImGuiCol_FrameBg] = ImVec4{ 0.85f, 0.45f, 0.0f,  1.0f }; // Base Orange
+        colors[ImGuiCol_FrameBgHovered] = ImVec4{ 1.0f,  0.55f, 0.1f,  1.0f }; // Bright Hover Orange
+        colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.65f, 0.32f, 0.0f,  1.0f }; // Dark Active Orange
+
+        // Tabs
+        colors[ImGuiCol_Tab] = ImVec4{ 0.25f, 0.12f, 0.0f,  1.0f }; // Dark Burnt Orange (Inactive)
+        colors[ImGuiCol_TabHovered] = ImVec4{ 1.0f,  0.55f, 0.1f,  1.0f }; // Bright Vibrant Orange
+        colors[ImGuiCol_TabActive] = ImVec4{ 0.85f, 0.45f, 0.0f,  1.0f }; // Base Orange (Selected)
+        colors[ImGuiCol_TabUnfocused] = ImVec4{ 0.15f, 0.10f, 0.05f, 1.0f }; // Very Muted Brown-Orange
+        colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.45f, 0.22f, 0.0f,  1.0f }; // Medium Burnt Orange
+
+        // Title
+        colors[ImGuiCol_TitleBg] = ImVec4{ 0.12f, 0.06f, 0.0f,  1.0f }; // Deep Charcoal Brown-Orange
+        colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.18f, 0.09f, 0.0f,  1.0f }; // Slightly Lighter Deep Brown
+        colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.10f, 0.05f, 0.0f,  1.0f }; // Near*/
     }
 }
