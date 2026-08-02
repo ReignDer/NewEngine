@@ -28,6 +28,8 @@
 #include "Sign/Shader/Shader.h"
 #include "Sign/Asset/MeshImporter.h"
 
+#include "Sign/Project/Project.h"
+
 #include "Sign/Ccommand/EditorCommand.h"
 #include "Sign/Buffers/FrameBuffer.h"
 

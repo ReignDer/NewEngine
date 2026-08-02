@@ -17,6 +17,9 @@ namespace Sign {
 		specifications.name = "Sign Engine";
 		specifications.WindowSpec.Width = 1600;
 		specifications.WindowSpec.Height = 900;
+
+		specifications.WorkingDirectory = "../../../";
+
 		return new Editor(specifications);
 	}
 }

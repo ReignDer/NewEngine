@@ -153,6 +153,19 @@ namespace Sign {
             out << YAML::EndMap;
         }
 
+        if (entity.HasComponent<MeshRendererComponent>())
+        {
+            out << YAML::Key << "MeshRendererComponent";
+            out << YAML::BeginMap;
+
+            auto& meshComponent = entity.GetComponent<MeshRendererComponent>();
+
+            out << YAML::Key << "MeshHandle" << YAML::Value << meshComponent.MeshA;
+            out << YAML::Key << "TextureHandle" << YAML::Value << meshComponent.TextureA;
+
+            out << YAML::EndMap;
+        }
+
         out << YAML::EndMap;
     }
     void SceneSerializer::Serialize(std::string_view filepath)
@@ -243,6 +256,16 @@ namespace Sign {
                     sc3d.Friction = sphereColliderComponent["Friction"].as<float>();
                     sc3d.Restitution = sphereColliderComponent["Restitution"].as<float>();
                     sc3d.RestitutionThreshold = sphereColliderComponent["RestitutionThreshold"].as<float>();
+                }
+
+                auto meshRendererComponent = entity["MeshRendererComponent"];
+
+                if (meshRendererComponent)
+                {
+                    auto& mesh = deserializedEntity.AddComponent<MeshRendererComponent>();
+
+                    mesh.MeshA = meshRendererComponent["MeshHandle"].as<AssetHandle>();
+                    mesh.TextureA = meshRendererComponent["TextureHandle"].as<AssetHandle>();
                 }
             }
         }

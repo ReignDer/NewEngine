@@ -1,0 +1,13 @@
+AssetRegistry:
+  - Handle: 2583272014892537200
+    FilePath: brick.png
+    Type: AssetType::Texture2D
+  - Handle: 5058016125798318033
+    FilePath: teapot.obj
+    Type: AssetType::Mesh
+  - Handle: 9604170989252516556
+    FilePath: armadillo.obj
+    Type: AssetType::Mesh
+  - Handle: 10349215569089701407
+    FilePath: bunny.obj
+    Type: AssetType::Mesh

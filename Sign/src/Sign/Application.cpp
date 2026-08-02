@@ -20,6 +20,10 @@ namespace Sign {
 		}
 #endif
 		m_Specifications = specifications;
+		std::println("CurrentFileDir: {}", std::filesystem::current_path().string());
+		if (!m_Specifications.WorkingDirectory.empty())
+			std::filesystem::current_path(m_Specifications.WorkingDirectory);
+		std::println("CurrentFileDir: {}", std::filesystem::current_path().string());
 		if (m_Specifications.WindowSpec.Title.empty())
 			m_Specifications.WindowSpec.Title = m_Specifications.name;
 

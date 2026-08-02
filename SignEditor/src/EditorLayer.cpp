@@ -3,7 +3,8 @@
 
 
 #include "Sign/PlatformUtils/WindowsPlatformUtils.h"
-
+#include "Sign/Asset/TextureImporter.h"
+#include "Sign/Asset/MeshImporter.h"
 namespace Sign {
 	static bool p_open = false;
 	static bool p_Credits = false;
@@ -25,10 +26,11 @@ namespace Sign {
 
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 
-		m_Texture2D = std::make_shared<Texture2D>("SignEditor/assets/dlsu-logo.png");
-		m_TeapotTexture = std::make_shared<Texture2D>("SignEditor/assets/brick.png");
+		m_Texture2D = TextureImporter::LoadTexture2D("SignEditor/assets/dlsu-logo.png");
+		m_TeapotTexture = TextureImporter::LoadTexture2D("SignEditor/assets/brick.png");
+		m_TeapotMesh = MeshImporter::LoadMesh("SignEditor/assets/teapot.obj");
 		/*************** ECS VERSION ********************/
-		m_ActiveScene = std::make_shared<Scene>();
+		/*m_ActiveScene = std::make_shared<Scene>();
 
 		auto CubeECS = m_ActiveScene->CreateEntity("Cube1");
 		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
@@ -89,7 +91,7 @@ namespace Sign {
 		auto armadillo = m_ActiveScene->CreateEntity("Armadillo");
 		armadillo.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/armadillo.obj"), m_ShaderLibrary.Get("MeshShader"));
 		auto& armadilloTransform = armadillo.GetComponent<TransformComponent>();
-		armadilloTransform.Translation = { -3.0f,0.0f,5.0f };
+		armadilloTransform.Translation = { -3.0f,0.0f,5.0f };*/
 		//int index = 0;
 		//for (int i = 0; i < 10000; i++) {
 		//	
@@ -99,7 +101,7 @@ namespace Sign {
 		//	CubeTransform.Translation = { MathUtils::Random_Float(-100.f,100.f),MathUtils::Random_Float(-100.f,100.f),MathUtils::Random_Float(-100.f,100.f) };
 		//	index++;
 		//}
-
+		OpenProject("SignEditor/SignProject/SignBox.sproj");
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 		
@@ -421,33 +423,16 @@ namespace Sign {
 			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("New", "Ctrl+N")) {
-					Renderer::GetContext()->FlushCommandQueue();
-					m_ActiveScene = std::make_shared<Scene>();
-					m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+					NewScene();
 					
 				}
 				if (ImGui::MenuItem("Open...", "Ctrl+O")) {
-					std::string filepath = FileDialogs::OpenFile("Sign Scene (*.sign) \0*.sign\0");
-					if (!filepath.empty()) {
-						Renderer::GetContext()->FlushCommandQueue();
-						m_ActiveScene = std::make_shared<Scene>();
-						
-						//Resize Viewport if we have a scene camera here
-						m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-
-						SceneSerializer serializer(m_ActiveScene);
-						serializer.Deserialize(filepath);
-					}
+					OpenScene();
 					
 				}
 
 				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
-					std::string filepath = FileDialogs::SaveFile("Sign Scene (*.sign) \0*.sign\0");
-					if (!filepath.empty()) {
-
-						SceneSerializer serializer(m_ActiveScene);
-						serializer.Serialize(filepath);
-					}
+					SaveSceneAs();
 				}
 				ImGui::EndMenu();
 			}
@@ -528,6 +513,7 @@ namespace Sign {
 		}
 
 		m_SceneHierarchyPanel.OnImGuiRender();
+		m_ContentBrowserPanel->OnImGuiRender();
 		// Show demo options and help
 		if (ImGui::BeginMenuBar())
 		{
@@ -570,6 +556,17 @@ namespace Sign {
 		m_ViewportSize = { viewportPanelSize.x,viewportPanelSize.y };
 		UINT64 coloraAttachment = m_FrameBuffer->GetTextureID();
 		ImGui::Image((ImTextureID)coloraAttachment, ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+
+
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM")) {
+				const wchar_t* path = (const wchar_t*)payload->Data;
+
+				OpenScene(path);
+			}
+
+			ImGui::EndDragDropTarget();
+		}
 
 		ImVec2 ImageMin = ImGui::GetItemRectMin();
 		ImVec2 ImageMax = ImGui::GetItemRectMax();
@@ -639,6 +636,7 @@ namespace Sign {
 		}
 
 		bool control = Input::IsKeyPressed(Key::LControl) || Input::IsKeyPressed(Key::RControl);
+		bool shift = Input::IsKeyPressed(Key::LShift) || Input::IsKeyPressed(Key::RShift);
 
 		switch (e.GetKeyCode())
 		{
@@ -650,11 +648,29 @@ namespace Sign {
 			}
 			break;
 		}
-
+		case Key::N:
+		{
+			if (control)
+			{
+				NewScene();
+			}
+			break;
+		}
+		case Key::O:
+		{
+			if (control)
+			{
+				OpenScene();
+			}
+			break;
+		}
 		case Key::S:
 		{
 
 			if (control) {
+				if (shift) {
+					SaveSceneAs();
+				}
 				if (!StartSimulation) {
 					std::println("Sim Start");
 					m_ActiveScene->OnPhysics3DStart();
@@ -702,5 +718,64 @@ namespace Sign {
 		}
 
 		return false;
+	}
+	void EditorLayer::NewProject()
+	{
+		Project::New();
+	}
+	bool EditorLayer::OpenProject()
+	{
+		std::string filepath = FileDialogs::OpenFile("Hazel Project(*.sproj)\0*.sproj\0");
+		if (filepath.empty())
+			return false;
+
+		OpenProject(filepath);
+		return true;
+	}
+	void EditorLayer::OpenProject(const std::filesystem::path& path)
+	{
+		std::println("{}", std::filesystem::absolute(path).string());
+		if (Project::Load(path)) {
+			auto startScenePath = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().StartScene);
+			OpenScene(startScenePath);
+			m_ContentBrowserPanel = std::make_unique<ContentBrowserPanel>();
+		}
+	}
+	void EditorLayer::SaveProject()
+	{
+		//Project::SaveActive();
+	}
+	void EditorLayer::NewScene()
+	{
+		Renderer::GetContext()->FlushCommandQueue();
+		m_ActiveScene = std::make_shared<Scene>();
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+	void EditorLayer::OpenScene()
+	{
+		std::string filepath = FileDialogs::OpenFile("Sign Scene (*.sign) \0*.sign\0");
+		if (!filepath.empty()) {
+			OpenScene(filepath);
+		}
+	}
+	void EditorLayer::OpenScene(const std::filesystem::path& path)
+	{
+		Renderer::GetContext()->FlushCommandQueue();
+		m_ActiveScene = std::make_shared<Scene>();
+
+		//Resize Viewport if we have a scene camera here
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Deserialize(path.string());
+	}
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filepath = FileDialogs::SaveFile("Sign Scene (*.sign) \0*.sign\0");
+		if (!filepath.empty()) {
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath);
+		}
 	}
 }

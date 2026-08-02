@@ -1,0 +1,61 @@
+Scene: Untitled
+Entities:
+  - Entity: 17462938647148434322
+    TagComponent:
+      Tag: Cube1
+    TransformComponent:
+      Translation: [0, 5, 3]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Box3DColliderComponent:
+      Offset: [0, 0, 0]
+      Size: [0.5, 0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      RestitutionThreshold: 0.5
+  - Entity: 7469126240319926998
+    TagComponent:
+      Tag: Cube2
+    TransformComponent:
+      Translation: [-5, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 4635995468481642529
+    TagComponent:
+      Tag: Plane
+    TransformComponent:
+      Translation: [0, -0.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [10, 0.005, 10]
+    Box3DColliderComponent:
+      Offset: [0, 0, 0]
+      Size: [0.5, 0.005, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      RestitutionThreshold: 0.5
+  - Entity: 9604170989252516556
+    TagComponent:
+      Tag: Teapot
+    TransformComponent:
+      Translation: [0, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshRendererComponent:
+      MeshHandle: 5058016125798318033
+      TextureHandle: 2583272014892537200
+  - Entity: 5058016125798318033
+    TagComponent:
+      Tag: Bunny
+    TransformComponent:
+      Translation: [3, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 2583272014892537200
+    TagComponent:
+      Tag: Armadillo
+    TransformComponent:
+      Translation: [-3, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]

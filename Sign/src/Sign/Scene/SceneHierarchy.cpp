@@ -3,6 +3,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 
+#include "Sign/Asset/AssetManager.h"
 namespace Sign {
 	SceneHierarchy::SceneHierarchy(const std::shared_ptr<Scene>& scene)
 	{
@@ -183,6 +184,7 @@ namespace Sign {
 			DisplayAddComponentEntry<RigidBody3D>("Rigidbody 3D");
 			DisplayAddComponentEntry<Box3DColliderComponent>("Box3D Collider");
 			DisplayAddComponentEntry<SphereColliderComponent>("Sphere Collider");
+			DisplayAddComponentEntry<MeshRendererComponent>("Mesh Renderer");
 			
 			ImGui::EndPopup();
 		}
@@ -236,6 +238,119 @@ namespace Sign {
 			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
+		});
+
+		DrawComponent<MeshRendererComponent>("Mesh Renderer", entity, [](auto& component)
+		{
+			std::string meshLabel = "None";
+			std::string texture2DLabel = "None";
+			bool isMeshValid = false;
+			bool isTexture2DValid = false;
+
+
+			ImGui::PushID("Mesh");
+			if (component.MeshA != 0)
+			{
+				if (AssetManager::IsAssetHandleValid(component.MeshA)
+					&& AssetManager::GetAssetType(component.MeshA) == AssetType::Mesh)
+				{
+					const AssetMetaData& metadata = Project::GetActive()->GetEditorAssetManager()->GetMetaData(component.MeshA);
+					meshLabel = metadata.Filepath.filename().string();
+					isMeshValid = true;
+				}
+			}
+			else
+			{
+				meshLabel = "Invalid";
+			}
+
+			if (component.TextureA != 0)
+			{
+				if (AssetManager::IsAssetHandleValid(component.TextureA)
+					&& AssetManager::GetAssetType(component.TextureA) == AssetType::Texture2D)
+				{
+					const AssetMetaData& metadata = Project::GetActive()->GetEditorAssetManager()->GetMetaData(component.TextureA);
+					texture2DLabel = metadata.Filepath.filename().string();
+					isTexture2DValid = true;
+				}
+			}
+			else
+			{
+				texture2DLabel = "Invalid";
+			}
+
+			ImVec2 MeshbuttonLabelSize = ImGui::CalcTextSize(meshLabel.c_str());
+			MeshbuttonLabelSize.x += 20.0f;
+			float MeshbuttonLabelWidth = (std::max<float>)(100.0f, MeshbuttonLabelSize.x);
+
+			ImGui::Button(meshLabel.c_str(), ImVec2(MeshbuttonLabelWidth, 0.0f));
+			if (ImGui::BeginDragDropTarget()) {
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					AssetHandle handle = *(AssetHandle*)payload->Data;
+					if (AssetManager::GetAssetType(handle) == AssetType::Mesh)
+					{
+						component.MeshA = handle;
+					}
+					else
+					{
+
+					}
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+			if (isMeshValid)
+			{
+				ImGui::SameLine();
+				ImVec2 xMeshLabelSize = ImGui::CalcTextSize("X");
+				float MeshbuttonSize = xMeshLabelSize.y + ImGui::GetStyle().FramePadding.y * 2.0f;
+				if (ImGui::Button("X", ImVec2(MeshbuttonSize, MeshbuttonSize)))
+				{
+					component.MeshA = 0;
+				}
+			}
+
+			ImGui::SameLine();
+			ImGui::Text("Mesh");
+			ImGui::PopID();
+
+			ImGui::PushID("Texture");
+			ImVec2 Texture2DbuttonLabelSize = ImGui::CalcTextSize(texture2DLabel.c_str());
+			Texture2DbuttonLabelSize.x += 20.0f;
+			float Texture2DbuttonLabelWidth = (std::max<float>)(100.0f, Texture2DbuttonLabelSize.x);
+
+			ImGui::Button(texture2DLabel.c_str(), ImVec2(Texture2DbuttonLabelWidth, 0.0f));
+			if (ImGui::BeginDragDropTarget()) {
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					AssetHandle handle = *(AssetHandle*)payload->Data;
+					if (AssetManager::GetAssetType(handle) == AssetType::Texture2D)
+					{
+						component.TextureA = handle;
+					}
+					else
+					{
+
+					}
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+			if (isTexture2DValid)
+			{
+				ImGui::SameLine();
+				ImVec2 xTexture2DLabelSize = ImGui::CalcTextSize("X");
+				float Texture2DbuttonSize = xTexture2DLabelSize.y + ImGui::GetStyle().FramePadding.y * 2.0f;
+				if (ImGui::Button("X", ImVec2(Texture2DbuttonSize, Texture2DbuttonSize)))
+				{
+					component.TextureA = 0;
+				}
+			}
+
+			ImGui::SameLine();
+			ImGui::Text("Texture");
+			ImGui::PopID();
 		});
 
 	}

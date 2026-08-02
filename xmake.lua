@@ -95,7 +95,7 @@ target("SignEditor")
 
 	add_headerfiles("SignEditor/src/**.h")
 	add_files("SignEditor/src/**.cpp")
-	add_extrafiles("SignEditor/src/**.hlsl", "SignEditor/assets/**.png", "SignEditor/assets/**.obj",{type = "plain"})
+	add_extrafiles("SignEditor/src/**.hlsl", "SignEditor/assets/**.png", "SignEditor/assets/**.obj", "SignEditor/Resources/**.png",{type = "plain"})
 
 	
 	--add_includedirs(
@@ -130,6 +130,11 @@ target("SignEditor")
 		os.mkdir(assetDest)
 	    os.cp(assetSrc .. "/**", assetDest)
 
+		local resourceSrc = path.join(os.projectdir(), "SignEditor/Resources")
+		local resourceDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "SignEditor", "Resources")
+		os.mkdir(resourceDest)
+	    os.cp(resourceSrc .. "/**", resourceDest)
+
 	end)
 
 	after_build(function(target)
@@ -144,6 +149,11 @@ target("SignEditor")
 		local assetDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "assets")
 		os.mkdir(assetDest)
 	    os.cp(assetSrc .. "/**", assetDest)
+
+		local resourceSrc = path.join(os.projectdir(), "SignEditor/Resources")
+		local resourceDest = path.join(os.projectdir(),"bin",mode.."-"..arch,"SignEditor", "SignEditor", "Resources")
+		os.mkdir(resourceDest)
+	    os.cp(resourceSrc .. "/**", resourceDest)
 	end)
 
 	if is_mode("debug") then

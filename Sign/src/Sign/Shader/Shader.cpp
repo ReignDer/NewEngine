@@ -132,8 +132,8 @@ namespace Sign {
 
 	std::shared_ptr<Shader> ShaderLibrary::GetDefault()
 	{
-		if (Exists("Default"))
-			return Get("Default");
+		if (Exists("DefaultShader"))
+			return Get("DefaultShader");
 
 		PipelineSpecifications pSpecs = {};
 		pSpecs.InputLayout = { { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -149,7 +149,7 @@ namespace Sign {
 		pSpecs.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 
-		return Load("DefaultShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelShader.hlsl", pSpecs);
+		return Load("DefaultShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", pSpecs);
 	}
 
 	bool ShaderLibrary::Exists(std::string_view name) const

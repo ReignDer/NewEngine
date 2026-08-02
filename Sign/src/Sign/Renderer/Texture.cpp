@@ -54,6 +54,7 @@ namespace Sign {
 		
 		if (FAILED(hr)) {
 			m_IsLoaded = false;
+			std::println("ERROR: Failed to load texture: {} (hr=0x{:08X})", m_Path, (uint32_t)hr);
 			return;
 		}
 		

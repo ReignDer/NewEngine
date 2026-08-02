@@ -1,0 +1,6 @@
+Project:
+  Name: Untitled
+  StartScene: "scenes/SignScene.sign"
+  AssetDirectory: "assets"
+  AssetRegistryPath: "AssetRegistry.snr"
+  MeshPath: ""

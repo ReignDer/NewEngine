@@ -8,6 +8,7 @@
 #include "Sign/Shader/Shader.h"
 #include "Sign/Renderer/Texture.h"
 #include "Sign/UUID.h"
+#include "Sign/Asset/Asset.h"
 
 namespace Sign {
 
@@ -52,6 +53,8 @@ namespace Sign {
 	
 	struct MeshRendererComponent {
 		std::shared_ptr<Mesh> Mesh;
+		AssetHandle MeshA = 0;
+		AssetHandle TextureA = 0;
 		std::shared_ptr<Shader> Shader;
 		std::shared_ptr<Texture2D> Texture;
 		MeshRendererComponent() = default;

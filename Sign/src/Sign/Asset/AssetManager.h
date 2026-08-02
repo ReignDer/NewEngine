@@ -1,19 +1,27 @@
 #pragma once
 #include "AssetMangerBase.h"
+#include "Sign/Project/Project.h"
 namespace Sign {
-	class AssetManager : public AssetMangerBase
+	class AssetManager
 	{
 	public:
 		template<typename T>
 		static std::shared_ptr<T> GetAsset(AssetHandle handle) {
-			std::shared_ptr<Asset> asset;
+			std::shared_ptr<Asset> asset = Project::GetActive()->GetAssetManager()->GetAsset(handle);
 			return std::static_pointer_cast<T>(asset);
 		}
 
-		// Inherited via AssetMangerBase
-		std::shared_ptr<Asset> GetAsset(AssetHandle handle) override;
-		bool IsAssetHandleValid(AssetHandle handle) const override;
-		bool IsAssetLoaded(AssetHandle handle) const override;
-		AssetType GetAssetType(AssetHandle handle) const override;
+		static bool IsAssetHandleValid(AssetHandle handle)
+		{
+			return Project::GetActive()->GetAssetManager()->IsAssetHandleValid(handle);
+		}
+		static bool IsAssetLoaded(AssetHandle handle)
+		{
+			return Project::GetActive()->GetAssetManager()->IsAssetLoaded(handle);
+		}
+		static AssetType GetAssetType(AssetHandle handle)
+		{
+			return Project::GetActive()->GetAssetManager()->GetAssetType(handle);
+		}
 	};
 }

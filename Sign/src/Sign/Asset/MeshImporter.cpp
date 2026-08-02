@@ -2,11 +2,12 @@
 #include "MeshImporter.h"
 
 #include "tiny_obj_loader.h"
+#include "Sign/Project/Project.h"
 
 namespace Sign {
-	std::shared_ptr<Mesh> MeshImporter::ImportMesh(AssetHandle handle)
+	std::shared_ptr<Mesh> MeshImporter::ImportMesh(AssetHandle handle, const AssetMetaData& metadata)
 	{
-		return  std::shared_ptr<Mesh>();
+        return LoadMesh(Project::GetActiveAssetDirectory() / metadata.Filepath);
 	}
 	std::shared_ptr<Mesh> MeshImporter::LoadMesh(const std::filesystem::path& path)
 	{

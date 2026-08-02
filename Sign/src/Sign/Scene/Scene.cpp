@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "Sign/Scene/EntityECS.h"
 
-
+#include "Sign/Asset/AssetManager.h"
 namespace Sign {
     Scene::Scene()
     {
@@ -89,14 +89,23 @@ namespace Sign {
 
             if (!component)
                 continue;
+            if (!renderer.Shader) {
+                ShaderLibrary lib;
+                renderer.Shader = lib.GetDefault();
+            }
 
-            auto texture = (renderer.Texture && renderer.Texture->IsLoaded()) ? renderer.Texture : Renderer::GetWhiteTexture();
-            Renderer::Submit(
-                renderer.Mesh->GetVertexArray(),
-                *renderer.Shader,
-                component->GetTransform(),
-                *texture
-            );
+            if (renderer.MeshA) {
+                auto mesh = AssetManager::GetAsset<Mesh>(renderer.MeshA);
+                auto texture = (renderer.TextureA) ? AssetManager::GetAsset<Texture2D>(renderer.TextureA) : Renderer::GetWhiteTexture();
+                Renderer::Submit(
+                    mesh->GetVertexArray(),
+                    *renderer.Shader,
+                    component->GetTransform(),
+                    *texture
+                );
+            }
+
+          
         }
     }
     void Scene::OnPhysics3DStart()

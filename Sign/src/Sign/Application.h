@@ -28,6 +28,7 @@ namespace Sign {
 		std::string name = "Application";
 		float targetFPS = 0.0f;
 		WindowSpecifications WindowSpec;
+		std::string WorkingDirectory;
 	};
 	class Application
 	{
