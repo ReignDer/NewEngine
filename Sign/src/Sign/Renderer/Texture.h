@@ -47,7 +47,7 @@ namespace Sign {
 		Texture2D(const TextureSpecifications& specs);
 		Texture2D(std::string_view path);
 
-		virtual ~Texture2D() = default;
+		virtual ~Texture2D();
 
 		// Inherited via Texture
 		uint32_t GetWidth() const override { return m_Width; }

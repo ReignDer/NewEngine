@@ -96,7 +96,10 @@ namespace Sign {
 
             if (renderer.MeshA) {
                 auto mesh = AssetManager::GetAsset<Mesh>(renderer.MeshA);
+                if (!mesh) continue;
                 auto texture = (renderer.TextureA) ? AssetManager::GetAsset<Texture2D>(renderer.TextureA) : Renderer::GetWhiteTexture();
+                std::println("Entity {} TextureA handle={} GpuHandle.ptr={}", (uint32_t)entity, (uint64_t)renderer.TextureA, texture->GetGpuHandle().ptr);
+                if (!texture->IsLoaded()) continue;
                 Renderer::Submit(
                     mesh->GetVertexArray(),
                     *renderer.Shader,

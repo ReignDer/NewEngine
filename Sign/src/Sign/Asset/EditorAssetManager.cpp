@@ -105,6 +105,15 @@ namespace Sign {
 
 		return it->second;
 	}
+	void EditorAssetManager::DeleteAsset(AssetHandle handle)
+	{
+		if (!IsAssetHandleValid(handle))
+			return;
+
+		m_LoadedAssets.erase(handle);
+		m_AssetRegistry.erase(handle);
+		SerializeAssetRegistry();
+	}
 	void EditorAssetManager::SerializeAssetRegistry()
 	{
 		auto path = Project::GetActiveAssetRegistryPath();

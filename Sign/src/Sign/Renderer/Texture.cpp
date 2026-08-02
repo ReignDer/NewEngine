@@ -122,6 +122,11 @@ namespace Sign {
 		m_IsLoaded = true;
 	}
 
+	Texture2D::~Texture2D()
+	{
+
+	}
+
 	void Texture2D::Bind(ID3D12GraphicsCommandList* cmdList, uint32_t slot) const
 	{
 		cmdList->SetGraphicsRootDescriptorTable(slot, m_SRVGpuHandle);

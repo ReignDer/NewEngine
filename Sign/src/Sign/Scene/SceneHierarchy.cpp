@@ -264,20 +264,24 @@ namespace Sign {
 
 		DrawComponent<Box3DColliderComponent>("Box3D Collider", entity, [](auto& component)
 		{
+			ImGui::PushItemWidth(245.0f);
 			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
 			ImGui::DragFloat3("Size", MathUtils::value_ptr(component.Size));
-			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1000.0f);
 			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
+			ImGui::PopItemWidth();
 		});
 
 		DrawComponent<SphereColliderComponent>("Sphere Collider", entity, [](auto& component)
 		{
+			ImGui::PushItemWidth(245.0f);
 			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
 			ImGui::DragFloat3("Radius", &component.Radius);
-			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1000.0f);
 			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
+			ImGui::PopItemWidth();
 		});
 
 		DrawComponent<MeshRendererComponent>("Mesh Renderer", entity, [](auto& component)

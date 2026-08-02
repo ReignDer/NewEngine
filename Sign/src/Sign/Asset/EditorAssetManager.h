@@ -20,6 +20,8 @@ namespace Sign {
 		const AssetMetaData& GetMetaData(AssetHandle handle) const;
 		const AssetRegistry& GetAssetRegistry() const { return m_AssetRegistry; }
 
+		void DeleteAsset(AssetHandle handle);
+
 		void SerializeAssetRegistry();
 		bool DeserializeAssetRegistry();
 

@@ -561,8 +561,8 @@ namespace Sign {
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM")) {
 				const wchar_t* path = (const wchar_t*)payload->Data;
-
-				OpenScene(path);
+				AssetHandle handle = *(AssetHandle*)payload->Data;
+				//OpenScene(path);
 			}
 
 			ImGui::EndDragDropTarget();

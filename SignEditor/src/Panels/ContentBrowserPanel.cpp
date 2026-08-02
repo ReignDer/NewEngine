@@ -83,7 +83,7 @@ namespace Sign {
 					{
 						if (ImGui::MenuItem("Delete"))
 						{
-
+							m_PendingDeleteHandle = m_TreeNodes[treeNodeIndex].Handle;
 						}
 						ImGui::EndPopup();
 					}
@@ -158,10 +158,19 @@ namespace Sign {
 			}
 			ImGui::EndTable();
 		}
+
+		if (m_PendingDeleteHandle != 0)
+		{
+			Project::GetActive()->GetEditorAssetManager()->DeleteAsset(m_PendingDeleteHandle);
+			m_PendingDeleteHandle = 0;
+			RefreshAssetTree();
+		}
 		ImGui::End();
 	}
 	void ContentBrowserPanel::RefreshAssetTree()
 	{
+		m_TreeNodes.clear();
+		m_TreeNodes.push_back(TreeNode(".", 0));
 		const auto& assetRegistry = Project::GetActive()->GetEditorAssetManager()->GetAssetRegistry();
 
 		for (const auto& [handle, metadata] : assetRegistry)

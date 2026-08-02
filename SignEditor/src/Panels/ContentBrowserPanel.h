@@ -16,7 +16,7 @@ namespace Sign {
 	private:
 		std::filesystem::path m_BaseDirectory;
 		std::filesystem::path m_CurrentDirectory;
-
+		AssetHandle m_PendingDeleteHandle = 0;
 		std::shared_ptr<Texture2D> m_DirectoryIcon;
 		std::shared_ptr<Texture2D> m_FileIcon;
 
