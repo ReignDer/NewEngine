@@ -17,5 +17,7 @@ This is a DXD12 Game Engine by Mathieu Marc I. Pobre using the Xmake build syste
 
 Only Supports Windows
 
+If it cannot find the submodules use the command `git submodule update --init --recursive` to clone necessary modules
+
 # Entry Point
 Entry Point is located in Sign/src/Sign/EntryPoint.h
