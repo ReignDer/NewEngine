@@ -25,7 +25,26 @@ namespace Sign {
 		return s_AssetExtensionMap.at(extension);
 	}
 
-	//static PrimitiveTypes PrimitiveTypeToString
+	static std::string PrimitiveTypeToString(PrimitiveTypes type)
+	{
+		switch (type)
+		{
+			case PrimitiveTypes::None: return "None";
+			case PrimitiveTypes::Cube: return "Cube";
+			case PrimitiveTypes::Sphere: return "Sphere";
+			case PrimitiveTypes::Plane: return "Plane";
+		}
+		return "None";
+	}
+	static PrimitiveTypes PrimitiveTypeFromString(std::string_view type)
+	{
+		if (type == "None") return PrimitiveTypes::None;
+		if (type == "Cube") return PrimitiveTypes::Cube;
+		if (type == "Sphere") return PrimitiveTypes::Sphere;
+		if (type == "Plane") return PrimitiveTypes::Plane;
+
+		return PrimitiveTypes::None;
+	}
 	bool EditorAssetManager::IsAssetHandleValid(AssetHandle handle) const
 	{
 
@@ -104,7 +123,7 @@ namespace Sign {
 				std::string filepathStr = metadata.Filepath.generic_string();
 				out << YAML::Key << "FilePath" << YAML::Value << filepathStr;
 				out << YAML::Key << "Type" << YAML::Value << AssetTypeToString(metadata.Type);
-				//out << YAML::Key << "PrimitiveType" << YAML::Value <<  
+				out << YAML::Key << "PrimitiveType" << YAML::Value << PrimitiveTypeToString(metadata.PrimitiveType);
 				out << YAML::EndMap;
 			}
 
@@ -139,6 +158,7 @@ namespace Sign {
 			auto& metadata = m_AssetRegistry[handle];
 			metadata.Filepath = node["FilePath"].as<std::string>();
 			metadata.Type = AssetTypeFromString(node["Type"].as<std::string>());
+			metadata.PrimitiveType = PrimitiveTypeFromString(node["PrimitiveType"].as<std::string>());
 		}
 
 		return true;

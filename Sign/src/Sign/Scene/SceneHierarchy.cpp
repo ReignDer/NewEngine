@@ -4,6 +4,7 @@
 #include <imgui_internal.h>
 
 #include "Sign/Asset/AssetManager.h"
+#include "Sign/Project/Project.h"
 #include "Sign/Renderer/Primitive3D.h"
 namespace Sign {
 	SceneHierarchy::SceneHierarchy(const std::shared_ptr<Scene>& scene)
@@ -46,20 +47,32 @@ namespace Sign {
 				{
 					EntityECS entity = m_Context->CreateEntity();
 					entity.AddComponent<MeshRendererComponent>();
+					auto& tc = entity.GetComponent<TagComponent>();
+					tc.Tag = "Cube";
 					auto& mesh = entity.GetComponent<MeshRendererComponent>();
-					auto cube = Primitive::Cube3D::Create();
-
+					
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
 					
 				}
 
 				if (ImGui::MenuItem("Create Sphere"))
 				{
-
+					EntityECS entity = m_Context->CreateEntity();
+					entity.AddComponent<MeshRendererComponent>();
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					auto& tc = entity.GetComponent<TagComponent>();
+					tc.Tag = "Sphere";
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
 				}
 
 				if (ImGui::MenuItem("Create Plane"))
 				{
-
+					EntityECS entity = m_Context->CreateEntity();
+					entity.AddComponent<MeshRendererComponent>();
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					auto& tc = entity.GetComponent<TagComponent>();
+					tc.Tag = "Plane";
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
 				}
 
 				ImGui::EndMenu();

@@ -9,7 +9,7 @@ namespace Sign {
 				VertexPosColor CubeVertices[8];
 
 				for (size_t i = 0; i < 8; i++) {
-					CubeVertices[i] = { cubePosition[i], Vector3D(0,0,0), color[i]};
+					CubeVertices[i] = { cubePosition[i], Vector3D(0,0,0), color[i], Vector2D(0,0), (unsigned int)i};
 				}
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));
@@ -140,6 +140,9 @@ namespace Sign {
 					VertexPosColor v;
 					v.Position = { vertices[i],vertices[i + 2], vertices[i + 1] };
 					v.Color = Color;
+					v.Normals = Vector3D(0, 0, 0);
+					v.TexCoord = Vector2D(0, 0);
+					v.FaceID = i;
 					finalVertices.push_back(v);
 				}
 
@@ -169,7 +172,7 @@ namespace Sign {
 				VertexPosColor planeVertices[4];
 
 				for (size_t i = 0; i < 4; i++) {
-					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i]};
+					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i], Vector2D(0,0), (unsigned int)i };
 				}
 				return std::make_shared<Mesh>(planeVertices, _countof(planeVertices), quadIndices, _countof(quadIndices));
 				});
