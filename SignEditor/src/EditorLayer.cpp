@@ -28,7 +28,6 @@ namespace Sign {
 
 		m_Texture2D = TextureImporter::LoadTexture2D("SignEditor/assets/dlsu-logo.png");
 		m_TeapotTexture = TextureImporter::LoadTexture2D("SignEditor/assets/brick.png");
-		m_TeapotMesh = MeshImporter::LoadMesh("SignEditor/assets/teapot.obj");
 		/*************** ECS VERSION ********************/
 		/*m_ActiveScene = std::make_shared<Scene>();
 
