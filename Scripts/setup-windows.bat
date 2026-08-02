@@ -7,8 +7,10 @@ if %errorlevel% == 0 (
 ) else (
 
     start /wait "" Vendor\Binaries\Xmake\Windows\xmake-v3.0.5.win64.exe
-)
 
+)
+git submodule update --init --recursive
 xmake project -k vsxmake -m "debug;release"
+
 popd
 pause
