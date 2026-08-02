@@ -52,6 +52,9 @@ Entities:
       Translation: [3, 0, 5]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshRendererComponent:
+      MeshHandle: 10349215569089701407
+      TextureHandle: 0
   - Entity: 2583272014892537200
     TagComponent:
       Tag: Armadillo
@@ -59,3 +62,6 @@ Entities:
       Translation: [-3, 0, 5]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshRendererComponent:
+      MeshHandle: 9604170989252516556
+      TextureHandle: 0
