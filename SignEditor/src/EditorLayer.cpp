@@ -557,29 +557,7 @@ namespace Sign {
 		UINT64 coloraAttachment = m_FrameBuffer->GetTextureID();
 		ImGui::Image((ImTextureID)coloraAttachment, ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
-	/*	if (ImGui::BeginPopupContextItem()) 
-		{
-			if(ImGui::BeginMenu("Primitives"))
-			{
-				if (ImGui::MenuItem("Create Cube"))
-				{
-					EntityECS entity = m_ActiveScene->CreateEntity();
-					entity.AddComponent<MeshRendererComponent>();
-					auto& mesh = entity.GetComponent<MeshRendererComponent>();
-					
-				}
 
-				if (ImGui::MenuItem("Create Sphere"))
-				{
-
-				}
-
-				if (ImGui::MenuItem("Create Plane"))
-				{
-
-				}
-			}
-		}*/
 
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM")) {

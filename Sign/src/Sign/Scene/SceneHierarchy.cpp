@@ -4,6 +4,7 @@
 #include <imgui_internal.h>
 
 #include "Sign/Asset/AssetManager.h"
+#include "Sign/Renderer/Primitive3D.h"
 namespace Sign {
 	SceneHierarchy::SceneHierarchy(const std::shared_ptr<Scene>& scene)
 	{
@@ -36,6 +37,32 @@ namespace Sign {
 		{
 			if (ImGui::MenuItem("Create Empty Entity")) {
 				m_Context->CreateEntity("Empty Entity");
+			}
+
+			
+			if (ImGui::BeginMenu("Primitives"))
+			{
+				if (ImGui::MenuItem("Create Cube"))
+				{
+					EntityECS entity = m_Context->CreateEntity();
+					entity.AddComponent<MeshRendererComponent>();
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					auto cube = Primitive::Cube3D::Create();
+
+					
+				}
+
+				if (ImGui::MenuItem("Create Sphere"))
+				{
+
+				}
+
+				if (ImGui::MenuItem("Create Plane"))
+				{
+
+				}
+
+				ImGui::EndMenu();
 			}
 			ImGui::EndPopup();
 		}

@@ -7,6 +7,13 @@
 #include "Sign/Math/SignMath.h"
 #include "Sign/Renderer/ResourceCache.h"
 namespace Sign {
+	enum class PrimitiveTypes
+	{
+		None = 0,
+		Cube,
+		Sphere,
+		Plane
+	};
 	namespace Primitive {
 		static const std::array<Vector3D, 8> cubePosition = { {
 			{-0.5,-0.5,-0.5} , {-0.5,0.5,-0.5 },

@@ -7,6 +7,17 @@
 namespace Sign {
 	std::shared_ptr<Mesh> MeshImporter::ImportMesh(AssetHandle handle, const AssetMetaData& metadata)
 	{
+        if (metadata.PrimitiveType != PrimitiveTypes::None)
+        {
+            switch (metadata.PrimitiveType)
+            {
+                case PrimitiveTypes::Cube: return Primitive::Cube3D::Create();
+                case PrimitiveTypes::Sphere: return Primitive::Sphere::Create();
+                case PrimitiveTypes::Plane: return Primitive::Plane::Create();
+            }
+            return nullptr;
+            
+        }
         return LoadMesh(Project::GetActiveAssetDirectory() / metadata.Filepath);
 	}
 	std::shared_ptr<Mesh> MeshImporter::LoadMesh(const std::filesystem::path& path)

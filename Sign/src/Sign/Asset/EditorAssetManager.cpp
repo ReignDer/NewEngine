@@ -25,6 +25,7 @@ namespace Sign {
 		return s_AssetExtensionMap.at(extension);
 	}
 
+	//static PrimitiveTypes PrimitiveTypeToString
 	bool EditorAssetManager::IsAssetHandleValid(AssetHandle handle) const
 	{
 
@@ -56,6 +57,26 @@ namespace Sign {
 		}
 			
 	}
+	AssetHandle EditorAssetManager::CreatePrimitiveAsset(PrimitiveTypes type)
+	{
+		AssetHandle handle;
+		AssetMetaData metadata;
+		metadata.Filepath = "";
+		metadata.PrimitiveType = type;
+		metadata.Type = AssetType::Mesh;
+		std::shared_ptr<Asset> asset = AssetImporter::ImportAsset(handle, metadata);
+
+		if (!asset)
+			return 0;
+		
+		asset->Handle = handle;
+		m_LoadedAssets[handle] = asset;
+		m_AssetRegistry[handle] = metadata;
+		SerializeAssetRegistry();
+
+		return handle;
+		
+	}
 	const AssetMetaData& EditorAssetManager::GetMetaData(AssetHandle handle) const
 	{
 		static AssetMetaData s_NullMetadata;
@@ -83,6 +104,7 @@ namespace Sign {
 				std::string filepathStr = metadata.Filepath.generic_string();
 				out << YAML::Key << "FilePath" << YAML::Value << filepathStr;
 				out << YAML::Key << "Type" << YAML::Value << AssetTypeToString(metadata.Type);
+				//out << YAML::Key << "PrimitiveType" << YAML::Value <<  
 				out << YAML::EndMap;
 			}
 

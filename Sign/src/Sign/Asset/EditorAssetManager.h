@@ -16,6 +16,7 @@ namespace Sign {
 		virtual bool IsAssetLoaded(AssetHandle handle) const override;
 		AssetType GetAssetType(AssetHandle handle) const override;
 		void ImportAsset(const std::filesystem::path& filepath);
+		AssetHandle CreatePrimitiveAsset(PrimitiveTypes type);
 		const AssetMetaData& GetMetaData(AssetHandle handle) const;
 		const AssetRegistry& GetAssetRegistry() const { return m_AssetRegistry; }
 
