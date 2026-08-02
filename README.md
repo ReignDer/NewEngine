@@ -1,6 +1,8 @@
 # About
 This is a DXD12 Game Engine by Mathieu Marc I. Pobre using the Xmake build system
 
+# Requirement
+Requires any version of MSVC, recommended version is 2026 or the xmake will not build
 # How to Set-Up
 1. Go to Scripts Folder
 3. Click the setup-windows bat file -- this is a bootstrap for xmake
