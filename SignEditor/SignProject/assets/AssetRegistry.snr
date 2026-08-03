@@ -4,7 +4,7 @@ AssetRegistry:
     Type: AssetType::Texture2D
     PrimitiveType: None
   - Handle: 3658352497551999605
-    FilePath: hydrant_low.obj
+    FilePath: Brick.obj
     Type: AssetType::Mesh
     PrimitiveType: None
   - Handle: 4413874586873285858
@@ -23,6 +23,14 @@ AssetRegistry:
     FilePath: brick.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 13205889818278417278
+    FilePath: hydrant_BaseColor.png
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 13718489247273809305
+    FilePath: chair.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
   - Handle: 15810285301089087632
     FilePath: bunny.obj
     Type: AssetType::Mesh
@@ -32,6 +40,6 @@ AssetRegistry:
     Type: AssetType::Mesh
     PrimitiveType: None
   - Handle: 17853215078830450730
-    FilePath: hydrant_BaseColor.png
-    Type: AssetType::Texture2D
+    FilePath: hydrant_low.obj
+    Type: AssetType::Mesh
     PrimitiveType: None

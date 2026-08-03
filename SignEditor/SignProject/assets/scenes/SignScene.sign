@@ -38,8 +38,8 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [0.01, 0.01, 0.01]
     MeshRendererComponent:
-      MeshHandle: 3658352497551999605
-      TextureHandle: 17853215078830450730
+      MeshHandle: 17853215078830450730
+      TextureHandle: 13205889818278417278
   - Entity: 5904155143473820934
     TagComponent:
       Tag: Sword
@@ -50,3 +50,23 @@ Entities:
     MeshRendererComponent:
       MeshHandle: 16795776195466785825
       TextureHandle: 5904155143473820934
+  - Entity: 16513943534919505913
+    TagComponent:
+      Tag: Chair
+    TransformComponent:
+      Translation: [0, -0.7, 3.3]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshRendererComponent:
+      MeshHandle: 13718489247273809305
+      TextureHandle: 3040631852046752166
+  - Entity: 9083724733513944497
+    TagComponent:
+      Tag: Brick
+    TransformComponent:
+      Translation: [0, -0.6, 1.3]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshRendererComponent:
+      MeshHandle: 3658352497551999605
+      TextureHandle: 7736011505917826031

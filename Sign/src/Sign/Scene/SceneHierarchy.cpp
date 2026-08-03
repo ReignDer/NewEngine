@@ -41,6 +41,7 @@ namespace Sign {
 				if (ImGui::MenuItem("Delete"))
 				{
 					m_Context->DestroyEntity(m_SelectedEntity);
+					m_SelectedEntity = {};
 				}
 			}
 			if (ImGui::MenuItem("Create Empty Entity")) {

@@ -133,8 +133,8 @@ namespace Sign {
 					{
 						if (ImGui::MenuItem("Import"))
 						{
-							Project::GetActive()->GetEditorAssetManager()->ImportAsset(relativePath);
-							RefreshAssetTree();
+							m_PendingImportPath = relativePath;
+
 						}
 						ImGui::EndPopup();
 					}
@@ -163,6 +163,12 @@ namespace Sign {
 		{
 			Project::GetActive()->GetEditorAssetManager()->DeleteAsset(m_PendingDeleteHandle);
 			m_PendingDeleteHandle = 0;
+			RefreshAssetTree();
+		}
+		if (!m_PendingImportPath.empty())
+		{
+			Project::GetActive()->GetEditorAssetManager()->ImportAsset(m_PendingImportPath);
+			m_PendingImportPath.clear();
 			RefreshAssetTree();
 		}
 		ImGui::End();
