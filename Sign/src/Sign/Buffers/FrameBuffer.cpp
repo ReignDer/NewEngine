@@ -40,7 +40,9 @@ namespace Sign {
 				clearValue.Color[3] = -1.0f;
 			}
 			else {
-				clearValue.Color[0] = clearValue.Color[1] = clearValue.Color[2] = 0.0f;
+				clearValue.Color[0] = 0.15f;
+				clearValue.Color[1] = 0.14f;
+				clearValue.Color[2] = 0.13f;
 				clearValue.Color[3] = 1.0f;
 			}
 
@@ -217,7 +219,7 @@ namespace Sign {
 	void FrameBuffer::ClearAttchment(const float clearColor[4])
 	{
 		auto* cmdList = Renderer::GetCommandList().Get();
-		static const float defaultColor[4] = { 0.f,0.f,0.f,1.0f };
+		static const float defaultColor[4] = { 0.15f,0.14f,0.13f,1.0f };
 		static const float pickClear[4] = { -1.f,-1.f,-1.f,-1.f };
 		const float* color = clearColor ? clearColor : defaultColor;
 

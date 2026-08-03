@@ -39,6 +39,10 @@ AssetRegistry:
     FilePath: djSword.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 17152532991711346749
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 17853215078830450730
     FilePath: hydrant_low.obj
     Type: AssetType::Mesh

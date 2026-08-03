@@ -27,7 +27,6 @@ namespace Sign {
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 
 		m_Texture2D = TextureImporter::LoadTexture2D("SignEditor/assets/dlsu-logo.png");
-		m_TeapotTexture = TextureImporter::LoadTexture2D("SignEditor/assets/brick.png");
 		/*************** ECS VERSION ********************/
 		/*m_ActiveScene = std::make_shared<Scene>();
 
