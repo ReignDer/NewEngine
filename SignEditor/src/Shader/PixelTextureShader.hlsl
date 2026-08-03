@@ -24,7 +24,7 @@ PixelShaderOutput main(PixelShaderInput IN)
 {
     PixelShaderOutput OUT;
     float4 baseColor = IN.Color;
-    float4 texColor = AlbedoTexture.Sample(SampleTexture, IN.TexCoord * 0.5);
+    float4 texColor = AlbedoTexture.Sample(SampleTexture, IN.TexCoord);
     OUT.Color = baseColor * texColor;
     return OUT;
 }

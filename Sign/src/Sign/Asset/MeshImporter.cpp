@@ -73,7 +73,7 @@ namespace Sign {
                     // Check if `texcoord_index` is zero or positive. negative = no texcoord data
                     if (idx.texcoord_index >= 0) {
                         vertex.TexCoord.x = attrib.texcoords[2 * size_t(idx.texcoord_index) + 0];
-                        vertex.TexCoord.y = attrib.texcoords[2 * size_t(idx.texcoord_index) + 1];
+                        vertex.TexCoord.y = 1.0f - attrib.texcoords[2 * size_t(idx.texcoord_index) + 1];
                     }
 
                     vertex.Color.x = 1.0f;

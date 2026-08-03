@@ -1,21 +1,37 @@
 AssetRegistry:
-  - Handle: 4596340717661012313
-    FilePath: bunny.obj
-    Type: AssetType::Mesh
-    PrimitiveType: None
-  - Handle: 7736011505917826031
+  - Handle: 3040631852046752166
     FilePath: dlsu-logo.png
     Type: AssetType::Texture2D
     PrimitiveType: None
-  - Handle: 9219209713614924562
+  - Handle: 3658352497551999605
+    FilePath: hydrant_low.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 4413874586873285858
+    FilePath: teapot.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 4596340717661012313
     FilePath: armadillo.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 13729552270962724157
+  - Handle: 5904155143473820934
+    FilePath: partenza.jpg
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 7736011505917826031
     FilePath: brick.png
     Type: AssetType::Texture2D
     PrimitiveType: None
   - Handle: 15810285301089087632
-    FilePath: teapot.obj
+    FilePath: bunny.obj
     Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 16795776195466785825
+    FilePath: djSword.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 17853215078830450730
+    FilePath: hydrant_BaseColor.png
+    Type: AssetType::Texture2D
     PrimitiveType: None

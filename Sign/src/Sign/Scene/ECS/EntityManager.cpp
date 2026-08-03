@@ -7,7 +7,6 @@ namespace Sign {
         if (!m_AvailableEntities.empty()) {
             id = m_AvailableEntities.back();
             m_AvailableEntities.pop_back();
-            return id;
         }
         else {
             id = m_NextEntityID++;
@@ -25,7 +24,7 @@ namespace Sign {
         m_Signatures[entity].reset();
         
         auto it = m_AliveIndex.find(entity);
-        if (it != m_AliveIndex.end())
+        if (it == m_AliveIndex.end())
             return;
 
         size_t idx = it->second;

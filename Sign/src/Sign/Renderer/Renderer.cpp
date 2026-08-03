@@ -162,7 +162,7 @@ namespace Sign
 		auto model = Mat4::transpose(transform);
 		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(1, sizeof(Mat4) / 4, &model, 0);
 
-		texture.Bind(s_Data->m_CommandList.Get());
+		texture.Bind(s_Data->m_CommandList.Get(), 5);
 		vertexArray->Bind(s_Data->m_CommandList);
 
 

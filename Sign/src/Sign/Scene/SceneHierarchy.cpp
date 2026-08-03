@@ -36,6 +36,13 @@ namespace Sign {
 
 		if (ImGui::BeginPopupContextWindow("PopupContext"))
 		{
+			if (m_SelectedEntity)
+			{
+				if (ImGui::MenuItem("Delete"))
+				{
+					m_Context->DestroyEntity(m_SelectedEntity);
+				}
+			}
 			if (ImGui::MenuItem("Create Empty Entity")) {
 				m_Context->CreateEntity("Empty Entity");
 			}

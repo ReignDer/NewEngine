@@ -1,40 +1,5 @@
 Scene: Untitled
 Entities:
-  - Entity: 17462938647148434322
-    TagComponent:
-      Tag: Cube1
-    TransformComponent:
-      Translation: [0, 5, 3]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Box3DColliderComponent:
-      Offset: [0, 0, 0]
-      Size: [0.5, 0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.5
-      RestitutionThreshold: 0.5
-  - Entity: 7469126240319926998
-    TagComponent:
-      Tag: Cube2
-    TransformComponent:
-      Translation: [-5, 0, 5]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 4635995468481642529
-    TagComponent:
-      Tag: Plane
-    TransformComponent:
-      Translation: [0, -0.5, 0]
-      Rotation: [0, 0, 0]
-      Scale: [10, 0.005, 10]
-    Box3DColliderComponent:
-      Offset: [0, 0, 0]
-      Size: [0.5, 0.005, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.5
-      RestitutionThreshold: 0.5
   - Entity: 9604170989252516556
     TagComponent:
       Tag: Teapot
@@ -43,8 +8,8 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15810285301089087632
-      TextureHandle: 13729552270962724157
+      MeshHandle: 4413874586873285858
+      TextureHandle: 7736011505917826031
   - Entity: 5058016125798318033
     TagComponent:
       Tag: Bunny
@@ -53,7 +18,7 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4596340717661012313
+      MeshHandle: 15810285301089087632
       TextureHandle: 7736011505917826031
   - Entity: 2583272014892537200
     TagComponent:
@@ -63,54 +28,25 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9219209713614924562
-      TextureHandle: 13729552270962724157
-  - Entity: 13729552270962724157
+      MeshHandle: 4596340717661012313
+      TextureHandle: 7736011505917826031
+  - Entity: 7736011505917826031
     TagComponent:
-      Tag: Cube
+      Tag: Hydrant
     TransformComponent:
-      Translation: [-0.49802846, -1.6001512, 3.4022558]
-      Rotation: [0.00019027475, 0.0022933318, 2.6329688e-05]
-      Scale: [1, 1, 1]
-    Box3DColliderComponent:
-      Offset: [0, 0, 0]
-      Size: [0.5, 0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.5
-      RestitutionThreshold: 0.5
-  - Entity: 4413874586873285858
-    TagComponent:
-      Tag: Cube
-    TransformComponent:
-      Translation: [1.4019754, -1.6001521, 5.1022553]
-      Rotation: [0.00018855926, 0.0022933376, 2.5299141e-05]
-      Scale: [1, 1, 1]
-    Box3DColliderComponent:
-      Offset: [0, 0, 0]
-      Size: [0.5, 0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.5
-      RestitutionThreshold: 0.5
-  - Entity: 16795776195466785825
-    TagComponent:
-      Tag: Plane
-    TransformComponent:
-      Translation: [-1.2, -2.6, 5.4]
-      Rotation: [0, -0, 0]
-      Scale: [18.6, 1, 14.6]
-    Box3DColliderComponent:
-      Offset: [0, 0, 0]
-      Size: [0.5, 0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.5
-      RestitutionThreshold: 0.5
-  - Entity: 4529279813148173111
-    TagComponent:
-      Tag: Sphere
-    TransformComponent:
-      Translation: [-1.7, 0.9, 4.4]
+      Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [0.01, 0.01, 0.01]
+    MeshRendererComponent:
+      MeshHandle: 3658352497551999605
+      TextureHandle: 17853215078830450730
+  - Entity: 5904155143473820934
+    TagComponent:
+      Tag: Sword
+    TransformComponent:
+      Translation: [-2.4, 0.5, 2.9]
+      Rotation: [0, 0, 0]
+      Scale: [0.01, 0.01, 0.01]
+    MeshRendererComponent:
+      MeshHandle: 16795776195466785825
+      TextureHandle: 5904155143473820934
