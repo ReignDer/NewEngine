@@ -170,9 +170,14 @@ namespace Sign {
 		{
 			return ResourceCache::GetOrCreate<Mesh>("DefaultPlane", [&]()->std::shared_ptr<Mesh> {
 				VertexPosColor planeVertices[4];
-
+				std::array<Vector2D, 4> uv = {
+					Vector2D(0,0),
+					Vector2D(1,0),
+					Vector2D(1,1),
+					Vector2D(0,1)
+				};
 				for (size_t i = 0; i < 4; i++) {
-					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i], Vector2D(0,0), (unsigned int)i };
+					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i], uv[i], (unsigned int)i};
 				}
 				return std::make_shared<Mesh>(planeVertices, _countof(planeVertices), quadIndices, _countof(quadIndices));
 				});

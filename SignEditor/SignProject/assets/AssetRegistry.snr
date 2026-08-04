@@ -1,4 +1,8 @@
 AssetRegistry:
+  - Handle: 2462127324449048743
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
   - Handle: 3040631852046752166
     FilePath: dlsu-logo.png
     Type: AssetType::Texture2D
@@ -11,9 +15,17 @@ AssetRegistry:
     FilePath: teapot.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 4583020522499593993
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
   - Handle: 4596340717661012313
     FilePath: armadillo.obj
     Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 4681515815078825519
+    FilePath: brickwall.jpg
+    Type: AssetType::Texture2D
     PrimitiveType: None
   - Handle: 5904155143473820934
     FilePath: partenza.jpg
