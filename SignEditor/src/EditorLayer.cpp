@@ -282,6 +282,7 @@ namespace Sign {
 		m_Meshes.shrink_to_fit();
 		m_VertexArray.reset();
 
+		m_Texture2D.reset();
 		m_ActiveScene.reset();
 		m_FrameBuffer.reset();
 		m_Shader.reset();
