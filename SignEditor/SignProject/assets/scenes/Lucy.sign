@@ -1,0 +1,12 @@
+Scene: Untitled
+Entities:
+  - Entity: 5415763946945600737
+    TagComponent:
+      Tag: Lucy
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [-1.5707964, 0, 0]
+      Scale: [0.01, 0.01, 0.01]
+    MeshRendererComponent:
+      MeshHandle: 16067317261345966669
+      TextureHandle: 0

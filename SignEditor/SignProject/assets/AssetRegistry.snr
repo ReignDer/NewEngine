@@ -7,6 +7,10 @@ AssetRegistry:
     FilePath: dlsu-logo.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 3593312823828684836
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 3658352497551999605
     FilePath: Brick.obj
     Type: AssetType::Mesh
@@ -27,10 +31,18 @@ AssetRegistry:
     FilePath: brickwall.jpg
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 4769350964430746238
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 5904155143473820934
     FilePath: partenza.jpg
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 7244541575637362801
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 7736011505917826031
     FilePath: brick.png
     Type: AssetType::Texture2D
@@ -45,6 +57,10 @@ AssetRegistry:
     PrimitiveType: None
   - Handle: 15810285301089087632
     FilePath: bunny.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 16067317261345966669
+    FilePath: lucy.obj
     Type: AssetType::Mesh
     PrimitiveType: None
   - Handle: 16795776195466785825

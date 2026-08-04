@@ -6,10 +6,31 @@ namespace Sign {
 		{
 
 			return ResourceCache::GetOrCreate<Mesh>("DefaultCube", [&]()->std::shared_ptr<Mesh> {
-				VertexPosColor CubeVertices[8];
+				VertexPosColor CubeVertices[24];
+				std::array<Vector3D,24> cubePositions = {
+					//Back Face
+					cubePosition[0], cubePosition[1],cubePosition[2], cubePosition[3],
+					//Front Face
+					cubePosition[4], cubePosition[5], cubePosition[6], cubePosition[7],
+					//Left Face
+					cubePosition[0], cubePosition[1], cubePosition[5], cubePosition[4],
+					//Right Face
+					cubePosition[3], cubePosition[2], cubePosition[6], cubePosition[7],
+					//Top Face
+					cubePosition[1], cubePosition[5], cubePosition[6], cubePosition[2],
+					//Bottom Face
+					cubePosition[0], cubePosition[4], cubePosition[7], cubePosition[3]
+				};
+				std::array<Vector2D, 4> uv = {
+					Vector2D(0,0),
+					Vector2D(1,0),
+					Vector2D(1,1),
+					Vector2D(0,1)
+				};
+				for (size_t i = 0; i < 24; i++) {
 
-				for (size_t i = 0; i < 8; i++) {
-					CubeVertices[i] = { cubePosition[i], Vector3D(0,0,0), color[i], Vector2D(0,0), (unsigned int)i};
+					size_t uvIndex = i % 4;
+					CubeVertices[i] = { cubePositions[i], Vector3D(0,0,0), Vector3D(1,1,1), uv[uvIndex], (unsigned int)i};
 				}
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));
