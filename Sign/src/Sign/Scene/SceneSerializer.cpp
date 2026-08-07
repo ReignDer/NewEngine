@@ -77,11 +77,48 @@ namespace Sign {
         return {};
     }
     static RigidBody3D::BodyType Rigidbody3DBodTypeFromString(std::string_view string) {
-        if (string.data() == "String") return RigidBody3D::BodyType::Static;
-        if (string.data() == "Dynamic") return RigidBody3D::BodyType::Dynamic;
-        if (string.data() == "Kinematic") return RigidBody3D::BodyType::Kinematic;
+        if (string == "String") return RigidBody3D::BodyType::Static;
+        if (string == "Dynamic") return RigidBody3D::BodyType::Dynamic;
+        if (string == "Kinematic") return RigidBody3D::BodyType::Kinematic;
 
         return RigidBody3D::BodyType::Static;
+    }
+    static std::string SourceTypeToString(MeshRendererComponent::SourceType type) {
+        switch (type)
+        {
+        case Sign::MeshRendererComponent::SourceType::Asset: return "Asset";
+        case Sign::MeshRendererComponent::SourceType::Primitive: return "Primitive";
+
+        }
+
+        return {};
+    }
+    static MeshRendererComponent::SourceType SourceTypeFromString(std::string_view string) {
+        if (string == "Asset") return MeshRendererComponent::SourceType::Asset;
+        if (string == "Primitive") return MeshRendererComponent::SourceType::Primitive;
+
+        return MeshRendererComponent::SourceType::Asset;
+    }
+
+    static std::string PrimitiveTypeToString(MeshRendererComponent::PrimitiveType type) {
+        switch (type)
+        {
+        case Sign::MeshRendererComponent::PrimitiveType::None: return "None";
+        case Sign::MeshRendererComponent::PrimitiveType::Cube: return "Cube";
+        case Sign::MeshRendererComponent::PrimitiveType::Sphere: return "Sphere";
+        case Sign::MeshRendererComponent::PrimitiveType::Plane: return "Plane";
+
+        }
+
+        return {};
+    }
+    static MeshRendererComponent::PrimitiveType PrimitiveTypeFromString(std::string_view string) {
+        if (string == "None") return MeshRendererComponent::PrimitiveType::None;
+        if (string == "Cube") return MeshRendererComponent::PrimitiveType::Cube;
+        if (string == "Sphere") return MeshRendererComponent::PrimitiveType::Sphere;
+        if (string == "Plane") return MeshRendererComponent::PrimitiveType::Plane;
+
+        return MeshRendererComponent::PrimitiveType::None;
     }
     SceneSerializer::SceneSerializer(const std::shared_ptr<Scene>& scene) : m_Scene(scene)
     {
@@ -162,6 +199,8 @@ namespace Sign {
 
             out << YAML::Key << "MeshHandle" << YAML::Value << meshComponent.MeshA;
             out << YAML::Key << "TextureHandle" << YAML::Value << meshComponent.TextureA;
+            out << YAML::Key << "SourceType" << YAML::Value << SourceTypeToString(meshComponent.Type);
+            out << YAML::Key << "PrimitiveType" << YAML::Value << PrimitiveTypeToString(meshComponent.PType);
 
             out << YAML::EndMap;
         }
@@ -266,6 +305,8 @@ namespace Sign {
 
                     mesh.MeshA = meshRendererComponent["MeshHandle"].as<AssetHandle>();
                     mesh.TextureA = meshRendererComponent["TextureHandle"].as<AssetHandle>();
+                    mesh.Type = SourceTypeFromString(meshRendererComponent["SourceType"].as<std::string>());
+                    mesh.PType = PrimitiveTypeFromString(meshRendererComponent["PrimitiveType"].as<std::string>());
                 }
             }
         }

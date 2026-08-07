@@ -27,6 +27,13 @@ namespace Sign {
 		Renderer::RegisterFrameBuffers("MainEditorBuffer", m_FrameBuffer);
 
 		m_Texture2D = TextureImporter::LoadTexture2D("SignEditor/assets/dlsu-logo.png");
+		m_PlayButton = TextureImporter::LoadTexture2D("SignEditor/Resources/Icon/PlayButton.png");
+		m_StopButton = TextureImporter::LoadTexture2D("SignEditor/Resources/Icon/StopButton.png");
+		m_PauseButton = TextureImporter::LoadTexture2D("SignEditor/Resources/Icon/PauseButton.png");
+		m_FrameStepButton = TextureImporter::LoadTexture2D("SignEditor/Resources/Icon/FrameStepButton.png");
+
+		m_EditorScene = std::make_shared<Scene>();
+		m_ActiveScene = m_EditorScene;
 		/*************** ECS VERSION ********************/
 		/*m_ActiveScene = std::make_shared<Scene>();
 
@@ -283,6 +290,8 @@ namespace Sign {
 		m_VertexArray.reset();
 
 		m_Texture2D.reset();
+		m_PlayButton.reset();
+		m_StopButton.reset();
 		m_ActiveScene.reset();
 		m_FrameBuffer.reset();
 		m_Shader.reset();
@@ -307,8 +316,15 @@ namespace Sign {
 		else
 			m_EditorCamera.ResetDragState();
 
-		if(StartSimulation)
+		switch (m_SceneState)
+		{
+		case SceneState::Edit:
+			break;
+		case SceneState::Play:
 			m_ActiveScene->OnUpdateRuntime(dt);
+			break;
+		}
+			
 
 		for (auto& entity : m_Meshes) {
 			entity->OnUpdate(dt);
@@ -574,6 +590,8 @@ namespace Sign {
 		m_ViewportBounds[1] = { ImageMax.x, ImageMax.y };
 		ImGui::End();
 		ImGui::PopStyleVar();
+
+		UI_ToolBar();
 	}
 
 	void EditorLayer::ColorPicker()
@@ -664,26 +682,7 @@ namespace Sign {
 			}
 			break;
 		}
-		case Key::S:
-		{
-
-			if (control) {
-				if (shift) {
-					SaveSceneAs();
-				}
-				if (!StartSimulation) {
-					std::println("Sim Start");
-					m_ActiveScene->OnPhysics3DStart();
-					StartSimulation = true;
-
-				}
-				else {
-					std::println("Sim Stop");
-					m_ActiveScene->OnPhysics3DStop();
-					StartSimulation = false;
-				}
-			}break;
-		}
+		
 		}
 		return false;
 	}
@@ -748,8 +747,11 @@ namespace Sign {
 	void EditorLayer::NewScene()
 	{
 		Renderer::GetContext()->FlushCommandQueue();
-		m_ActiveScene = std::make_shared<Scene>();
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
+		m_EditorScene = newScene;
+		m_SceneHierarchyPanel.SetContext(m_EditorScene);
+		m_ActiveScene = m_EditorScene;
+
 	}
 	void EditorLayer::OpenScene()
 	{
@@ -761,13 +763,19 @@ namespace Sign {
 	void EditorLayer::OpenScene(const std::filesystem::path& path)
 	{
 		Renderer::GetContext()->FlushCommandQueue();
-		m_ActiveScene = std::make_shared<Scene>();
+		
 
 		//Resize Viewport if we have a scene camera here
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-
-		SceneSerializer serializer(m_ActiveScene);
-		serializer.Deserialize(path.string());
+		
+		std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
+		SceneSerializer serializer(newScene);
+		if (serializer.Deserialize(path.string()))
+		{
+			m_EditorScene = newScene;
+			m_SceneHierarchyPanel.SetContext(m_EditorScene);
+			m_ActiveScene = m_EditorScene;
+			
+		}
 	}
 	void EditorLayer::SaveSceneAs()
 	{
@@ -777,5 +785,86 @@ namespace Sign {
 			SceneSerializer serializer(m_ActiveScene);
 			serializer.Serialize(filepath);
 		}
+	}
+	void EditorLayer::UI_ToolBar()
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0,0,0));
+
+		auto& colors = ImGui::GetStyle().Colors;
+		auto& buttonHovered = colors[ImGuiCol_ButtonHovered];
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonHovered.x,buttonHovered.y,buttonHovered.z,0.5f));
+		auto& buttonActive= colors[ImGuiCol_ButtonActive];
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonActive.x, buttonActive.y, buttonActive.z,0.5f));
+
+		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
+		float size = ImGui::GetWindowHeight() - 5.0f;
+		std::shared_ptr<Texture2D> icon = m_SceneState == SceneState::Edit ? m_PlayButton : m_StopButton;
+		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x) * 0.5 - (size * 0.5f));
+		
+		if (ImGui::ImageButton("##icon", (ImTextureID)icon->GetGpuHandle().ptr, ImVec2(size, size)))
+		{
+			if (m_SceneState == SceneState::Edit)
+				OnScenePlay();
+			else if (m_SceneState == SceneState::Play)
+				OnSceneStop();
+
+
+
+		}
+
+		if(m_SceneState != SceneState::Edit)
+		{
+			bool isPaused = m_ActiveScene->IsPaused();
+			ImGui::SameLine();
+			std::shared_ptr<Texture2D> icon = m_PauseButton;
+			
+			if (ImGui::ImageButton("##PauseIcon", (ImTextureID)icon->GetGpuHandle().ptr, ImVec2(size, size)))
+			{
+				m_ActiveScene->SetPaused(!isPaused);
+
+			}
+			if (isPaused) {
+				ImGui::SameLine();
+				std::shared_ptr<Texture2D> icon = m_FrameStepButton;
+				bool isPaused = m_ActiveScene->IsPaused();
+				if (ImGui::ImageButton("##FrameIcon", (ImTextureID)icon->GetGpuHandle().ptr, ImVec2(size, size)))
+				{
+					m_ActiveScene->Step(1);
+
+				}
+			}
+		}
+		ImGui::PopStyleVar(3);
+		ImGui::PopStyleColor(3);
+		ImGui::End();
+	}
+	void EditorLayer::OnScenePlay()
+	{
+		Renderer::GetContext()->FlushCommandQueue();
+		m_SceneState = SceneState::Play;
+
+		m_ActiveScene = Scene::Copy(m_EditorScene);
+		m_ActiveScene->OnRuntimeStart();
+
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		
+	}
+	void EditorLayer::OnSceneStop()
+	{
+		Renderer::GetContext()->FlushCommandQueue();
+		m_SceneState = SceneState::Edit;
+		m_ActiveScene->OnRuntimeStop();
+		m_ActiveScene = m_EditorScene;
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene); 
+	}
+	void EditorLayer::OnScenePause()
+	{
+		if (m_SceneState == SceneState::Edit)
+			return;
+
+		m_ActiveScene->SetPaused(true);
 	}
 }

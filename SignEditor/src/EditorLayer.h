@@ -30,6 +30,11 @@ namespace Sign {
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
+
+		void UI_ToolBar();
+		void OnScenePlay();
+		void OnSceneStop();
+		void OnScenePause();
 	private:
 		ShaderLibrary m_ShaderLibrary;
 		bool StartSimulation = false;
@@ -43,7 +48,7 @@ namespace Sign {
 		bool m_PickRequest = false;
 		Vector2D m_PickCoords;
 
-		std::shared_ptr<Scene> m_ActiveScene;
+		std::shared_ptr<Scene> m_ActiveScene, m_EditorScene;
 		EntityECS m_SelectedEntity;
 		int32_t m_SelectedFaceID;
 		SceneHierarchy m_SceneHierarchyPanel;
@@ -53,7 +58,7 @@ namespace Sign {
 
 		SceneState m_SceneState = SceneState::Edit;
 
-		std::shared_ptr<Texture2D> m_Texture2D;
+		std::shared_ptr<Texture2D> m_Texture2D, m_PlayButton, m_StopButton, m_PauseButton, m_FrameStepButton;
 
 		std::shared_ptr<Shader> m_Shader;
 		std::vector<std::shared_ptr<Entity>> m_Meshes;

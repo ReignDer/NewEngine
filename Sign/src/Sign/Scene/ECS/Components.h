@@ -52,11 +52,15 @@ namespace Sign {
 	};
 	
 	struct MeshRendererComponent {
+		enum class SourceType {Asset = 0, Primitive};
+		enum class PrimitiveType {None = 0, Cube, Sphere, Plane};
 		std::shared_ptr<Mesh> Mesh;
 		AssetHandle MeshA = 0;
 		AssetHandle TextureA = 0;
 		std::shared_ptr<Shader> Shader;
 		std::shared_ptr<Texture2D> Texture;
+		SourceType Type = SourceType::Primitive;
+		PrimitiveType PType = PrimitiveType::None;
 		MeshRendererComponent() = default;
 		MeshRendererComponent(const MeshRendererComponent&) = default;
 		MeshRendererComponent(const std::shared_ptr<Sign::Mesh>& mesh, const std::shared_ptr<Sign::Shader>& shader, const std::shared_ptr<Texture2D>& texture = nullptr) 
@@ -133,5 +137,13 @@ namespace Sign {
 
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
+
+	template<typename... Component>
+	struct ComponentGroup
+	{
+	};
+
+	using AllComponents =
+		ComponentGroup<TransformComponent, MeshRendererComponent, RigidBody3D, Box3DColliderComponent, SphereColliderComponent>;
 
 }

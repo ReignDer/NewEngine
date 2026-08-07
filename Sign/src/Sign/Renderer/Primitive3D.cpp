@@ -30,7 +30,7 @@ namespace Sign {
 				for (size_t i = 0; i < 24; i++) {
 
 					size_t uvIndex = i % 4;
-					CubeVertices[i] = { cubePositions[i], Vector3D(0,0,0), Vector3D(1,1,1), uv[uvIndex], (unsigned int)i};
+					CubeVertices[i] = { cubePositions[i], Vector3D(0,0,0), Vector3D(0.34,0.65,1), uv[uvIndex], (unsigned int)i};
 				}
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));

@@ -91,7 +91,7 @@ namespace Sign {
 		asset->Handle = handle;
 		m_LoadedAssets[handle] = asset;
 		m_AssetRegistry[handle] = metadata;
-		SerializeAssetRegistry();
+		//SerializeAssetRegistry();
 
 		return handle;
 		

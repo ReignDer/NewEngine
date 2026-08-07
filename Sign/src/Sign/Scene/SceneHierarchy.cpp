@@ -40,6 +40,20 @@ namespace Sign {
 			{
 				if (ImGui::MenuItem("Delete"))
 				{
+					
+					if (m_SelectedEntity.HasComponent<MeshRendererComponent>())
+					{
+						auto& meshComponent = m_SelectedEntity.GetComponent<MeshRendererComponent>();
+						
+						const AssetMetaData& metaData = Project::GetActive()->GetEditorAssetManager()->GetMetaData(meshComponent.MeshA);
+						if (metaData.PrimitiveType != PrimitiveTypes::None)
+						{
+							Project::GetActive()->GetEditorAssetManager()->DeleteAsset(meshComponent.MeshA);
+						}
+						
+					}
+					
+					
 					m_Context->DestroyEntity(m_SelectedEntity);
 					m_SelectedEntity = {};
 				}
@@ -56,20 +70,46 @@ namespace Sign {
 					EntityECS entity = m_Context->CreateEntity();
 					entity.AddComponent<MeshRendererComponent>();
 					auto& tc = entity.GetComponent<TagComponent>();
+					auto& mrc = entity.GetComponent<MeshRendererComponent>();
 					tc.Tag = "Cube";
+					mrc.Type = MeshRendererComponent::SourceType::Primitive;
+					mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
 					auto& mesh = entity.GetComponent<MeshRendererComponent>();
-					
+
 					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+
 					
 				}
+				if (ImGui::MenuItem("Create 20 Rigidibody Cubes"))
+				{
+					for (int i = 0; i < 20; i++) {
+						EntityECS entity = m_Context->CreateEntity();
+						entity.AddComponent<MeshRendererComponent>();
+						auto& tc = entity.GetComponent<TagComponent>();
+						auto& mrc = entity.GetComponent<MeshRendererComponent>();
+						tc.Tag = "Cube";
+						mrc.Type = MeshRendererComponent::SourceType::Primitive;
+						mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
+						auto& mesh = entity.GetComponent<MeshRendererComponent>();
 
+						entity.AddComponent<RigidBody3D>();
+						auto& rbc = entity.GetComponent<RigidBody3D>();
+						rbc.Type = RigidBody3D::BodyType::Dynamic;
+;						entity.AddComponent<Box3DColliderComponent>();
+
+						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+					}
+				}
 				if (ImGui::MenuItem("Create Sphere"))
 				{
 					EntityECS entity = m_Context->CreateEntity();
 					entity.AddComponent<MeshRendererComponent>();
 					auto& mesh = entity.GetComponent<MeshRendererComponent>();
 					auto& tc = entity.GetComponent<TagComponent>();
+					auto& mrc = entity.GetComponent<MeshRendererComponent>();
 					tc.Tag = "Sphere";
+					mrc.Type = MeshRendererComponent::SourceType::Primitive;
+					mrc.PType = MeshRendererComponent::PrimitiveType::Sphere;
 					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
 				}
 
@@ -79,7 +119,10 @@ namespace Sign {
 					entity.AddComponent<MeshRendererComponent>();
 					auto& mesh = entity.GetComponent<MeshRendererComponent>();
 					auto& tc = entity.GetComponent<TagComponent>();
+					auto& mrc = entity.GetComponent<MeshRendererComponent>();
 					tc.Tag = "Plane";
+					mrc.Type = MeshRendererComponent::SourceType::Primitive;
+					mrc.PType = MeshRendererComponent::PrimitiveType::Plane;
 					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
 				}
 
@@ -343,6 +386,7 @@ namespace Sign {
 					if (AssetManager::GetAssetType(handle) == AssetType::Mesh)
 					{
 						component.MeshA = handle;
+						component.Type = MeshRendererComponent::SourceType::Asset;
 					}
 					else
 					{

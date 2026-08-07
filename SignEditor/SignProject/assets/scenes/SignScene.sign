@@ -8,8 +8,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4413874586873285858
-      TextureHandle: 7736011505917826031
+      MeshHandle: 1184688084933760944
+      TextureHandle: 11068066192013288600
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 5058016125798318033
     TagComponent:
       Tag: Bunny
@@ -18,8 +20,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15810285301089087632
-      TextureHandle: 7736011505917826031
+      MeshHandle: 3334322919943997038
+      TextureHandle: 0
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 2583272014892537200
     TagComponent:
       Tag: Armadillo
@@ -28,8 +32,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4596340717661012313
-      TextureHandle: 7736011505917826031
+      MeshHandle: 1434150564253194489
+      TextureHandle: 0
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 7736011505917826031
     TagComponent:
       Tag: Hydrant
@@ -38,8 +44,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [0.01, 0.01, 0.01]
     MeshRendererComponent:
-      MeshHandle: 17853215078830450730
-      TextureHandle: 13205889818278417278
+      MeshHandle: 5506250733194284393
+      TextureHandle: 11161053610284389379
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 5904155143473820934
     TagComponent:
       Tag: Sword
@@ -48,8 +56,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [0.01, 0.01, 0.01]
     MeshRendererComponent:
-      MeshHandle: 16795776195466785825
-      TextureHandle: 5904155143473820934
+      MeshHandle: 12635991980412786565
+      TextureHandle: 8026957936042491493
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 16513943534919505913
     TagComponent:
       Tag: Chair
@@ -58,8 +68,10 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13718489247273809305
-      TextureHandle: 3040631852046752166
+      MeshHandle: 7339165140147407089
+      TextureHandle: 6742171803969235411
+      SourceType: Asset
+      PrimitiveType: None
   - Entity: 9083724733513944497
     TagComponent:
       Tag: Brick
@@ -68,5 +80,7 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3658352497551999605
-      TextureHandle: 7736011505917826031
+      MeshHandle: 6466305303294475071
+      TextureHandle: 11068066192013288600
+      SourceType: Asset
+      PrimitiveType: None

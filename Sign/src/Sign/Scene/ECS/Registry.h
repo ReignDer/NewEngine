@@ -16,6 +16,9 @@ namespace Sign {
 		template<typename T, typename... Args>
 		T& AddComponent(EntityID entity, Args&&... args);
 
+		template<typename T, typename... Args>
+		T& AddOrReplaceComponent(EntityID entity, Args&&... args);
+
 		template<typename T>
 		T* GetComponent(EntityID entity);
 
@@ -49,6 +52,18 @@ namespace Sign {
 		m_EntityManager.SetSignature(entity, sig);
 
 		return ent;
+	}
+	template<typename T, typename ...Args>
+	inline T& Registry::AddOrReplaceComponent(EntityID entity, Args && ...args)
+	{
+		auto& pool = GetPool<T>();
+		if (T* existing = pool.Get(entity))
+		{
+			*existing = T(std::forward<Args>(args)...);
+			return *existing;
+		}
+
+		return AddComponent<T>(entity, std::forward<Args>(args)...);
 	}
 	template<typename T>
 	inline T* Registry::GetComponent(EntityID entity)

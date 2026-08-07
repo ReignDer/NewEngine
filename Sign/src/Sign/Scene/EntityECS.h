@@ -12,7 +12,16 @@ namespace Sign {
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
-			return m_Scene->GetRegistry().AddComponent<T>(m_EntityHandle, args...);
+			T& component = m_Scene->GetRegistry().AddComponent<T>(m_EntityHandle, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
+		}
+
+		template<typename T, typename... Args>
+		T& AddOrReplaceComponent(Args&&... args) {
+			T& component = m_Scene->GetRegistry().AddOrReplaceComponent<T>(m_EntityHandle, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		template<typename T>

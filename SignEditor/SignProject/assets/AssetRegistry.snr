@@ -1,77 +1,53 @@
 AssetRegistry:
-  - Handle: 2462127324449048743
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Plane
-  - Handle: 3040631852046752166
-    FilePath: dlsu-logo.png
-    Type: AssetType::Texture2D
-    PrimitiveType: None
-  - Handle: 3593312823828684836
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Cube
-  - Handle: 3658352497551999605
-    FilePath: Brick.obj
-    Type: AssetType::Mesh
-    PrimitiveType: None
-  - Handle: 4413874586873285858
+  - Handle: 1184688084933760944
     FilePath: teapot.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 4583020522499593993
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Plane
-  - Handle: 4596340717661012313
+  - Handle: 1434150564253194489
     FilePath: armadillo.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 4681515815078825519
-    FilePath: brickwall.jpg
-    Type: AssetType::Texture2D
-    PrimitiveType: None
-  - Handle: 4769350964430746238
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Cube
-  - Handle: 5904155143473820934
-    FilePath: partenza.jpg
-    Type: AssetType::Texture2D
-    PrimitiveType: None
-  - Handle: 7244541575637362801
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Cube
-  - Handle: 7736011505917826031
-    FilePath: brick.png
-    Type: AssetType::Texture2D
-    PrimitiveType: None
-  - Handle: 13205889818278417278
-    FilePath: hydrant_BaseColor.png
-    Type: AssetType::Texture2D
-    PrimitiveType: None
-  - Handle: 13718489247273809305
-    FilePath: chair.obj
-    Type: AssetType::Mesh
-    PrimitiveType: None
-  - Handle: 15810285301089087632
+  - Handle: 3334322919943997038
     FilePath: bunny.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 16067317261345966669
+  - Handle: 5506250733194284393
+    FilePath: hydrant_low.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 5748108147533948799
     FilePath: lucy.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 16795776195466785825
+  - Handle: 6466305303294475071
+    FilePath: Brick.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 6742171803969235411
+    FilePath: dlsu-logo.png
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 7339165140147407089
+    FilePath: chair.obj
+    Type: AssetType::Mesh
+    PrimitiveType: None
+  - Handle: 8026957936042491493
+    FilePath: partenza.jpg
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 11068066192013288600
+    FilePath: brick.png
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 11161053610284389379
+    FilePath: hydrant_BaseColor.png
+    Type: AssetType::Texture2D
+    PrimitiveType: None
+  - Handle: 12635991980412786565
     FilePath: djSword.obj
     Type: AssetType::Mesh
     PrimitiveType: None
-  - Handle: 17152532991711346749
-    FilePath: ""
-    Type: AssetType::Mesh
-    PrimitiveType: Cube
-  - Handle: 17853215078830450730
-    FilePath: hydrant_low.obj
-    Type: AssetType::Mesh
+  - Handle: 17503846126538621877
+    FilePath: brickwall.jpg
+    Type: AssetType::Texture2D
     PrimitiveType: None

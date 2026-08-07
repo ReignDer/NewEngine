@@ -8,15 +8,19 @@ Entities:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4413874586873285858
-      TextureHandle: 7736011505917826031
-  - Entity: 7739873442614994531
+      MeshHandle: 1184688084933760944
+      TextureHandle: 11068066192013288600
+      SourceType: Asset
+      PrimitiveType: None
+  - Entity: 12116047811534347849
     TagComponent:
       Tag: Plane
     TransformComponent:
-      Translation: [0, -2.5, 0]
+      Translation: [0, -3.7, 0]
       Rotation: [0, 0, 0]
       Scale: [10, 1, 10]
     MeshRendererComponent:
-      MeshHandle: 2462127324449048743
-      TextureHandle: 4681515815078825519
+      MeshHandle: 13336168999744255309
+      TextureHandle: 17503846126538621877
+      SourceType: Primitive
+      PrimitiveType: Plane
