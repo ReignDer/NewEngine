@@ -3,6 +3,8 @@
 
 #include <fstream>
 #include <yaml-cpp/yaml.h>
+#include <json/json.h>
+
 
 namespace YAML {
     template<>
@@ -48,22 +50,6 @@ namespace YAML {
     };
 }
 namespace Sign {
-    
-    
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Vector3D& v)
-    {
-        out << YAML::Flow;
-        out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
-
-        return out;
-    }
-    YAML::Emitter& operator<<(YAML::Emitter& out, const Quaternion& v)
-    {
-        out << YAML::Flow;
-        out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
-
-        return out;
-    }
 
     static std::string Rigidbody3DBodTypeToString(RigidBody3D::BodyType type) {
         switch (type)
@@ -71,13 +57,13 @@ namespace Sign {
         case Sign::RigidBody3D::BodyType::Static: return "Static";
         case Sign::RigidBody3D::BodyType::Dynamic: return "Dynamic";
         case Sign::RigidBody3D::BodyType::Kinematic: return "Kinematic";
-        
+
         }
 
         return {};
     }
     static RigidBody3D::BodyType Rigidbody3DBodTypeFromString(std::string_view string) {
-        if (string == "String") return RigidBody3D::BodyType::Static;
+        if (string == "Static") return RigidBody3D::BodyType::Static;
         if (string == "Dynamic") return RigidBody3D::BodyType::Dynamic;
         if (string == "Kinematic") return RigidBody3D::BodyType::Kinematic;
 
@@ -120,29 +106,54 @@ namespace Sign {
 
         return MeshRendererComponent::PrimitiveType::None;
     }
-    SceneSerializer::SceneSerializer(const std::shared_ptr<Scene>& scene) : m_Scene(scene)
+
+    static SceneFormat DetectFormatFromFile(std::string_view filepath)
     {
+        if (filepath.ends_with(".sign"))
+            return SceneFormat::YAML;
+        else if (filepath.ends_with(".level"))
+            return SceneFormat::JSON;
+
+        return SceneFormat::YAML;
+
+    }
+}
+namespace YAMLBackend {
+
+    YAML::Emitter& operator<<(YAML::Emitter& out, const Sign::Vector3D& v)
+    {
+        out << YAML::Flow;
+        out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
+
+        return out;
+    }
+    YAML::Emitter& operator<<(YAML::Emitter& out, const Sign::Quaternion& v)
+    {
+        out << YAML::Flow;
+        out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+
+        return out;
     }
 
-    static void SerializeEntity(YAML::Emitter& out, EntityECS entity) {
+    static void SerializeEntity(YAML::Emitter& out, Sign::EntityECS entity) {
         out << YAML::BeginMap;
         out << YAML::Key << "Entity" << YAML::Value << entity.GetUUID(); //TO DO ENTITY ID
 
 
-        if (entity.HasComponent<TagComponent>()) {
+        if (entity.HasComponent<Sign::TagComponent>()) {
             out << YAML::Key << "TagComponent";
             out << YAML::BeginMap;
 
-            auto& tag = entity.GetComponent<TagComponent>().Tag;
+            auto& tag = entity.GetComponent<Sign::TagComponent>().Tag;
             out << YAML::Key << "Tag" << YAML::Value << tag;
             out << YAML::EndMap;
         }
 
-        if (entity.HasComponent<TransformComponent>()) {
+        if (entity.HasComponent<Sign::TransformComponent>()) {
             out << YAML::Key << "TransformComponent";
             out << YAML::BeginMap;
 
-            auto& transform = entity.GetComponent<TransformComponent>();
+            auto& transform = entity.GetComponent<Sign::TransformComponent>();
             out << YAML::Key << "Translation" << YAML::Value << transform.Translation;
             out << YAML::Key << "Rotation" << YAML::Value << transform.Rotation;
             out << YAML::Key << "Scale" << YAML::Value << transform.Scale;
@@ -150,36 +161,36 @@ namespace Sign {
             out << YAML::EndMap;
         }
 
-        if (entity.HasComponent<RigidBody3D>()) {
-            out << YAML::Key << "Rigidbody3DComponent";
+        if (entity.HasComponent<Sign::RigidBody3D>()) {
+            out << YAML::Key << "RigidBody3DComponent";
             out << YAML::BeginMap;
 
-            auto& rb3d = entity.GetComponent<RigidBody3D>();
-            out << YAML::Key << "Type" << YAML::Value << Rigidbody3DBodTypeToString(rb3d.Type);
-            
+            auto& rb3d = entity.GetComponent<Sign::RigidBody3D>();
+            out << YAML::Key << "Type" << YAML::Value << Sign::Rigidbody3DBodTypeToString(rb3d.Type);
+
             out << YAML::EndMap;
         }
 
-        if (entity.HasComponent<Box3DColliderComponent>()) {
+        if (entity.HasComponent<Sign::Box3DColliderComponent>()) {
             out << YAML::Key << "Box3DColliderComponent";
             out << YAML::BeginMap;
 
-            auto& bc3d = entity.GetComponent<Box3DColliderComponent>();
+            auto& bc3d = entity.GetComponent<Sign::Box3DColliderComponent>();
             out << YAML::Key << "Offset" << YAML::Value << bc3d.Offset;
             out << YAML::Key << "Size" << YAML::Value << bc3d.Size;
             out << YAML::Key << "Density" << YAML::Value << bc3d.Density;
             out << YAML::Key << "Friction" << YAML::Value << bc3d.Friction;
             out << YAML::Key << "Restitution" << YAML::Value << bc3d.Restitution;
             out << YAML::Key << "RestitutionThreshold" << YAML::Value << bc3d.RestitutionThreshold;
-            
+
             out << YAML::EndMap;
         }
 
-        if (entity.HasComponent<SphereColliderComponent>()) {
+        if (entity.HasComponent<Sign::SphereColliderComponent>()) {
             out << YAML::Key << "SphereColliderComponent";
             out << YAML::BeginMap;
 
-            auto& bc3d = entity.GetComponent<SphereColliderComponent>();
+            auto& bc3d = entity.GetComponent<Sign::SphereColliderComponent>();
             out << YAML::Key << "Offset" << YAML::Value << bc3d.Offset;
             out << YAML::Key << "Radius" << YAML::Value << bc3d.Radius;
             out << YAML::Key << "Density" << YAML::Value << bc3d.Density;
@@ -190,24 +201,159 @@ namespace Sign {
             out << YAML::EndMap;
         }
 
-        if (entity.HasComponent<MeshRendererComponent>())
+        if (entity.HasComponent<Sign::MeshRendererComponent>())
         {
             out << YAML::Key << "MeshRendererComponent";
             out << YAML::BeginMap;
 
-            auto& meshComponent = entity.GetComponent<MeshRendererComponent>();
+            auto& meshComponent = entity.GetComponent<Sign::MeshRendererComponent>();
 
             out << YAML::Key << "MeshHandle" << YAML::Value << meshComponent.MeshA;
             out << YAML::Key << "TextureHandle" << YAML::Value << meshComponent.TextureA;
-            out << YAML::Key << "SourceType" << YAML::Value << SourceTypeToString(meshComponent.Type);
-            out << YAML::Key << "PrimitiveType" << YAML::Value << PrimitiveTypeToString(meshComponent.PType);
+            out << YAML::Key << "SourceType" << YAML::Value << Sign::SourceTypeToString(meshComponent.Type);
+            out << YAML::Key << "PrimitiveType" << YAML::Value << Sign::PrimitiveTypeToString(meshComponent.PType);
 
             out << YAML::EndMap;
         }
 
         out << YAML::EndMap;
     }
+
+    static bool Deserialize(std::string_view filepath)
+    {
+        
+    }
+}
+
+namespace JSONBackend {
+    static Json::Value WriteVec3(const Sign::Vector3D& vector)
+    {
+        Json::Value arr(Json::arrayValue);
+        arr.append(vector.x);
+        arr.append(vector.y);
+        arr.append(vector.z);
+        return arr;
+    }
+    static Sign::Vector3D ReadVec3(const Json::Value& node)
+    {
+        Sign::Vector3D vector{};
+        if (node.isArray() && node.size() == 3)
+        {
+            vector.x = node[0].asFloat();
+            vector.y = node[1].asFloat();
+            vector.z = node[2].asFloat();
+        }
+
+        return vector;
+    }
+    static Json::Value SerializeEntity(Sign::EntityECS entity)
+    {
+        Json::Value entityNode(Json::objectValue);
+        entityNode["Entity"] = (Json::UInt64)entity.GetUUID();
+
+        if (entity.HasComponent<Sign::TagComponent>()) {
+            Json::Value tag(Json::objectValue);
+            tag["Tag"] = entity.GetComponent<Sign::TagComponent>().Tag;
+            entityNode["TagComponent"] = tag;
+        }
+
+        if (entity.HasComponent<Sign::TransformComponent>()) {
+            auto& transform = entity.GetComponent<Sign::TransformComponent>();
+            Json::Value tc(Json::objectValue);
+            tc["Translation"] = WriteVec3(transform.Translation);
+            tc["Rotation"] = WriteVec3(transform.Rotation);
+            tc["Scale"] = WriteVec3(transform.Scale);
+
+            entityNode["TransformComponent"] = tc;
+        }
+
+        if (entity.HasComponent<Sign::RigidBody3D>()) {
+            auto& rb3d = entity.GetComponent<Sign::RigidBody3D>();
+            Json::Value rb(Json::objectValue);
+            rb["Type"] = Sign::Rigidbody3DBodTypeToString(rb3d.Type);
+            entityNode["RigidBody3DComponent"] = rb;
+        }
+
+        if (entity.HasComponent<Sign::Box3DColliderComponent>()) {
+            auto& bc3d = entity.GetComponent<Sign::Box3DColliderComponent>();
+            Json::Value bc(Json::objectValue);
+            bc["Offset"] = WriteVec3(bc3d.Offset);
+            bc["Size"] = WriteVec3(bc3d.Size);
+            bc["Density"] = bc3d.Density;
+            bc["Friction"] = bc3d.Friction;
+            bc["Restitution"] = bc3d.Restitution;
+            bc["RestitutionThreshold"] = bc3d.RestitutionThreshold;
+            entityNode["Box3DColliderComponent"] = bc;
+        }
+
+        if (entity.HasComponent<Sign::SphereColliderComponent>()) {
+            auto& sc3d = entity.GetComponent<Sign::SphereColliderComponent>();
+            Json::Value sc(Json::objectValue);
+            sc["Offset"] = WriteVec3(sc3d.Offset);
+            sc["Radius"] = sc3d.Radius;
+            sc["Density"] = sc3d.Density;
+            sc["Friction"] = sc3d.Friction;
+            sc["Restitution"] = sc3d.Restitution;
+            sc["RestitutionThreshold"] = sc3d.RestitutionThreshold;
+            entityNode["SphereColliderComponent"] = sc;
+        }
+
+        if (entity.HasComponent<Sign::MeshRendererComponent>())
+        {
+            auto& meshComponent = entity.GetComponent<Sign::MeshRendererComponent>();
+            Json::Value mesh(Json::objectValue);
+            mesh["MeshHandle"] = (Json::UInt64)meshComponent.MeshA;
+            mesh["TextureHandle"] = (Json::UInt64)meshComponent.TextureA;
+            mesh["SourceType"] = Sign::SourceTypeToString(meshComponent.Type);
+            mesh["PrimitiveType"] = Sign::PrimitiveTypeToString(meshComponent.PType);
+            entityNode["MeshRendererComponent"] = mesh;
+           
+        }
+
+        return entityNode;
+    }
+
+    static bool Deserialize(std::string_view filepath)
+    {
+
+    }
+}
+namespace Sign {
+  
+
+    SceneSerializer::SceneSerializer(const std::shared_ptr<Scene>& scene) : m_Scene(scene)
+    {
+    }
+
+   
     void SceneSerializer::Serialize(std::string_view filepath)
+    {
+        SceneFormat format = DetectFormatFromFile(filepath);
+        if (format == SceneFormat::YAML)
+            SerializeYAML(filepath);
+        else if(format == SceneFormat::JSON)
+            SerializeJSON(filepath);
+    }
+    void SceneSerializer::SerializeRuntime(std::string_view filepath)
+    {
+    }
+    bool SceneSerializer::Deserialize(std::string_view filepath)
+    {
+
+        SceneFormat format = DetectFormatFromFile(filepath);
+        if (format == SceneFormat::YAML)
+            return DeserializeYAML(filepath);
+        if (format == SceneFormat::JSON)
+            return DeserializeJSON(filepath);
+
+        return DeserializeYAML(filepath);
+    }
+    bool SceneSerializer::DeserializeRuntime(std::string_view filepath)
+    {
+
+        return false;
+    }
+    void SceneSerializer::SerializeYAML(std::string_view filepath)
     {
         YAML::Emitter out;
         out << YAML::BeginMap;
@@ -218,8 +364,8 @@ namespace Sign {
             EntityECS entity = { entityID, m_Scene.get() };
             if (!entity) return;
 
-            SerializeEntity(out, entity);
-        });
+            YAMLBackend::SerializeEntity(out, entity);
+            });
 
         out << YAML::EndSeq;
         out << YAML::EndMap;
@@ -227,12 +373,27 @@ namespace Sign {
         std::ofstream fout(filepath.data());
         fout << out.c_str();
     }
-    void SceneSerializer::SerializeRuntime(std::string_view filepath)
+    void SceneSerializer::SerializeJSON(std::string_view filepath)
     {
-    }
-    bool SceneSerializer::Deserialize(std::string_view filepath)
-    {
+        Json::Value root(Json::objectValue);
+        root["Scene"] = "Untitled";
+        Json::Value entities(Json::arrayValue);
+        m_Scene->m_Registry.each([&](EntityID entityID) {
+            EntityECS entity = { entityID, m_Scene.get() };
+            if (!entity) return;
 
+            entities.append(JSONBackend::SerializeEntity(entity));
+            });
+        root["Entities"] = entities;
+        Json::StreamWriterBuilder builder;
+        builder["indentation"] = "  ";
+        const std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
+        std::ofstream fout(filepath.data());
+        writer->write(root, &fout);
+
+    }
+    bool SceneSerializer::DeserializeYAML(std::string_view filepath)
+    {
         std::ifstream stream(filepath.data());
         std::stringstream strStream;
         strStream << stream.rdbuf();
@@ -247,7 +408,7 @@ namespace Sign {
 
         if (entities) {
             for (auto entity : entities) {
-                
+
 
                 uint64_t uuid = entity["Entity"].as<uint64_t>();
                 std::string name;
@@ -312,9 +473,85 @@ namespace Sign {
         }
         return true;
     }
-    bool SceneSerializer::DeserializeRuntime(std::string_view filepath)
+    bool SceneSerializer::DeserializeJSON(std::string_view filepath)
     {
+        std::ifstream stream(filepath.data());
+        if (!stream.is_open())
+            return false;
+        Json::Value root;
+        Json::CharReaderBuilder builder;
+        JSONCPP_STRING errs;
+        if (!Json::parseFromStream(builder, stream, &root, &errs))
+            return false;
+        if (!root.isMember("Scene"))
+            return false;
 
-        return false;
+        if (root.isMember("Entities") && root["Entities"].isArray())
+        {
+            for (auto& entity : root["Entities"])
+            {
+                uint64_t uuid = entity["Entity"].asUInt64();
+                std::string name;
+
+                if (entity.isMember("TagComponent"))
+                {
+                    name = entity["TagComponent"]["Tag"].asString();
+                }
+
+                EntityECS deserializedEntity = m_Scene->CreateEntityWithUUID(uuid, name);
+
+                if (entity.isMember("TransformComponent"))
+                {
+                    auto& tc = entity["TransformComponent"];
+                    auto& transform = deserializedEntity.GetComponent<TransformComponent>();
+                    transform.Translation = JSONBackend::ReadVec3(tc["Translation"]);
+                    transform.Rotation = JSONBackend::ReadVec3(tc["Rotation"]);
+                    transform.Scale = JSONBackend::ReadVec3(tc["Scale"]);
+                }
+
+                if (entity.isMember("RigidBody3DComponent"))
+                {
+                    auto& rb = entity["RigidBody3DComponent"];
+                    auto& rb3d = deserializedEntity.AddComponent<RigidBody3D>();
+                    rb3d.Type = Rigidbody3DBodTypeFromString(rb["Type"].asString());
+
+                }
+
+                if (entity.isMember("Box3DColliderComponent"))
+                {
+                    auto& bc = entity["Box3DColliderComponent"];
+                    auto& bc3d = deserializedEntity.AddComponent<Box3DColliderComponent>();
+                    bc3d.Offset = JSONBackend::ReadVec3(bc["Offset"]);
+                    bc3d.Size = JSONBackend::ReadVec3(bc["Size"]);
+                    bc3d.Density = bc["Density"].asFloat();
+                    bc3d.Friction = bc["Friction"].asFloat();
+                    bc3d.Restitution = bc["Restitution"].asFloat();
+                    bc3d.RestitutionThreshold = bc["RestitutionThreshold"].asFloat();
+                }
+                if (entity.isMember("SphereColliderComponent"))
+                {
+                    auto& sc = entity["SphereColliderComponent"];
+                    auto& sc3d = deserializedEntity.AddComponent<SphereColliderComponent>();
+                    sc3d.Offset = JSONBackend::ReadVec3(sc["Offset"]);
+                    sc3d.Radius = sc["Radius"].asFloat();
+                    sc3d.Density = sc["Density"].asFloat();
+                    sc3d.Friction = sc["Friction"].asFloat();
+                    sc3d.Restitution = sc["Restitution"].asFloat();
+                    sc3d.RestitutionThreshold = sc["RestitutionThreshold"].asFloat();
+                }
+
+                if (entity.isMember("MeshRendererComponent"))
+                {
+                    auto& mesh = entity["MeshRendererComponent"];
+                    auto& meshComponent = deserializedEntity.AddComponent<MeshRendererComponent>();
+                    meshComponent.MeshA = (AssetHandle)mesh["MeshHandle"].asUInt64();
+                    meshComponent.TextureA = (AssetHandle)mesh["TextureHandle"].asUInt64();
+                    meshComponent.Type = SourceTypeFromString(mesh["SourceType"].asString());
+                    meshComponent.PType = PrimitiveTypeFromString(mesh["PrimitiveType"].asString());
+                }
+            }
+        }
+       
+        return true;
     }
 }

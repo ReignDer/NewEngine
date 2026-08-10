@@ -1,0 +1,76 @@
+{
+  "Entities" : 
+  [
+    {
+      "Entity" : 748325354365975157,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 5301506096964613840,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "Entity" : 8889242695869501423,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 1184688084933760944,
+        "PrimitiveType" : "None",
+        "SourceType" : "Asset",
+        "TextureHandle" : 17503846126538621877
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Empty Entity"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          -1.2999999523162842,
+          -0.10000000149011612,
+          1.2000000476837158
+        ]
+      }
+    }
+  ],
+  "Scene" : "Untitled"
+}

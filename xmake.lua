@@ -17,6 +17,7 @@ includes("Sign/vendor/DirectXTex")
 includes("Sign/vendor/ImGuizmo")
 includes("Sign/vendor/ReactPhysics")
 includes("Sign/vendor/yaml-cpp")
+includes("Sign/vendor/jsoncpp")
 target("Sign")
 	set_kind("static")
 	set_languages("c++23")
@@ -43,9 +44,11 @@ target("Sign")
 		"Sign/vendor/tinyobjloader",
 		"Sign/vendor/ReactPhysics/include",
 		"Sign/vendor/yaml-cpp/include",
+		"Sign/vendor/rapidJSON/include",
+		"Sign/vendor/jsoncpp/include",
 		"Sign/src", {public = true} )
 
-	add_deps("ImGui", "DirectXTex", "ImGuizmo","ReactPhysics","yaml-cpp",{public = true})
+	add_deps("ImGui", "DirectXTex", "ImGuizmo","ReactPhysics","yaml-cpp","jsoncpp",{public = true})
 	add_links(
 		--"ImGui",
 		"dwmapi.lib", "d3d12.lib", "dxgi.lib",

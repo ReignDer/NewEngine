@@ -19,3 +19,9 @@
 [submodule "Sign/vendor/yaml-cpp"]
 	path = Sign/vendor/yaml-cpp
 	url = https://github.com/ReignDer/yaml-cpp
+[submodule "Sign/vendor/rapidJSON"]
+	path = Sign/vendor/rapidJSON
+	url = https://github.com/Tencent/rapidjson
+[submodule "Sign/vendor/jsoncpp"]
+	path = Sign/vendor/jsoncpp
+	url = https://github.com/ReignDer/jsoncpp

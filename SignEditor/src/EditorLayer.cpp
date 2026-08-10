@@ -34,78 +34,7 @@ namespace Sign {
 
 		m_EditorScene = std::make_shared<Scene>();
 		m_ActiveScene = m_EditorScene;
-		/*************** ECS VERSION ********************/
-		/*m_ActiveScene = std::make_shared<Scene>();
-
-		auto CubeECS = m_ActiveScene->CreateEntity("Cube1");
-		CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
-		auto& CubeTransform = CubeECS.GetComponent<TransformComponent>();
-		CubeTransform.Translation = { 0.0f,5.0f,3.0f };
-
-		CubeECS.AddComponent<RigidBody3D>();
-		auto& CubeRb = CubeECS.GetComponent<RigidBody3D>();
-		CubeRb.Type = RigidBody3D::BodyType::Dynamic;
-
-		CubeECS.AddComponent<Box3DColliderComponent>();
-
-		auto CubeECS2 = m_ActiveScene->CreateEntity("Cube2");
-		CubeECS2.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create(), m_ShaderLibrary.GetDefault());
-		auto& CubeTransform2 = CubeECS2.GetComponent<TransformComponent>();
-		CubeTransform2.Translation = { -5.0f,0.0f,5.0f };
-
-		auto Plane = m_ActiveScene->CreateEntity("Plane");
-		Plane.AddComponent<MeshRendererComponent>(Primitive::Plane::Create(), m_ShaderLibrary.GetDefault());
-		auto& PlaneTransform = Plane.GetComponent<TransformComponent>();
-		PlaneTransform.Scale = { 10.0f,0.005f,10.0f };
-		PlaneTransform.Translation = { 0.0f,-0.5f,0.0f };
-
-		Plane.AddComponent<RigidBody3D>();
-		auto& PlaneRb = Plane.GetComponent<RigidBody3D>();
-		PlaneRb.Type = RigidBody3D::BodyType::Static;
-
-		Plane.AddComponent<Box3DColliderComponent>();
-		auto& PlaneCol = Plane.GetComponent<Box3DColliderComponent>();
-		PlaneCol.Size = { 0.5f, 0.005f, 0.5f };
-
-		PipelineSpecifications specs = {};
-		specs.InputLayout = {
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "FACEID", 0, DXGI_FORMAT_R32_UINT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0} };
-		D3D12_RT_FORMAT_ARRAY rtvFormats = {};
-		rtvFormats.NumRenderTargets = 1;
-		rtvFormats.RTFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-		specs.RTVFormats = rtvFormats;
-		specs.DepthTest = TRUE;
-		specs.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
-
 		
-
-		auto teapot = m_ActiveScene->CreateEntity("Teapot");
-		teapot.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/teapot.obj"), m_ShaderLibrary.Load("MeshShader", L"Shader/VertexMeshShader.hlsl", L"Shader/PixelTextureShader.hlsl", specs), m_TeapotTexture);
-		auto& teapotTransform = teapot.GetComponent<TransformComponent>();
-		teapotTransform.Translation = { 0.0f,0.0f,5.0f };
-
-		auto bunny = m_ActiveScene->CreateEntity("Bunny");
-		bunny.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/bunny.obj"), m_ShaderLibrary.Get("MeshShader"));
-		auto& bunnyTransform = bunny.GetComponent<TransformComponent>();
-		bunnyTransform.Translation = { 3.0f,0.0f,5.0f };
-
-		auto armadillo = m_ActiveScene->CreateEntity("Armadillo");
-		armadillo.AddComponent<MeshRendererComponent>(MeshImporter::LoadMesh("SignEditor/assets/armadillo.obj"), m_ShaderLibrary.Get("MeshShader"));
-		auto& armadilloTransform = armadillo.GetComponent<TransformComponent>();
-		armadilloTransform.Translation = { -3.0f,0.0f,5.0f };*/
-		//int index = 0;
-		//for (int i = 0; i < 10000; i++) {
-		//	
-		//	auto CubeECS = m_ActiveScene->CreateEntity("Cube" + std::to_string(index));
-		//	CubeECS.AddComponent<MeshRendererComponent>(Primitive::Cube3D::Create());
-		//	auto& CubeTransform = CubeECS.GetComponent<TransformComponent>();
-		//	CubeTransform.Translation = { MathUtils::Random_Float(-100.f,100.f),MathUtils::Random_Float(-100.f,100.f),MathUtils::Random_Float(-100.f,100.f) };
-		//	index++;
-		//}
 		OpenProject("SignEditor/SignProject/SignBox.sproj");
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
@@ -123,161 +52,6 @@ namespace Sign {
 		/***********************************************/
 
 
-
-		/*PipelineSpecifications pSpecs = {};
-		pSpecs.Shader = m_Shader;
-		pSpecs.InputLayout = { { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }, };
-		D3D12_RT_FORMAT_ARRAY rtvFormats = {};
-		rtvFormats.NumRenderTargets = 1;
-		rtvFormats.RTFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-		pSpecs.RTVFormats = rtvFormats;
-		pSpecs.DepthTest = TRUE;
-		pSpecs.DSVFormat = DXGI_FORMAT_D32_FLOAT;
-
-		m_Shader = std::make_shared<Shader>(L"Shader/VertexShader.hlsl", L"Shader/PixelShader.hlsl", pSpecs);*/
-
-		/*auto triangle = std::make_shared<TriangleEntity>();
-
-		m_Meshes.push_back(triangle);
-		m_InitialEntityCount++;*/
-		/*std::array<Vector3D, 8> col;
-		for (int i = 0; i < col.size(); i++) {
-			col[i] = Vector3D(1.0f, 1.0f, 1.0f);
-		}*/
-		/*auto Cube = std::make_shared<CubeEntity>();
-		auto Cube2 = std::make_shared<CubeEntity>();
-		auto Cube3 = std::make_shared<CubeEntity>();
-
-		Cube->SetTranslation({ 0.0f, 0.9f, 0.0f });
-		Cube2->SetTranslation({ -1.5f, 2.0f, 0.0f });
-		Cube3->SetTranslation({ -1.5f, 3.0f, -2.0f });
-
-		m_Meshes.push_back(Cube);
-		m_Meshes.push_back(Cube2);
-		m_Meshes.push_back(Cube3);*/
-		/*Cube->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-		auto Cube2 = std::make_shared<CubeEntity>();
-		Cube2->SetTranslation({ 0.0f,0.0f,10.0f });
-		Cube2->SetScale(Vector3D(0.5f, 0.5f, 0.5f));*/
-
-
-/*		for (int i = 0; i < 15; i++) {
-			bool odd = (i % 2) != 0;
-			auto plane = std::make_shared<PlaneEntity>();
-			plane->SetScale({ 1.0f,1.0f,1.0f });
-
-			if (i == 6 || i == 7 || i == 12) {
-				m_Meshes.push_back(plane);
-				continue;
-			}
-
-			if (odd) {
-				if (i == 13) {
-					plane->SetRotation(Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
-
-				}
-				else
-					plane->SetRotation(Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
-				//plane->SetTranslation({ 5.0f *std::cos(MathUtils::ConvertToRadians(70.0f)) * 2 ,0,0 });
-			}
-			else {
-				if (i == 14) {
-					plane->SetRotation(Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(-70.0f), 0.0f));
-
-				}
-				else
-					plane->SetRotation(Quaternion(0.0f, 0.0f, MathUtils::ConvertToRadians(70.0f), 0.0f));
-			}
-			m_Meshes.push_back(plane);
-		}
-		float cardDistance = 0.5f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
-		float cardDistance2 = 0.5f * std::cos(MathUtils::ConvertToRadians(70.0f));
-		float cardHeight = 0.5f * std::sin(MathUtils::ConvertToRadians(70.0f));
-		float currentX = cardDistance;
-		float currentY = cardHeight;
-
-		m_Meshes[1]->SetTranslation({ currentX, 0.0f,0.0f });
-		currentX += cardDistance;
-		float middle = currentX / 2;
-		m_Meshes[2]->SetTranslation({ currentX, 0.0f,0.0f });
-		currentX += cardDistance;
-		m_Meshes[3]->SetTranslation({ currentX, 0.0f,0.0f });
-		currentX += cardDistance;
-		m_Meshes[4]->SetTranslation({ currentX, 0.0f,0.0f });
-		currentX += cardDistance;
-		m_Meshes[5]->SetTranslation({ currentX, 0.0f,0.0f });
-		m_Meshes[6]->SetTranslation({ middle,currentY,0.0f });
-
-		m_Meshes[7]->SetTranslation({ middle * 4,currentY,0.0f });
-
-		currentX = 0;
-		currentX = cardDistance;
-		currentY += cardHeight;
-		m_Meshes[8]->SetTranslation({ currentX, currentY,0.0f });
-		currentX += cardDistance;
-		m_Meshes[9]->SetTranslation({ currentX,currentY,0.0f });
-		currentX += cardDistance;
-		m_Meshes[10]->SetTranslation({ currentX, currentY,0.0f });
-		currentX += cardDistance;
-		m_Meshes[11]->SetTranslation({ currentX,currentY,0.0f });
-
-		currentY += cardHeight;
-		m_Meshes[12]->SetTranslation({ cardDistance2 * 5, currentY,0.0f });
-
-		currentY += cardHeight;
-		currentX = 0;
-		currentX = cardDistance * 2;
-		m_Meshes[13]->SetTranslation({ currentX, currentY,0.0f });
-		currentX += cardDistance;
-		m_Meshes[14]->SetTranslation({ currentX, currentY,0.0f });*/
-
-		/*currentX += currentX;
-		m_Meshes[5]->SetTranslation({ currentX, 0.0f,0.0f });
-		currentX += currentX;
-		m_Meshes[6]->SetTranslation({ currentX, 0.0f,0.0f });*/
-		/*int pairTiers[] = { 3,2,1 };
-		for (int tier = 0; tier < 3; tier++) {
-			int pairInTier = pairTiers[tier];
-			int cardsInTier = pairInTier * 2;
-
-			float startTierX = tier;
-
-
-			for (int localCard = 0; localCard < cardsInTier; localCard++) {
-				float currentX = startTierX;
-
-				m_Meshes[localCard]->SetTranslation({currentX,0,0});
-				startTierX += 5.0f * std::cos(MathUtils::ConvertToRadians(70.0f)) * 2;
-
-			}90
-		}*/
-
-
-		/*auto circle = std::make_shared<CircleEntity>();
-		circle->SetTranslation({ 0.0f,0.0f,5.0f });
-
-		auto sphere = std::make_shared<SphereEntity>();
-		sphere->SetTranslation({ 5.0f,0.0f,5.0f });
-
-		m_Meshes.push_back(sphere);
-		m_InitialEntityCount++;
-
-		m_Meshes.push_back(circle);
-		m_InitialEntityCount++;*/
-		//m_Meshes.push_back(Cube);
-		//m_Meshes.push_back(Cube2);
-	/*	m_Meshes.push_back(plane);
-		m_InitialEntityCount++;*/
-
-		/*for (int i = 0; i < 5000; i++) {
-			auto Cube = std::make_shared<CubeEntity>();
-			Cube->SetTranslation({ MathUtils::Random_Float(-15.0f,15.0f),MathUtils::Random_Float(-15.0f,15.0f) ,MathUtils::Random_Float(-15.0f,15.0f) });
-			Cube->SetScale(Vector3D(0.5f, 0.5f, 0.5f));
-			m_Meshes.push_back(Cube);
-			m_InitialEntityCount++;
-		}*/
-
 		std::println("Entity Numbers: {}", m_ActiveScene->GetRegistry().GetPool<TagComponent>().Size());
 	}
 
@@ -292,6 +66,8 @@ namespace Sign {
 		m_Texture2D.reset();
 		m_PlayButton.reset();
 		m_StopButton.reset();
+		m_PauseButton.reset();
+		m_FrameStepButton.reset();
 		m_ActiveScene.reset();
 		m_FrameBuffer.reset();
 		m_Shader.reset();
@@ -301,14 +77,9 @@ namespace Sign {
 	{
 		//std::println("Delta Time: {} {}", dt.GetSeconds(), dt.GetMilliseconds());
 
-		if (Input::IsKeyPressed(Key::A)) {
-			std::println("A");
-		}
-
 		if (Input::IsKeyPressed(Key::Esc)) {
 			Application::Get().Stop();
 		}
-
 
 		
 		if (m_ViewportFocused)
@@ -367,26 +138,12 @@ namespace Sign {
 
 		Renderer::BeginScene(m_EditorCamera);
 
-		//Need for open commandlist, might have to make a separate func for this
-		for (auto& pending : m_PendingMeshes) {
-			CreateObjectCommand* command = new CreateObjectCommand(m_Meshes, PrimitiveType::Cube);
-			command->Execute();
-			m_EditorHistory.Record(command);
-		}
-		m_PendingMeshes.clear();
-
 		
 
 		/*******ECS********/
 		m_ActiveScene->RenderScene(m_SelectedEntity ? m_SelectedEntity : INVALID_ENTITY_ID, m_SelectedFaceID);
 		/*****************/
 
-
-
-		/*for (auto& mesh : m_Meshes) {
-			if (mesh->HasMesh())
-				Renderer::Submit(mesh->GetMesh()->GetVertexArray(), *mesh->GetShader(), mesh->GetTransform());
-		}*/
 
 		if (m_PickRequest) {
 			PixelData pixelData = m_FrameBuffer->ReadPixel(1,(int)m_PickCoords.x, (int)m_PickCoords.y);
@@ -682,6 +439,14 @@ namespace Sign {
 			}
 			break;
 		}
+		case Key::S:
+		{
+			if (control && shift)
+			{
+				SaveSceneAs();
+			}
+			break;
+		}
 		
 		}
 		return false;
@@ -755,7 +520,7 @@ namespace Sign {
 	}
 	void EditorLayer::OpenScene()
 	{
-		std::string filepath = FileDialogs::OpenFile("Sign Scene (*.sign) \0*.sign\0");
+		std::string filepath = FileDialogs::OpenFile("Sign Scene (*.sign, *.level) \0*.sign;*.level\0");
 		if (!filepath.empty()) {
 			OpenScene(filepath);
 		}
@@ -779,7 +544,7 @@ namespace Sign {
 	}
 	void EditorLayer::SaveSceneAs()
 	{
-		std::string filepath = FileDialogs::SaveFile("Sign Scene (*.sign) \0*.sign\0");
+		std::string filepath = FileDialogs::SaveFile("Sign Scene (*.sign, *.level) \0*.sign;*.level\0");
 		if (!filepath.empty()) {
 
 			SceneSerializer serializer(m_ActiveScene);
