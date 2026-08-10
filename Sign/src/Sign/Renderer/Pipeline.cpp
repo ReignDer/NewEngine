@@ -28,7 +28,7 @@ namespace Sign {
 			//CAREFUL, ONLY ALLOW WHEN READING TEXTURES ... REMOVE ONLY ON APPLYING TEXTURES OR CHANGING LIGHTING/COLOR THROUGH CONSTANT BUFFER
 			//D3D12_ROOT_SIGNATURE_FLAG_DENY_PIXEL_SHADER_ROOT_ACCESS;
 
-		CD3DX12_ROOT_PARAMETER1 rootParameters[6];
+		CD3DX12_ROOT_PARAMETER1 rootParameters[8];
 
 		CD3DX12_DESCRIPTOR_RANGE1 cbvRange[1];
 		cbvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
@@ -43,6 +43,11 @@ namespace Sign {
 		CD3DX12_DESCRIPTOR_RANGE1 srvRange[1];
 		srvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 		rootParameters[5].InitAsDescriptorTable(1, &srvRange[0], D3D12_SHADER_VISIBILITY_PIXEL);
+
+		rootParameters[6].InitAsConstants(1, 5, 0, D3D12_SHADER_VISIBILITY_PIXEL);
+		CD3DX12_DESCRIPTOR_RANGE1 lightSrvRange[1];
+		lightSrvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 1);
+		rootParameters[7].InitAsDescriptorTable(1, &lightSrvRange[0], D3D12_SHADER_VISIBILITY_PIXEL);
 
 		CD3DX12_STATIC_SAMPLER_DESC linearSampler(
 			0,                                

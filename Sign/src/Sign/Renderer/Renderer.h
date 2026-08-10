@@ -7,12 +7,27 @@
 #include "Sign/Shader/Shader.h"
 #include "Sign/Buffers/VertexArray.h"
 #include "Sign/Buffers/ConstantBuffer.h"
+#include "Sign/Buffers/StructuredBuffer.h"
 #include "Sign/Renderer/Mesh.h"
 #include "PerspectiveCamera.h"
 #include "Sign/Math/SignMath.h"
 #include "Sign/Buffers/FrameBuffer.h"
 #include "Texture.h"
 namespace Sign {
+	struct GPULight
+	{
+		Vector3D Position;
+		Vector3D Direction;
+		Vector3D Color;
+
+		float Type;
+		float Range;
+		float Intensity;
+		float InnerConeCos, OuterConeCos;
+		float pad_00, pad_01;
+	};
+	static constexpr uint32_t MAX_LIGHTS = 64;
+
 	struct alignas(256) CameraData {
 		Mat4 viewMatrix;
 		Mat4 projectionMatrix;
@@ -42,6 +57,7 @@ namespace Sign {
 		static void								Resizebuffers(int width, int height);
 		static void								RegisterFrameBuffers(std::string_view name, std::shared_ptr<FrameBuffer> fb);
 		static std::shared_ptr<FrameBuffer>		GetFrameBuffer(std::string_view name);
+		static void								SetLights(const std::vector<GPULight>& lights);
 
 
 		static const std::unordered_map<std::string, std::shared_ptr<FrameBuffer>> GetAllFrameBuffers();

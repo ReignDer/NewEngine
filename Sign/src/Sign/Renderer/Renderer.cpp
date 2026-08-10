@@ -5,7 +5,6 @@
 namespace Sign
 {
 
-
 	struct RendererData {
 		D3D12Context* m_Context = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList2>	m_CommandList;
@@ -18,6 +17,8 @@ namespace Sign
 		CameraData						m_CameraData{};
 
 		std::shared_ptr<Texture2D> m_WhiteTexture;
+		std::shared_ptr<StructuredBuffer> m_LightBuffer;
+		uint32_t m_LightCount;
 	};
 
 	static RendererData* s_Data = nullptr;
@@ -31,7 +32,7 @@ namespace Sign
 		SetViewPort(0, 0, s_Data->m_Context->GetWidth(), s_Data->m_Context->GetHeight());
 		
 		s_Data->m_CameraConstantBuffer = std::make_shared<ConstantBuffer>(sizeof(CameraData), 0);
-
+		s_Data->m_LightBuffer = std::make_shared<StructuredBuffer>(sizeof(GPULight), MAX_LIGHTS, D3D12Utils::g_NumFrames);
 		
 	}
 
@@ -41,6 +42,7 @@ namespace Sign
 		s_Data->m_ActiveFrameBuffers.clear();
 		s_Data->m_CameraConstantBuffer.reset();
 		s_Data->m_CommandList.Reset();
+		s_Data->m_LightBuffer.reset();
 		s_Data->m_WhiteTexture.reset();
 		s_Data->m_Context = nullptr;
 		delete s_Data->m_Context;
@@ -161,8 +163,10 @@ namespace Sign
 
 		auto model = Mat4::transpose(transform);
 		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(1, sizeof(Mat4) / 4, &model, 0);
-
+		s_Data->m_CommandList->SetGraphicsRoot32BitConstants(6, 1, &s_Data->m_LightCount, 0);
+		s_Data->m_CommandList->SetGraphicsRootDescriptorTable(7, s_Data->m_Context->GetGPUHandleAt(s_Data->m_LightBuffer->GetHeapIndex() + s_Data->m_Context->GetCurrentBackBuffer()));
 		texture.Bind(s_Data->m_CommandList.Get(), 5);
+		
 		vertexArray->Bind(s_Data->m_CommandList);
 
 
@@ -232,6 +236,11 @@ namespace Sign
 		auto it = s_Data->m_ActiveFrameBuffers.find(name.data());
 
 		return it != s_Data->m_ActiveFrameBuffers.end() ? it->second : nullptr;
+	}
+	void Renderer::SetLights(const std::vector<GPULight>& lights)
+	{
+		s_Data->m_LightCount = (std::min)((uint32_t)lights.size(), MAX_LIGHTS);
+		s_Data->m_LightBuffer->setData(lights.data(), s_Data->m_LightCount);
 	}
 	const std::unordered_map<std::string, std::shared_ptr<FrameBuffer>> Renderer::GetAllFrameBuffers()
 	{

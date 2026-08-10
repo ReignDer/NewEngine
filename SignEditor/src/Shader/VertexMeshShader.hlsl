@@ -40,7 +40,7 @@ VertexShaderOutput main(VertexPosColor IN)
    
     float4 worldPos = mul(IN.Position, ModelTransformCB.MT);
     float4 viewPos = mul(worldPos, PerFrameCB.viewMatrix);
-    OUT.LocalPosition = IN.Position;
+    OUT.LocalPosition = worldPos;
     OUT.Position = mul(viewPos, PerFrameCB.projectionMatrix);
     OUT.Color = IN.Color;
     OUT.FaceID = IN.FaceID;

@@ -9,6 +9,7 @@
 #include "Sign/Renderer/Texture.h"
 #include "Sign/UUID.h"
 #include "Sign/Asset/Asset.h"
+#include "Sign/Renderer/SceneCamera.h"
 
 namespace Sign {
 
@@ -137,13 +138,24 @@ namespace Sign {
 
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
+	
+	struct CameraComponent
+	{
+		SceneCamera sceneCamera;
+		bool Primary = true;
+		bool FixedAspectRatio = false;
 
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+
+		EntityID m_entity = INVALID_ENTITY_ID;
+	};
 	template<typename... Component>
 	struct ComponentGroup
 	{
 	};
 
 	using AllComponents =
-		ComponentGroup<TransformComponent, MeshRendererComponent, RigidBody3D, Box3DColliderComponent, SphereColliderComponent>;
+		ComponentGroup<TransformComponent, MeshRendererComponent, RigidBody3D, Box3DColliderComponent, SphereColliderComponent, LightComponent, CameraComponent>;
 
 }

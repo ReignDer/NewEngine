@@ -276,6 +276,7 @@ namespace Sign {
 			DisplayAddComponentEntry<Box3DColliderComponent>("Box3D Collider");
 			DisplayAddComponentEntry<SphereColliderComponent>("Sphere Collider");
 			DisplayAddComponentEntry<MeshRendererComponent>("Mesh Renderer");
+			DisplayAddComponentEntry<LightComponent>("Light");
 			
 			ImGui::EndPopup();
 		}
@@ -448,6 +449,39 @@ namespace Sign {
 			ImGui::Text("Texture");
 			ImGui::PopID();
 		});
+
+		DrawComponent<LightComponent>("Light", entity, [](auto& component)
+			{
+				const char* bodyTypeStrings[] = { "Directional", "Spot", "Point" };
+				const char* currentBodyTypeString = bodyTypeStrings[(int)component.Type];
+
+				if (ImGui::BeginCombo("Light Type", currentBodyTypeString))
+				{
+					for (int i = 0; i < 3; i++)
+					{
+						bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
+						if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
+						{
+							currentBodyTypeString = bodyTypeStrings[i];
+							component.Type = (LightComponent::LightType)i;
+						}
+						if (isSelected) {
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+
+					ImGui::EndCombo();
+
+				}
+
+				ImGui::PushItemWidth(245.0f);
+				ImGui::ColorEdit3("Color", MathUtils::value_ptr(component.Color));
+				ImGui::DragFloat("Intensity", &component.Intensity, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Range", &component.Range, 0.01f, 0.0f, 100.0f);
+				ImGui::DragFloat("Inner Cone Angle", &component.InnerConeAngle, 0.01f, 0.0f, 1000.0f);
+				ImGui::DragFloat("Outer Cone Angle", &component.OuterConeAngle, 0.01f, 0.0f, 1000.0f);
+				ImGui::PopItemWidth();
+			});
 
 	}
 }

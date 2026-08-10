@@ -8,6 +8,7 @@
 #include "Sign/UUID.h"
 #include "Sign/Renderer/PerspectiveCamera.h"
 namespace Sign {
+
 	class EntityECS;
 	class Scene
 	{

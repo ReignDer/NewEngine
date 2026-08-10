@@ -33,27 +33,39 @@ namespace Sign {
 		}
 
 		Vector3D pos = m_Position;
-
+		Vector3D movDir = { 0.0f,0.0f,0.0f };
 		if (Input::IsKeyPressed(Key::W)) {
-			auto forwardDir = GetForwardDirection();
-			pos += forwardDir * MoveSpeed() * dt;
-		}
-		else if (Input::IsKeyPressed(Key::A)) {
-			auto rightDir = GetRightDirection();
-			pos += rightDir * -MoveSpeed() * dt;
+			movDir += GetForwardDirection();
 
-			std::println("{} {} {}", pos.x, pos.y, pos.z);
 		}
-		else if (Input::IsKeyPressed(Key::S)) {
-			auto forwardDir = GetForwardDirection();
-			pos += forwardDir * -MoveSpeed() * dt;
+		if (Input::IsKeyPressed(Key::A)) {
+			movDir -= GetRightDirection();
+
+
 		}
-		else if (Input::IsKeyPressed(Key::D)) {
-			auto rightDir = GetRightDirection();
-			pos += rightDir * MoveSpeed() * dt;
+		if (Input::IsKeyPressed(Key::S)) {
+			movDir -= GetForwardDirection();
+
+		}
+		if (Input::IsKeyPressed(Key::D)) {
+			movDir += GetRightDirection();
+
 			
-			std::println("{} {} {}", pos.x, pos.y, pos.z);
 		}
+		if (Input::IsKeyPressed(Key::E)) {
+			movDir -= GetUpDirection();
+
+		}
+		if (Input::IsKeyPressed(Key::Q)) {
+			movDir += GetUpDirection();
+
+		}
+
+		if (movDir.magnitude() > 0.0f)
+		{
+			pos += movDir.normalize() * MoveSpeed() * dt;
+		}
+
 		m_Position = pos;
 		//std::println("CameraPos: {} {}", m_Position.x, m_Position.y);
 		RecalculateView();

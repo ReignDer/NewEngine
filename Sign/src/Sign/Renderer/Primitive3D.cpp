@@ -27,10 +27,19 @@ namespace Sign {
 					Vector2D(1,1),
 					Vector2D(0,1)
 				};
+				std::array<Vector3D, 6> faceNormals = {
+					Vector3D(0,0,-1),
+					Vector3D(1,0,1),
+					Vector3D(-1,0,0),
+					Vector3D(1,0,0),
+					Vector3D(0,1,0),
+					Vector3D(0,-1,0)
+				};
 				for (size_t i = 0; i < 24; i++) {
 
 					size_t uvIndex = i % 4;
-					CubeVertices[i] = { cubePositions[i], Vector3D(0,0,0), Vector3D(0.34,0.65,1), uv[uvIndex], (unsigned int)i};
+					size_t faceIndex = i / 4;
+					CubeVertices[i] = { cubePositions[i], faceNormals[faceIndex], Vector3D(0.34,0.65,1), uv[uvIndex], (unsigned int)i};
 				}
 
 				return std::make_shared<Mesh>(CubeVertices, _countof(CubeVertices), cubeIndices, _countof(cubeIndices));
@@ -198,7 +207,7 @@ namespace Sign {
 					Vector2D(0,1)
 				};
 				for (size_t i = 0; i < 4; i++) {
-					planeVertices[i] = { planePosition[i], Vector3D(0,0,0), color[i], uv[i], (unsigned int)i};
+					planeVertices[i] = { planePosition[i], Vector3D(0,1,0), color[i], uv[i], (unsigned int)i};
 				}
 				return std::make_shared<Mesh>(planeVertices, _countof(planeVertices), quadIndices, _countof(quadIndices));
 				});

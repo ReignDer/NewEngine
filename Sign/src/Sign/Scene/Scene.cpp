@@ -155,6 +155,29 @@ namespace Sign {
         auto& transform = m_Registry.GetPool<TransformComponent>();
         auto& tag = m_Registry.GetPool<TagComponent>();
 
+        {
+            std::vector<GPULight> gpuLights;
+            auto& lightPool = m_Registry.GetPool<LightComponent>();
+            for (auto& light : lightPool)
+            {
+                auto* tc = transform.Get(light.m_entity);
+                if (!tc) continue;
+                GPULight gl{};
+                gl.Position = tc->Translation;
+                gl.Type = (float)light.Type;
+                Vector3D forward = { 0.0f,-1.0f,0.0f };
+                Quaternion q = Quaternion::FromEulerAngles(tc->Rotation);
+                gl.Direction = q.rotate(forward);
+                gl.Color = light.Color;
+                gl.Range = light.Range;
+                gl.Intensity = light.Intensity;
+                gl.InnerConeCos = std::cosf(MathUtils::ConvertToRadians(light.InnerConeAngle));
+                gl.OuterConeCos = std::cosf(MathUtils::ConvertToRadians(light.OuterConeAngle));
+                gpuLights.push_back(gl);
+
+            }
+            Renderer::SetLights(gpuLights);
+        }
         for (auto& renderer : meshPool) {
             EntityID entity = renderer.m_entity;
 
@@ -376,4 +399,15 @@ namespace Sign {
             }
         }
     }
+    template<>
+    void Scene::OnComponentAdded<LightComponent>(EntityECS entity, LightComponent& component)
+    {
+    }
+
+    template<>
+    void Scene::OnComponentAdded<CameraComponent>(EntityECS entity, CameraComponent& component)
+    {
+        
+    }
+
 }
