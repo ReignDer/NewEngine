@@ -14,6 +14,7 @@ namespace Sign {
 	SceneHierarchy::~SceneHierarchy()
 	{
 	}
+
 	void SceneHierarchy::SetContext(const std::shared_ptr<Scene>& scene)
 	{
 		m_Context = scene;
@@ -74,10 +75,12 @@ namespace Sign {
 					tc.Tag = "Cube";
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
-					auto& mesh = entity.GetComponent<MeshRendererComponent>();
 
-					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
+						auto& mesh = entity.GetComponent<MeshRendererComponent>();
 
+						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+					});
 					
 				}
 				if (ImGui::MenuItem("Create 20 Rigidibody Cubes"))
@@ -90,40 +93,49 @@ namespace Sign {
 						tc.Tag = "Cube";
 						mrc.Type = MeshRendererComponent::SourceType::Primitive;
 						mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
-						auto& mesh = entity.GetComponent<MeshRendererComponent>();
+						
 
 						entity.AddComponent<RigidBody3D>();
 						auto& rbc = entity.GetComponent<RigidBody3D>();
 						rbc.Type = RigidBody3D::BodyType::Dynamic;
-;						entity.AddComponent<Box3DColliderComponent>();
+						entity.AddComponent<Box3DColliderComponent>();
 
-						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+						Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
+							auto& mesh = entity.GetComponent<MeshRendererComponent>();
+							mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+						});
 					}
 				}
 				if (ImGui::MenuItem("Create Sphere"))
 				{
 					EntityECS entity = m_Context->CreateEntity();
 					entity.AddComponent<MeshRendererComponent>();
-					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					
 					auto& tc = entity.GetComponent<TagComponent>();
 					auto& mrc = entity.GetComponent<MeshRendererComponent>();
 					tc.Tag = "Sphere";
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Sphere;
-					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
+					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
+						auto& mesh = entity.GetComponent<MeshRendererComponent>();
+						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
+					});
 				}
 
 				if (ImGui::MenuItem("Create Plane"))
 				{
 					EntityECS entity = m_Context->CreateEntity();
 					entity.AddComponent<MeshRendererComponent>();
-					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					
 					auto& tc = entity.GetComponent<TagComponent>();
 					auto& mrc = entity.GetComponent<MeshRendererComponent>();
 					tc.Tag = "Plane";
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Plane;
-					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
+					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
+						auto& mesh = entity.GetComponent<MeshRendererComponent>();
+						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
+					});
 				}
 
 				ImGui::EndMenu();

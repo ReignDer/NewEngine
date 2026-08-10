@@ -15,6 +15,7 @@ namespace Sign {
         if(m_PhysicsWorld)
             m_PhysicsCommon.destroyPhysicsWorld(m_PhysicsWorld);
     }
+
     template<typename... Component>
     static void CopyComponent(Registry& dst, Registry& src, const std::unordered_map<UUID,EntityECS>& entityMap)
     {

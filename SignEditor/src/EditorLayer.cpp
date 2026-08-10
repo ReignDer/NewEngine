@@ -139,7 +139,7 @@ namespace Sign {
 		Renderer::BeginScene(m_EditorCamera);
 
 		
-
+		Renderer::FlushInitCommands();
 		/*******ECS********/
 		m_ActiveScene->RenderScene(m_SelectedEntity ? m_SelectedEntity : INVALID_ENTITY_ID, m_SelectedFaceID);
 		/*****************/

@@ -19,6 +19,7 @@ namespace Sign
 		std::shared_ptr<Texture2D> m_WhiteTexture;
 		std::shared_ptr<StructuredBuffer> m_LightBuffer;
 		uint32_t m_LightCount;
+		std::vector<InitCommand> m_InitCommandQueue;
 	};
 
 	static RendererData* s_Data = nullptr;
@@ -241,6 +242,21 @@ namespace Sign
 	{
 		s_Data->m_LightCount = (std::min)((uint32_t)lights.size(), MAX_LIGHTS);
 		s_Data->m_LightBuffer->setData(lights.data(), s_Data->m_LightCount);
+	}
+	void Renderer::SubmitInitCommand(InitCommand cmd)
+	{
+		s_Data->m_InitCommandQueue.push_back(cmd);
+	}
+	void Renderer::FlushInitCommands()
+	{
+		auto cmdList = GetCommandList().Get();
+		for (const auto& cmd : s_Data->m_InitCommandQueue)
+		{
+			if (cmd)
+				cmd(cmdList);
+
+			s_Data->m_InitCommandQueue.clear();
+		}
 	}
 	const std::unordered_map<std::string, std::shared_ptr<FrameBuffer>> Renderer::GetAllFrameBuffers()
 	{

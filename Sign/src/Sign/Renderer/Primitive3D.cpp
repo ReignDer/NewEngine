@@ -170,7 +170,8 @@ namespace Sign {
 					VertexPosColor v;
 					v.Position = { vertices[i],vertices[i + 2], vertices[i + 1] };
 					v.Color = Color;
-					v.Normals = Vector3D(0, 0, 0);
+					Vector3D normals = Vector3D(vertices[i], vertices[i + 2], vertices[i + 1]).normalize();
+					v.Normals = normals;
 					v.TexCoord = Vector2D(0, 0);
 					v.FaceID = i;
 					finalVertices.push_back(v);

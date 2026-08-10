@@ -34,6 +34,7 @@ namespace Sign {
 		float time;
 	};
 
+	using InitCommand = std::function<void(ID3D12GraphicsCommandList*)>;
 	class Renderer
 	{
 	public:
@@ -58,7 +59,9 @@ namespace Sign {
 		static void								RegisterFrameBuffers(std::string_view name, std::shared_ptr<FrameBuffer> fb);
 		static std::shared_ptr<FrameBuffer>		GetFrameBuffer(std::string_view name);
 		static void								SetLights(const std::vector<GPULight>& lights);
-
+		
+		static void SubmitInitCommand(InitCommand cmd);
+		static void FlushInitCommands();
 
 		static const std::unordered_map<std::string, std::shared_ptr<FrameBuffer>> GetAllFrameBuffers();
 
