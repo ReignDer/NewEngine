@@ -5,7 +5,8 @@
 #include <yaml-cpp/yaml.h>
 #include <json/json.h>
 
-
+#include "Sign/Project/Project.h"
+#include "Sign/Renderer/Primitive3D.h"
 namespace YAML {
     template<>
     struct convert<Sign::Vector3D>
@@ -92,6 +93,7 @@ namespace Sign {
         case Sign::MeshRendererComponent::PrimitiveType::None: return "None";
         case Sign::MeshRendererComponent::PrimitiveType::Cube: return "Cube";
         case Sign::MeshRendererComponent::PrimitiveType::Sphere: return "Sphere";
+        case Sign::MeshRendererComponent::PrimitiveType::Capsule: return "Capsule";
         case Sign::MeshRendererComponent::PrimitiveType::Plane: return "Plane";
 
         }
@@ -102,6 +104,7 @@ namespace Sign {
         if (string == "None") return MeshRendererComponent::PrimitiveType::None;
         if (string == "Cube") return MeshRendererComponent::PrimitiveType::Cube;
         if (string == "Sphere") return MeshRendererComponent::PrimitiveType::Sphere;
+        if (string == "Capsule") return MeshRendererComponent::PrimitiveType::Capsule;
         if (string == "Plane") return MeshRendererComponent::PrimitiveType::Plane;
 
         return MeshRendererComponent::PrimitiveType::None;
@@ -190,13 +193,28 @@ namespace YAMLBackend {
             out << YAML::Key << "SphereColliderComponent";
             out << YAML::BeginMap;
 
-            auto& bc3d = entity.GetComponent<Sign::SphereColliderComponent>();
-            out << YAML::Key << "Offset" << YAML::Value << bc3d.Offset;
-            out << YAML::Key << "Radius" << YAML::Value << bc3d.Radius;
-            out << YAML::Key << "Density" << YAML::Value << bc3d.Density;
-            out << YAML::Key << "Friction" << YAML::Value << bc3d.Friction;
-            out << YAML::Key << "Restitution" << YAML::Value << bc3d.Restitution;
-            out << YAML::Key << "RestitutionThreshold" << YAML::Value << bc3d.RestitutionThreshold;
+            auto& sc3d = entity.GetComponent<Sign::SphereColliderComponent>();
+            out << YAML::Key << "Offset" << YAML::Value << sc3d.Offset;
+            out << YAML::Key << "Radius" << YAML::Value << sc3d.Radius;
+            out << YAML::Key << "Density" << YAML::Value << sc3d.Density;
+            out << YAML::Key << "Friction" << YAML::Value << sc3d.Friction;
+            out << YAML::Key << "Restitution" << YAML::Value << sc3d.Restitution;
+            out << YAML::Key << "RestitutionThreshold" << YAML::Value << sc3d.RestitutionThreshold;
+
+            out << YAML::EndMap;
+        }
+        if (entity.HasComponent<Sign::CapsuleColliderComponent>()) {
+            out << YAML::Key << "SphereColliderComponent";
+            out << YAML::BeginMap;
+
+            auto& cc3d = entity.GetComponent<Sign::CapsuleColliderComponent>();
+            out << YAML::Key << "Offset" << YAML::Value << cc3d.Offset;
+            out << YAML::Key << "Radius" << YAML::Value << cc3d.Radius;
+            out << YAML::Key << "Height" << YAML::Value << cc3d.Height;
+            out << YAML::Key << "Density" << YAML::Value << cc3d.Density;
+            out << YAML::Key << "Friction" << YAML::Value << cc3d.Friction;
+            out << YAML::Key << "Restitution" << YAML::Value << cc3d.Restitution;
+            out << YAML::Key << "RestitutionThreshold" << YAML::Value << cc3d.RestitutionThreshold;
 
             out << YAML::EndMap;
         }
@@ -261,7 +279,7 @@ namespace JSONBackend {
             auto& transform = entity.GetComponent<Sign::TransformComponent>();
             Json::Value tc(Json::objectValue);
             tc["Translation"] = WriteVec3(transform.Translation);
-            tc["Rotation"] = WriteVec3(transform.Rotation);
+            tc["Rotation"] = WriteVec3(MathUtils::ConvertToDegreesVec3(transform.Rotation));
             tc["Scale"] = WriteVec3(transform.Scale);
 
             entityNode["TransformComponent"] = tc;
@@ -296,6 +314,18 @@ namespace JSONBackend {
             sc["Restitution"] = sc3d.Restitution;
             sc["RestitutionThreshold"] = sc3d.RestitutionThreshold;
             entityNode["SphereColliderComponent"] = sc;
+        }
+        if (entity.HasComponent<Sign::CapsuleColliderComponent>()) {
+            auto& cc3d = entity.GetComponent<Sign::CapsuleColliderComponent>();
+            Json::Value sc(Json::objectValue);
+            sc["Offset"] = WriteVec3(cc3d.Offset);
+            sc["Radius"] = cc3d.Radius;
+            sc["Height"] = cc3d.Height;
+            sc["Density"] = cc3d.Density;
+            sc["Friction"] = cc3d.Friction;
+            sc["Restitution"] = cc3d.Restitution;
+            sc["RestitutionThreshold"] = cc3d.RestitutionThreshold;
+            entityNode["CapsuleColliderComponent"] = sc;
         }
 
         if (entity.HasComponent<Sign::MeshRendererComponent>())
@@ -416,8 +446,9 @@ namespace Sign {
                 if (tagComponent) {
                     name = tagComponent["Tag"].as<std::string>();
                 }
-
-                EntityECS deserializedEntity = m_Scene->CreateEntityWithUUID(uuid, name);
+                EntityECS deserializedEntity;
+                if(uuid == 0) deserializedEntity = m_Scene->CreateEntity(name);
+                else deserializedEntity = m_Scene->CreateEntityWithUUID(uuid, name);
 
                 auto transformComponent = entity["TransformComponent"];
 
@@ -456,6 +487,17 @@ namespace Sign {
                     sc3d.Friction = sphereColliderComponent["Friction"].as<float>();
                     sc3d.Restitution = sphereColliderComponent["Restitution"].as<float>();
                     sc3d.RestitutionThreshold = sphereColliderComponent["RestitutionThreshold"].as<float>();
+                }
+                auto capsuleColliderComponent = entity["CapsuleColliderComponent"];
+                if (capsuleColliderComponent) {
+                    auto& cc3d = deserializedEntity.AddComponent<CapsuleColliderComponent>();
+
+                    cc3d.Offset = sphereColliderComponent["Offset"].as<Vector3D>();
+                    cc3d.Radius = sphereColliderComponent["Radius"].as<float>();
+                    cc3d.Density = sphereColliderComponent["Density"].as<float>();
+                    cc3d.Friction = sphereColliderComponent["Friction"].as<float>();
+                    cc3d.Restitution = sphereColliderComponent["Restitution"].as<float>();
+                    cc3d.RestitutionThreshold = sphereColliderComponent["RestitutionThreshold"].as<float>();
                 }
 
                 auto meshRendererComponent = entity["MeshRendererComponent"];
@@ -505,7 +547,7 @@ namespace Sign {
                     auto& tc = entity["TransformComponent"];
                     auto& transform = deserializedEntity.GetComponent<TransformComponent>();
                     transform.Translation = JSONBackend::ReadVec3(tc["Translation"]);
-                    transform.Rotation = JSONBackend::ReadVec3(tc["Rotation"]);
+                    transform.Rotation = MathUtils::ConvertToRadiansVec3(JSONBackend::ReadVec3(tc["Rotation"]));
                     transform.Scale = JSONBackend::ReadVec3(tc["Scale"]);
                 }
 
@@ -539,6 +581,18 @@ namespace Sign {
                     sc3d.Restitution = sc["Restitution"].asFloat();
                     sc3d.RestitutionThreshold = sc["RestitutionThreshold"].asFloat();
                 }
+                if (entity.isMember("CapsuleColliderComponent"))
+                {
+                    auto& cc = entity["CapsuleColliderComponent"];
+                    auto& cc3d = deserializedEntity.AddComponent<CapsuleColliderComponent>();
+                    cc3d.Offset = JSONBackend::ReadVec3(cc["Offset"]);
+                    cc3d.Radius = cc["Radius"].asFloat();
+                    cc3d.Height = cc["Height"].asFloat();
+                    cc3d.Density = cc["Density"].asFloat();
+                    cc3d.Friction = cc["Friction"].asFloat();
+                    cc3d.Restitution = cc["Restitution"].asFloat();
+                    cc3d.RestitutionThreshold = cc["RestitutionThreshold"].asFloat();
+                }
 
                 if (entity.isMember("MeshRendererComponent"))
                 {
@@ -548,6 +602,20 @@ namespace Sign {
                     meshComponent.TextureA = (AssetHandle)mesh["TextureHandle"].asUInt64();
                     meshComponent.Type = SourceTypeFromString(mesh["SourceType"].asString());
                     meshComponent.PType = PrimitiveTypeFromString(mesh["PrimitiveType"].asString());
+
+                    if (meshComponent.MeshA == 0 && meshComponent.Type == MeshRendererComponent::SourceType::Primitive)
+                    {
+                       
+                        switch (meshComponent.PType)
+                        {
+                        case MeshRendererComponent::PrimitiveType::Cube: meshComponent.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube); break;
+                        case MeshRendererComponent::PrimitiveType::Sphere: meshComponent.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere); break;
+                        case MeshRendererComponent::PrimitiveType::Plane: 
+                            meshComponent.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
+                            break;
+                        case MeshRendererComponent::PrimitiveType::Capsule: meshComponent.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Capsule); break;
+                        }
+                    }
                 }
             }
         }

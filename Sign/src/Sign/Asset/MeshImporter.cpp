@@ -14,6 +14,7 @@ namespace Sign {
                 case PrimitiveTypes::Cube: return Primitive::Cube3D::Create();
                 case PrimitiveTypes::Sphere: return Primitive::Sphere::Create();
                 case PrimitiveTypes::Plane: return Primitive::Plane::Create();
+                case PrimitiveTypes::Capsule: return Primitive::Capsule::Create();
             }
             return nullptr;
             

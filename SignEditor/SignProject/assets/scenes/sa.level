@@ -1,0 +1,231 @@
+{
+  "Entities" :
+  [
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.5,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Resitution": 0.0,
+          "Size": [
+              1.0,
+              1.0,
+              1.0
+          ]
+      },
+      "Entity" : 60610,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Cube",
+          "SourceType": "Primitive"
+      },
+      "RigidBody3DComponent" : {
+          "Type": "Dynamic"
+      },
+      "TagComponent" : {
+          "Tag": "Cube"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              0.0,
+              0.0,
+              0.0
+          ]
+      }
+    },
+    {
+      "Entity" : 60590,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Plane",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Plane"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              0.0,
+              -3.4100000858306886,
+              0.0
+          ]
+      }
+    },
+    {
+      "Entity" : 60600,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Sphere",
+          "SourceType": "Primitive"
+      },
+      "SphereColliderComponent" : {
+          "Density": 0.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Radius": 0.5,
+          "Resitution": 0.0
+      },
+      "TagComponent" : {
+          "Tag": "Sphere"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              1.9390000104904175,
+              0.0,
+              0.0
+          ]
+      }
+    },
+    {
+      "CapsuleColliderComponent" : {
+          "Density": 0.0,
+          "Friction": 0.0,
+          "Height": 0.0,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Radius": 0.0,
+          "Resitution": 0.0
+      },
+      "Entity" : 60580,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Capsule",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Capsule"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              -2.0999999046325685,
+              0.0,
+              3.799999952316284
+          ]
+      }
+    },
+    {
+      "Entity" : 18446744073709448206,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Sphere",
+          "SourceType": "Primitive"
+      },
+      "SphereColliderComponent" : {
+          "Density": 0.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Radius": 0.5,
+          "Resitution": 0.0
+      },
+      "TagComponent" : {
+          "Tag": "Sphere"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              0.7613499760627747,
+              0.7613499760627747,
+              0.7613499760627747
+          ],
+          "Translation": [
+              1.9329999685287476,
+              0.5360000133514404,
+              0.054999999701976779
+          ]
+      }
+    },
+    {
+      "Entity" : 18446744073709447138,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Sphere",
+          "SourceType": "Primitive"
+      },
+      "SphereColliderComponent" : {
+          "Density": 0.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Radius": 0.5,
+          "Resitution": 0.0
+      },
+      "TagComponent" : {
+          "Tag": "Sphere (1)"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              0.40468794107437136,
+              0.40468794107437136,
+              0.40468794107437136
+          ],
+          "Translation": [
+              1.9329999685287476,
+              0.996999979019165,
+              0.054999999701976779
+          ]
+      }
+    }
+  ],
+  "Scene" : "sa"
+}

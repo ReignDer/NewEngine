@@ -3,6 +3,7 @@
 #include "AssetImporter.h"
 
 #include "Sign/Project/Project.h"
+#include "Sign/Renderer/Renderer.h"
 
 #include <yaml-cpp/yaml.h>
 #include <fstream>
@@ -83,14 +84,22 @@ namespace Sign {
 		metadata.Filepath = "";
 		metadata.PrimitiveType = type;
 		metadata.Type = AssetType::Mesh;
-		std::shared_ptr<Asset> asset = AssetImporter::ImportAsset(handle, metadata);
 
-		if (!asset)
-			return 0;
+
 		
-		asset->Handle = handle;
-		m_LoadedAssets[handle] = asset;
+		std::shared_ptr<Mesh> assetPlaceHolder = std::make_shared<Mesh>();
+		assetPlaceHolder->Handle = handle;
+		m_LoadedAssets[handle] = assetPlaceHolder;
 		m_AssetRegistry[handle] = metadata;
+
+		Renderer::SubmitInitCommand([this, metadata, handle](ID3D12GraphicsCommandList* cmdList) mutable {
+			std::shared_ptr<Asset> asset = AssetImporter::ImportAsset(handle, metadata);
+			if (asset)
+			{
+				asset->Handle = handle;
+				m_LoadedAssets[handle] = asset;
+			}
+		});
 		//SerializeAssetRegistry();
 
 		return handle;

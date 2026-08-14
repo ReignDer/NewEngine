@@ -52,7 +52,7 @@ namespace Sign {
 				//Iconosphere
 				const float H_ANGLE = MathUtils::ConvertToRadians(72.0f);
 				const float V_ANGLE = std::atanf(1.0f / 2.0f);
-				float radius = 1.0f;
+				float radius = 0.5f;
 
 				std::vector<float> vertices;
 				std::vector<uint32_t> indices;
@@ -212,6 +212,88 @@ namespace Sign {
 				}
 				return std::make_shared<Mesh>(planeVertices, _countof(planeVertices), quadIndices, _countof(quadIndices));
 				});
+		}
+		std::shared_ptr<Mesh> Capsule::Create()
+		{
+
+			return ResourceCache::GetOrCreate<Mesh>("DefaultCapsule", [&]()->std::shared_ptr<Mesh> {
+				float radius = 0.5f;
+				float height = radius * 2.f;
+				int numSubdivisionsHeight = 12;
+				int numSegments = 12;
+
+				std::vector<VertexPosColor> vertices;
+				std::vector<Vector3D> positions;
+				std::vector<Vector3D> normals;
+				std::vector<Vector2D> uvs;
+				std::vector<Vector3D> colors;
+				std::vector<uint32_t> indices;
+
+				auto ringBody = numSubdivisionsHeight + 1;
+				auto ringTotal = numSubdivisionsHeight + ringBody;
+
+				positions.reserve(numSegments * ringTotal);
+				normals.reserve(numSegments * ringTotal);
+				uvs.reserve(numSegments * ringTotal);
+				colors.reserve(numSegments * ringTotal);
+
+				indices.reserve((numSegments - 1) * (ringTotal - 1) * 6);
+
+				auto bodyIncr = 1.0f / (float)(ringBody - 1);
+				auto ringIncr = 1.0f / (float)(numSubdivisionsHeight - 1);
+
+				int currentRingIndex = 0;
+				for (int r = 0; r < numSubdivisionsHeight / 2; r++) {
+					CalculateRings(numSegments, std::sin(MathUtils::PI * r * ringIncr), std::sin(MathUtils::PI * (r * ringIncr - 0.5f)), -0.5f, radius, height, currentRingIndex,
+						positions, normals, uvs, colors, vertices);
+
+					currentRingIndex++;
+				}
+				for (size_t r = 0; r < ringBody; r++) {
+					CalculateRings(numSegments, 1.0f, 0.0f, r * bodyIncr - 0.5f, radius, height, currentRingIndex, positions, normals, uvs, colors, vertices);
+					currentRingIndex++;
+				}
+				for (int r = numSubdivisionsHeight / 2; r < numSubdivisionsHeight; r++) {
+					CalculateRings(numSegments, std::sin(MathUtils::PI * r * ringIncr), std::sin(MathUtils::PI * (r * ringIncr - 0.5f)), +0.5f, radius, height, currentRingIndex,
+						positions, normals, uvs, colors, vertices);
+					currentRingIndex++;
+				}
+
+				for (size_t r = 0; r < ringTotal - 1; r++) {
+					for (int s = 0; s < numSegments - 1; s++) {
+						indices.push_back((uint32_t)(r * numSegments + (s + 1)));
+						indices.push_back((uint32_t)(r * numSegments + (s + 0)));
+						indices.push_back((uint32_t)((r + 1) * numSegments + (s + 1)));
+
+						indices.push_back((uint32_t)((r + 1) * numSegments + (s + 0)));
+						indices.push_back((uint32_t)((r + 1) * numSegments + (s + 1)));
+						indices.push_back((uint32_t)(r * numSegments + s));
+					}
+				}
+
+
+				return std::make_shared<Mesh>(vertices.data(), (uint32_t)vertices.size(), indices.data(), (uint32_t)indices.size());
+			});
+		}
+		void Capsule::CalculateRings(size_t segments, float r, float y, float dy, float radius, float height, size_t faceID,
+			 std::vector<Vector3D>& positions,  std::vector<Vector3D>& normals,  std::vector<Vector2D>& uvs,  std::vector<Vector3D>& colors, std::vector<VertexPosColor>& vertices)
+		{
+			float segIncr = 1.0f / (float)(segments - 1);
+
+			for (size_t s = 0; s < segments; s++)
+			{
+				float x = std::cosf((MathUtils::PI * 2) * s * segIncr) * r;
+				float z = std::sinf((MathUtils::PI * 2) * s * segIncr) * r;
+
+				positions.emplace_back(Vector3D(radius * x, radius * y + height * dy, radius * z));
+				normals.emplace_back(Vector3D(x, y, z));
+				float u = 1.0f - (s * segIncr);
+				float v = 0.5f - (radius * y + height * dy) / (2.0f * radius + height);
+				uvs.emplace_back(Vector2D(u, v));
+				//float g = 0.5f + (radius * y + height * dy) / (2.0f * radius + height);
+				colors.emplace_back(1.f, 1.f, 1.f);
+				vertices.emplace_back(VertexPosColor{ positions.back(), normals.back(), colors.back(), uvs.back(), (uint32_t)faceID});
+			}
 		}
 	}
 }

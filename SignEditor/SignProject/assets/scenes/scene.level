@@ -1,0 +1,209 @@
+{
+	"Entities": [
+		{
+			"Entity": 60000,
+			"TagComponent":
+			{
+				"Tag": "Cube"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					0,
+					0,
+					0
+				],
+				"Rotation": [
+					-29.810028076171911,
+					0,
+					0
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Cube",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Dynamic"
+			}
+		},
+		{
+			"Entity": 60001,
+			"TagComponent":
+			{
+				"Tag": "Plane"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					0,
+					-3.4100000096112471,
+					0
+				],
+				"Rotation": [
+					-0,
+					0,
+					0
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Plane",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Static"
+			}
+		},
+		{
+			"Entity": 60002,
+			"TagComponent":
+			{
+				"Tag": "Sphere"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					1.9389999671503899,
+					0,
+					0
+				],
+				"Rotation": [
+					-0,
+					0,
+					0
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Sphere",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Static"
+			}
+		},
+		{
+			"Entity": 60003,
+			"TagComponent":
+			{
+				"Tag": "Capsule"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					-2.0999998576939127,
+					0,
+					3.7999998673796664
+				],
+				"Rotation": [
+					80.300018310546889,
+					-5.0672374323610289e-06,
+					-25.51995849609375
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Capsule",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Static"
+			}
+		},
+		{
+			"Entity": 60004,
+			"TagComponent":
+			{
+				"Tag": "Sphere"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					1.7000000096857537,
+					0.69999997243285206,
+					1.3999999448657041
+				],
+				"Rotation": [
+					-0,
+					0,
+					0
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Sphere",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Static"
+			}
+		},
+		{
+			"Entity": 60005,
+			"TagComponent":
+			{
+				"Tag": "Plane"
+			},
+			"TransformComponent":
+			{
+				"Translation": [
+					0,
+					-3.199999976158141,
+					4.6999997042119546
+				],
+				"Rotation": [
+					-17.400146484374989,
+					0,
+					0
+				],
+				"Scale": [
+					1,
+					1,
+					1
+				]
+			},
+			"MeshRendererComponent":
+			{
+				"PrimitiveType": "Plane",
+				"SourceType": "Primitive"
+			},
+			"RigidBody3DComponent":
+			{
+				"Type": "Static"
+			}
+		}
+	],
+	"Scene": "scene"
+}

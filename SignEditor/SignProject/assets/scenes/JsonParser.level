@@ -2,6 +2,25 @@
   "Entities" : 
   [
     {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
       "Entity" : 748325354365975157,
       "MeshRendererComponent" : 
       {
@@ -9,6 +28,10 @@
         "PrimitiveType" : "Cube",
         "SourceType" : "Primitive",
         "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
       },
       "TagComponent" : 
       {
@@ -33,41 +56,6 @@
           0.0,
           0.0,
           0.0
-        ]
-      }
-    },
-    {
-      "Entity" : 8889242695869501423,
-      "MeshRendererComponent" : 
-      {
-        "MeshHandle" : 1184688084933760944,
-        "PrimitiveType" : "None",
-        "SourceType" : "Asset",
-        "TextureHandle" : 17503846126538621877
-      },
-      "TagComponent" : 
-      {
-        "Tag" : "Empty Entity"
-      },
-      "TransformComponent" : 
-      {
-        "Rotation" : 
-        [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "Scale" : 
-        [
-          1.0,
-          1.0,
-          1.0
-        ],
-        "Translation" : 
-        [
-          -1.2999999523162842,
-          -0.10000000149011612,
-          1.2000000476837158
         ]
       }
     }

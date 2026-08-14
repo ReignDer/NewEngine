@@ -12,7 +12,8 @@ namespace Sign {
 		None = 0,
 		Cube,
 		Sphere,
-		Plane
+		Plane,
+		Capsule
 	};
 	namespace Primitive {
 		static const std::array<Vector3D, 8> cubePosition = { {
@@ -22,10 +23,10 @@ namespace Sign {
 			{ 0.5,0.5,0.5 }  , { 0.5,-0.5,0.5 }
 		} };
 		static const std::array<Vector3D, 4> planePosition = { {
-			{-0.5,0.0,0.5 } ,
-			{ 0.5,0.0,0.5 } ,
-			{ 0.5,0.0,-0.5 },
-			{ -0.5,0.0,-0.5 }
+			{-5.0,0.0,5.0 } ,
+			{ 5.0,0.0,5.0 } ,
+			{ 5.0,0.0,-5.0 },
+			{ -5.0,0.0,-5.0 }
 		} };
 		struct Cube3D
 		{
@@ -58,6 +59,15 @@ namespace Sign {
 					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f},
 					{1.0f,1.0f,1.0f},{1.0f,1.0f,1.0f}} }
 					);
+		};
+
+		struct Capsule
+		{
+			static std::shared_ptr<Mesh> Create();
+
+		private:
+			static void CalculateRings(size_t segments, float r, float y, float dy, float radius, float height, size_t faceID,
+				 std::vector<Vector3D>& positions,  std::vector<Vector3D>& normals,  std::vector<Vector2D>& uvs,  std::vector<Vector3D>& colors, std::vector<VertexPosColor>& vertices);
 		};
 	};
 }

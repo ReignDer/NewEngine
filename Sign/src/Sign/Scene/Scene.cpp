@@ -205,6 +205,7 @@ namespace Sign {
                         case MeshRendererComponent::PrimitiveType::Cube: mesh = Primitive::Cube3D::Create(); break;
                         case MeshRendererComponent::PrimitiveType::Sphere: mesh = Primitive::Sphere::Create(); break;
                         case MeshRendererComponent::PrimitiveType::Plane: mesh = Primitive::Plane::Create(); break;
+                        case MeshRendererComponent::PrimitiveType::Capsule: mesh = Primitive::Capsule::Create(); break;
                         case MeshRendererComponent::PrimitiveType::None: mesh = AssetManager::GetAsset<Mesh>(renderer.MeshA); break;
                     }
                 }
@@ -321,6 +322,23 @@ namespace Sign {
             material.setFrictionCoefficient(sc3d.Friction);
             material.setBounciness(sc3d.Restitution);
         }
+        if (entity.HasComponent<CapsuleColliderComponent>())
+        {
+            auto& cc3d = entity.GetComponent<CapsuleColliderComponent>();
+
+            reactphysics3d::CapsuleShape* capsuleShape = m_PhysicsCommon.createCapsuleShape(cc3d.Radius * transform.Scale.x, cc3d.Height * transform.Scale.y);
+
+            reactphysics3d::Collider* collider;
+            reactphysics3d::Vector3 offset(cc3d.Offset.x, cc3d.Offset.y, cc3d.Offset.z);
+            reactphysics3d::Quaternion localOrientation = reactphysics3d::Quaternion::identity();
+            reactphysics3d::Transform colTransform(offset, localOrientation);
+            collider = body->addCollider(capsuleShape, colTransform);
+            reactphysics3d::Material& material = collider->getMaterial();
+
+            material.setMassDensity(cc3d.Density);
+            material.setFrictionCoefficient(cc3d.Friction);
+            material.setBounciness(cc3d.Restitution);
+        }
     }
 
     void Scene::OnDestroyPhysicsBody(EntityECS entity)
@@ -391,6 +409,17 @@ namespace Sign {
 
     template<>
     void Scene::OnComponentAdded<SphereColliderComponent>(EntityECS entity, SphereColliderComponent& component)
+    {
+        if (m_Running && entity.HasComponent<RigidBody3D>()) {
+            auto& rb3d = entity.GetComponent<RigidBody3D>();
+            if (rb3d.RuntimeBody) {
+                OnDestroyPhysicsBody(entity);
+                OnCreatePhysicsBody(entity);
+            }
+        }
+    }
+    template<>
+    void Scene::OnComponentAdded<CapsuleColliderComponent>(EntityECS entity, CapsuleColliderComponent& component)
     {
         if (m_Running && entity.HasComponent<RigidBody3D>()) {
             auto& rb3d = entity.GetComponent<RigidBody3D>();

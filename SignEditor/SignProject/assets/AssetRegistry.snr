@@ -7,6 +7,10 @@ AssetRegistry:
     FilePath: armadillo.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 3325361189065655775
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
   - Handle: 3334322919943997038
     FilePath: bunny.obj
     Type: AssetType::Mesh
@@ -43,6 +47,14 @@ AssetRegistry:
     FilePath: hydrant_BaseColor.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 11816304221815827878
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Sphere
+  - Handle: 12168947162974994137
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: None
   - Handle: 12635991980412786565
     FilePath: djSword.obj
     Type: AssetType::Mesh
@@ -51,3 +63,7 @@ AssetRegistry:
     FilePath: brickwall.jpg
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 18012152334118153984
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube

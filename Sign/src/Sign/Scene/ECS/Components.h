@@ -54,7 +54,7 @@ namespace Sign {
 	
 	struct MeshRendererComponent {
 		enum class SourceType {Asset = 0, Primitive};
-		enum class PrimitiveType {None = 0, Cube, Sphere, Plane};
+		enum class PrimitiveType {None = 0, Cube, Sphere, Plane, Capsule};
 		std::shared_ptr<Mesh> Mesh;
 		AssetHandle MeshA = 0;
 		AssetHandle TextureA = 0;
@@ -117,6 +117,22 @@ namespace Sign {
 		void* RuntimeFixture = nullptr;
 		EntityID m_entity = INVALID_ENTITY_ID;
 	};
+	struct CapsuleColliderComponent
+	{
+		Vector3D Offset = { 0.0f,0.0f,0.0f };
+		float Radius = 0.5f;
+		float Height = 2.0f;
+
+		float Density = 1.0f;
+		float Friction = 0.5f;
+		float Restitution = 0.5f;
+		float RestitutionThreshold = 0.5f;
+		CapsuleColliderComponent() = default;
+		CapsuleColliderComponent(const CapsuleColliderComponent&) = default;
+
+		void* RuntimeFixture = nullptr;
+		EntityID m_entity = INVALID_ENTITY_ID;
+	};
 
 	struct LightComponent
 	{
@@ -156,6 +172,6 @@ namespace Sign {
 	};
 
 	using AllComponents =
-		ComponentGroup<TransformComponent, MeshRendererComponent, RigidBody3D, Box3DColliderComponent, SphereColliderComponent, LightComponent, CameraComponent>;
+		ComponentGroup<TransformComponent, MeshRendererComponent, RigidBody3D, Box3DColliderComponent, SphereColliderComponent, CapsuleColliderComponent, LightComponent, CameraComponent>;
 
 }

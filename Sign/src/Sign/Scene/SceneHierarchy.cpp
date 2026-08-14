@@ -76,11 +76,10 @@ namespace Sign {
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
 
-					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
-						auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					entity.AddComponent<Box3DColliderComponent>();
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
 
-						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
-					});
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
 					
 				}
 				if (ImGui::MenuItem("Create 20 Rigidibody Cubes"))
@@ -100,10 +99,10 @@ namespace Sign {
 						rbc.Type = RigidBody3D::BodyType::Dynamic;
 						entity.AddComponent<Box3DColliderComponent>();
 
-						Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
-							auto& mesh = entity.GetComponent<MeshRendererComponent>();
-							mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
-						});
+						
+						auto& mesh = entity.GetComponent<MeshRendererComponent>();
+						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
+					
 					}
 				}
 				if (ImGui::MenuItem("Create Sphere"))
@@ -116,10 +115,12 @@ namespace Sign {
 					tc.Tag = "Sphere";
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Sphere;
-					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
-						auto& mesh = entity.GetComponent<MeshRendererComponent>();
-						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
-					});
+
+					entity.AddComponent<SphereColliderComponent>();
+					
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Sphere);
+
 				}
 
 				if (ImGui::MenuItem("Create Plane"))
@@ -132,12 +133,62 @@ namespace Sign {
 					tc.Tag = "Plane";
 					mrc.Type = MeshRendererComponent::SourceType::Primitive;
 					mrc.PType = MeshRendererComponent::PrimitiveType::Plane;
-					Renderer::SubmitInitCommand([entity](ID3D12GraphicsCommandList* cmdList) mutable {
-						auto& mesh = entity.GetComponent<MeshRendererComponent>();
-						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
-					});
+					auto& bc = entity.AddComponent<Box3DColliderComponent>();
+					bc.Size.y = 0.001;
+					auto& rb = entity.AddComponent<RigidBody3D>();
+					rb.Type = RigidBody3D::BodyType::Static;
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Plane);
+
+				}
+				if (ImGui::MenuItem("Create Capsule"))
+				{
+					EntityECS entity = m_Context->CreateEntity();
+					entity.AddComponent<MeshRendererComponent>();
+
+					auto& tc = entity.GetComponent<TagComponent>();
+					auto& mrc = entity.GetComponent<MeshRendererComponent>();
+					tc.Tag = "Capsule";
+					mrc.Type = MeshRendererComponent::SourceType::Primitive;
+					mrc.PType = MeshRendererComponent::PrimitiveType::Capsule;
+
+					entity.AddComponent<CapsuleColliderComponent>();
+
+					auto& mesh = entity.GetComponent<MeshRendererComponent>();
+					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Capsule);
+
 				}
 
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Lights"))
+			{
+
+				if (ImGui::MenuItem("Directional"))
+				{
+					EntityECS entity = m_Context->CreateEntity();
+					auto& tc = entity.GetComponent<TagComponent>();
+					auto& lc = entity.AddComponent<LightComponent>();
+					tc.Tag = "Directional Light";
+					lc.Type = LightComponent::LightType::Directional;
+				}
+				if (ImGui::MenuItem("Spot"))
+				{
+					EntityECS entity = m_Context->CreateEntity();
+					auto& tc = entity.GetComponent<TagComponent>();
+					auto& lc = entity.AddComponent<LightComponent>();
+					tc.Tag = "Spot Light";
+					lc.Type = LightComponent::LightType::Spot;
+				}
+				if (ImGui::MenuItem("Point"))
+				{
+					EntityECS entity = m_Context->CreateEntity();
+					auto& tc = entity.GetComponent<TagComponent>();
+					auto& lc = entity.AddComponent<LightComponent>();
+					tc.Tag = "Point Light";
+					lc.Type = LightComponent::LightType::Point;
+				}
 				ImGui::EndMenu();
 			}
 			ImGui::EndPopup();
@@ -287,6 +338,7 @@ namespace Sign {
 			DisplayAddComponentEntry<RigidBody3D>("Rigidbody 3D");
 			DisplayAddComponentEntry<Box3DColliderComponent>("Box3D Collider");
 			DisplayAddComponentEntry<SphereColliderComponent>("Sphere Collider");
+			DisplayAddComponentEntry<CapsuleColliderComponent>("Capsule Collider");
 			DisplayAddComponentEntry<MeshRendererComponent>("Mesh Renderer");
 			DisplayAddComponentEntry<LightComponent>("Light");
 			
@@ -341,7 +393,18 @@ namespace Sign {
 		{
 			ImGui::PushItemWidth(245.0f);
 			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
-			ImGui::DragFloat3("Radius", &component.Radius);
+			ImGui::DragFloat("Radius", &component.Radius);
+			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1000.0f);
+			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
+			ImGui::PopItemWidth();
+		});
+		DrawComponent<CapsuleColliderComponent>("Capsule Collider", entity, [](auto& component)
+		{
+			ImGui::PushItemWidth(245.0f);
+			ImGui::DragFloat3("Offset", MathUtils::value_ptr(component.Offset));
+			ImGui::DragFloat("Radius", &component.Radius);
+			ImGui::DragFloat("Height", &component.Height);
 			ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1000.0f);
 			ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);

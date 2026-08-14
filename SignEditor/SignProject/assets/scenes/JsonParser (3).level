@@ -1,0 +1,217 @@
+{
+  "Entities" : 
+  [
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 8.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.0,
+        "RestitutionThreshold" : 0.0,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 59756,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 5627241845006056054,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.0010000000474974513,
+          0.5
+        ]
+      },
+      "Entity" : 18446744073709473270,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 12734075460482058535,
+        "PrimitiveType" : "Plane",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Plane"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          0.0,
+          -3.4100000858306885,
+          0.0
+        ]
+      }
+    },
+    {
+      "Entity" : 18446744073709472842,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 5056455553175496089,
+        "PrimitiveType" : "Sphere",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "SphereColliderComponent" : 
+      {
+        "Density" : 0.0,
+        "Friction" : 0.60000002384185791,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Radius" : 0.5,
+        "Restitution" : 0.0,
+        "RestitutionThreshold" : 0.0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Sphere"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          1.9390000104904175,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "CapsuleColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Height" : 2.0,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Radius" : 0.5,
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5
+      },
+      "Entity" : 14715289876106295895,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 13132475931373638300,
+        "PrimitiveType" : "Capsule",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Capsule"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          -2.0999999046325684,
+          0.0,
+          3.7999999523162842
+        ]
+      }
+    }
+  ],
+  "Scene" : "Untitled"
+}
