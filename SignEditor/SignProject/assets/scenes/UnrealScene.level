@@ -1,4 +1,3238 @@
 {
-  "Entities" : [],
+  "Entities" : 
+  [
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 11675537984559295236,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 14728967339054874777,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.0010000000474974513,
+          0.5
+        ]
+      },
+      "Entity" : 2121801014412359217,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 18240393427842226607,
+        "PrimitiveType" : "Plane",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Static"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Plane"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "Translation" : 
+        [
+          0.0,
+          -0.5,
+          0.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12857728155043231514,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 13472270557579095569,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          6690.60546875,
+          0.0,
+          -731.69964599609375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.028298787772655487,
+          0.097564227879047394,
+          0.011823952198028564
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 17444841643420700681,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 11374803821839849666,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -6553.69580078125,
+          0.0,
+          4845.125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.098725259304046631,
+          0.071449585258960724,
+          0.035526983439922333
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 9367112481524352263,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 2765234967852492394,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          10072.625,
+          0.0,
+          6309.7880859375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.032699935138225555,
+          0.030292652547359467,
+          -0.07852405309677124
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12604463478861474041,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 1345775138829453620,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          9930.9013671875,
+          0.0,
+          8082.72265625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.0088384896516799927,
+          -0.077876374125480652,
+          -0.021239735186100006
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 766623924600406359,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 16215715576216506563,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          9462.599609375,
+          0.0,
+          3452.365234375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.033745132386684418,
+          -0.017603576183319092,
+          -0.043257381767034531
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 11710751737343682596,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 17807832172603998207,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -7193.3134765625,
+          0.0,
+          1792.64892578125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.069394409656524658,
+          -0.02040158212184906,
+          -0.086229637265205383
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 4111136098778129640,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 406079360364576679,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          1725.328857421875,
+          0.0,
+          -9700.880859375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.039112593978643417,
+          0.040350057184696198,
+          0.0057684928178787231
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 4118704977599900996,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 7398577621476723268,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -6394.64501953125,
+          0.0,
+          -5651.78173828125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.05091337114572525,
+          0.045197539031505585,
+          0.064644642174243927
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 15236215892525554566,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 12784086005111187894,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          3358.7138671875,
+          0.0,
+          3122.958251953125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.095036320388317108,
+          0.053209669888019562,
+          -0.07302306592464447
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 1026700402822366670,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 2393540275692784175,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -2215.721923828125,
+          0.0,
+          -2549.754638671875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.097360633313655853,
+          -0.074560090899467468,
+          0.069387324154376984
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 5338865798263741351,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 4348698331399127974,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          4272.9775390625,
+          0.0,
+          9690.076171875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.071793928742408752,
+          0.080974094569683075,
+          -0.093036115169525146
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 14729522969594801360,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 14148574547385936019,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          4973.73583984375,
+          0.0,
+          -9043.736328125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.063075318932533264,
+          -0.081060267984867096,
+          -0.085138522088527679
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 15813922629938939145,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 6144331250837726134,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          6808.19775390625,
+          0.0,
+          -2991.40234375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.095443151891231537,
+          -0.042877018451690674,
+          -0.069274723529815674
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 17900850498918052250,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 6323243982900530683,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          6738.5712890625,
+          0.0,
+          -5315.091796875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.065228886902332306,
+          -0.0055344104766845703,
+          0.099176801741123199
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 16736329158245669668,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 6631548216739178832,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -8188.56787109375,
+          0.0,
+          3070.56787109375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.0024984478950500488,
+          0.089989759027957916,
+          -0.041519176214933395
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 13184696066201831168,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 17148934461722653201,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -4237.96826171875,
+          0.0,
+          -4269.4443359375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.011532679200172424,
+          -0.059862721711397171,
+          -0.072867490351200104
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 13608003628899953337,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 11817278093596750823,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          1087.943115234375,
+          0.0,
+          8221.7587890625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.089860610663890839,
+          -0.065932348370552063,
+          -0.013422094285488129
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 6356258579714923887,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 2354096878317746783,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          4325.12841796875,
+          0.0,
+          -7217.5263671875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.023686215281486511,
+          -0.094530798494815826,
+          -0.065232977271080017
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 13542597768856632697,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 6118656512038968195,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          6378.76416015625,
+          0.0,
+          -5545.330078125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.026614703238010406,
+          -0.097390733659267426,
+          0.03884529322385788
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 11445340208936482064,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 12823986605931161824,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          2691.645263671875,
+          0.0,
+          -6153.46728515625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.03377484530210495,
+          0.027251042425632477,
+          -0.029462002217769623
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 3289162830055152775,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 10019718240339633162,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -2322.087646484375,
+          0.0,
+          -3574.300048828125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.057032205164432526,
+          0.0229339599609375,
+          0.097369931638240814
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 15600713876689658781,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 641198178047086393,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -1672.1456298828125,
+          0.0,
+          -5049.35546875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.026766307651996613,
+          0.036697022616863251,
+          0.063412480056285858
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 16703497591052406273,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 3266285089657894085,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -4435.029296875,
+          0.0,
+          -8511.8681640625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.053967345505952835,
+          -0.038982223719358444,
+          0.0048761516809463501
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 1690693091786808696,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 15105341719920824695,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -7916.205078125,
+          0.0,
+          -8751.31640625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.015903845429420471,
+          0.0096889585256576538,
+          -0.066166236996650696
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12175743401374710908,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 7524935053456331245,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -1658.019287109375,
+          0.0,
+          -9011.2275390625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.042945098131895065,
+          0.0072480663657188416,
+          -0.010463275015354156
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 10197011893088486659,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 9252195874843537896,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -2151.611328125,
+          0.0,
+          7566.08837890625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.064988985657691956,
+          -0.077826246619224548,
+          -0.042331051081418991
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 324216599478825535,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 17309480106397173554,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          638.17437744140625,
+          0.0,
+          -8499.66015625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.058134626597166061,
+          -0.022387541830539703,
+          -0.035585381090641022
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 7987888218614807415,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 15699691797183246856,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          9566.8896484375,
+          0.0,
+          -399.62789916992188
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.084491334855556488,
+          -0.052625726908445358,
+          0.048040010035037994
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 1804083234762363177,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 76328058461704094,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -8462.349609375,
+          0.0,
+          -3916.9189453125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.04811655730009079,
+          -0.0092530250549316406,
+          0.080803625285625458
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 10990322180111066610,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 9755768238802305815,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -7816.83984375,
+          0.0,
+          -10280.74609375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.096130646765232086,
+          -0.0045104995369911194,
+          0.022493243217468262
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 13783266388489662926,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 5084840324953440815,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -3758.6796875,
+          0.0,
+          3443.4345703125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.094479940831661224,
+          0.067211352288722992,
+          -0.043394125998020172
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12748343932328467623,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 4115623293879364333,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          3451.30126953125,
+          0.0,
+          7223.3017578125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.010529682040214539,
+          0.024463318288326263,
+          0.06710372120141983
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 13837607505628682765,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 15869768256359795509,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -8679.287109375,
+          0.0,
+          6677.6611328125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.021396197378635406,
+          -0.024130962789058685,
+          -0.04679509624838829
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 826990539825093016,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 3091410922340982573,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -3459.9541015625,
+          0.0,
+          -1104.37744140625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.017832852900028229,
+          -0.026359304785728455,
+          0.042566753923892975
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 3850252041623091884,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 16620833230563674998,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -5151.3076171875,
+          0.0,
+          -1733.448974609375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.052123714238405228,
+          -0.058167289942502975,
+          -0.013293340802192688
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 14895780980267555944,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 17039284338235739443,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          600.27239990234375,
+          0.0,
+          6554.1923828125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.023826040327548981,
+          0.086840786039829254,
+          0.014638327062129974
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 397092654277306412,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 2922971659149699972,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          1616.5433349609375,
+          0.0,
+          -7805.51416015625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.016466215252876282,
+          0.052062921226024628,
+          -0.042059805244207382
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 8850359581513337636,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 3813613591059146573,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          2711.28466796875,
+          0.0,
+          -2927.39306640625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.026623152196407318,
+          0.0095110088586807251,
+          0.073256708681583405
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 15711600836229445208,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 861871817113379100,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          9043.60546875,
+          0.0,
+          10188.7587890625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.02849278599023819,
+          -0.04302683100104332,
+          -0.034710422158241272
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 3836334084264606131,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 12364999089565602852,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -3599.689208984375,
+          0.0,
+          -4715.8359375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.057185433804988861,
+          0.041535980999469757,
+          -0.099571920931339264
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 3889521262114894045,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 3189824770293191915,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          7808.50634765625,
+          0.0,
+          4504.0654296875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.082044012844562531,
+          -0.091729223728179932,
+          0.017760716378688812
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 9964745476201084055,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 12253530763188335496,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -4587.1630859375,
+          0.0,
+          6092.46728515625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.050996638834476471,
+          0.0061031132936477661,
+          0.055540479719638824
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 9047307562272096927,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 16358549887190894842,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -9463.9423828125,
+          0.0,
+          4472.595703125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.016355015337467194,
+          -0.073389925062656403,
+          0.039838023483753204
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 10526711830705092735,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 7733426575305501029,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -2099.555908203125,
+          0.0,
+          10042.0712890625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.0012879818677902222,
+          0.012492559850215912,
+          -0.015270352363586426
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12702235406063142178,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 5092183535643814951,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          4093.21728515625,
+          0.0,
+          -7872.3720703125
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.066071033477783203,
+          0.0073086172342300415,
+          0.089141823351383209
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 10659487129779588800,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 14770463285133793462,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -7806.462890625,
+          0.0,
+          -2746.653076171875
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.099979646503925323,
+          0.059013374149799347,
+          0.083009056746959686
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 17036217188295903755,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 15689083041007934009,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          -1263.421875,
+          0.0,
+          8937.1318359375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.035869352519512177,
+          0.0069132223725318909,
+          -0.069471158087253571
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 8261419472587705430,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 6957306533459335103,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          8724.94140625,
+          0.0,
+          -9693.166015625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.02980341762304306,
+          -0.067623704671859741,
+          -0.092232339084148407
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 1340756359010714677,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 9132578323641036774,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          2534.564453125,
+          0.0,
+          9939.287109375
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          -0.02842085063457489,
+          0.042615972459316254,
+          0.020833477377891541
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 12942057413531209993,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 10909485131831868385,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "RigidBody3DComponent" : 
+      {
+        "Type" : "Dynamic"
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          10311.701171875,
+          0.0,
+          7600.05712890625
+        ],
+        "Scale" : 
+        [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "Translation" : 
+        [
+          0.044952757656574249,
+          -0.01333000510931015,
+          0.035991229116916656
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 8541915682881232933,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 14272120469758598792,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          0.10000000149011612,
+          11.199999809265137,
+          11.899999618530273
+        ],
+        "Translation" : 
+        [
+          5.1999998092651367,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 2110235273990324705,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 15761961688427485352,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          0.20000000298023224,
+          6.0999999046325684,
+          12.800000190734863
+        ],
+        "Translation" : 
+        [
+          -5.0999999046325684,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 18134383881487852597,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 3186185960690491839,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          11.399999618530273,
+          11.0,
+          0.10000000149011612
+        ],
+        "Translation" : 
+        [
+          0.0,
+          0.0,
+          5.0
+        ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : 
+      {
+        "Density" : 1.0,
+        "Friction" : 0.5,
+        "Offset" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Restitution" : 0.5,
+        "RestitutionThreshold" : 0.5,
+        "Size" : 
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "Entity" : 16873253051299331631,
+      "MeshRendererComponent" : 
+      {
+        "MeshHandle" : 16628335176327680882,
+        "PrimitiveType" : "Cube",
+        "SourceType" : "Primitive",
+        "TextureHandle" : 0
+      },
+      "TagComponent" : 
+      {
+        "Tag" : "Cube"
+      },
+      "TransformComponent" : 
+      {
+        "Rotation" : 
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale" : 
+        [
+          11.899999618530273,
+          5.0,
+          0.10000000149011612
+        ],
+        "Translation" : 
+        [
+          0.0,
+          0.0,
+          -4.9000000953674316
+        ]
+      }
+    }
+  ],
   "Scene" : "Untitled"
 }
