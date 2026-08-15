@@ -248,7 +248,7 @@ namespace Sign {
     {
         reactphysics3d::PhysicsWorld::WorldSettings settings;
         const int32_t velocityIterations = 6;
-        const int32_t positionIterations = 2;
+        const int32_t positionIterations = 4;
         settings.defaultPositionSolverNbIterations = positionIterations;
         settings.defaultVelocitySolverNbIterations = velocityIterations;
         settings.gravity = reactphysics3d::Vector3(0.0f,-9.81f,0.0f);
@@ -285,11 +285,20 @@ namespace Sign {
         reactphysics3d::Transform rTransform = { position, quaternion };
 
         reactphysics3d::RigidBody* body = m_PhysicsWorld->createRigidBody(rTransform);
+
         body->setType(PhysicsUtils::RigidBody3DTypeToReactType(rb3d.Type));
         rb3d.RuntimeBody = body;
         if (entity.HasComponent<Box3DColliderComponent>()) {
             auto& bc3d = entity.GetComponent<Box3DColliderComponent>();
-            const reactphysics3d::Vector3 halfExtents(bc3d.Size.x * transform.Scale.x, bc3d.Size.y * transform.Scale.y, bc3d.Size.z * transform.Scale.z);
+            reactphysics3d::Vector3 halfExtents(bc3d.Size.x * transform.Scale.x, bc3d.Size.y * transform.Scale.y, bc3d.Size.z * transform.Scale.z);
+            if (entity.HasComponent<MeshRendererComponent>())
+            {
+                auto& mc = entity.GetComponent<MeshRendererComponent>();
+                if (mc.PType == MeshRendererComponent::PrimitiveType::Plane)
+                {
+                    halfExtents *= 10.0f;
+                }
+            }
             reactphysics3d::BoxShape* boxShape = m_PhysicsCommon.createBoxShape(halfExtents);
 
             reactphysics3d::Collider* collider;
@@ -338,6 +347,9 @@ namespace Sign {
             material.setMassDensity(cc3d.Density);
             material.setFrictionCoefficient(cc3d.Friction);
             material.setBounciness(cc3d.Restitution);
+        }
+        if (rb3d.Type == RigidBody3D::BodyType::Dynamic) {
+            body->updateMassPropertiesFromColliders();
         }
     }
 

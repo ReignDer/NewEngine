@@ -87,7 +87,7 @@ void UJsonPipeline::ExecutePostFactoryPipeline(
     }
     else
     {
-        NewComponent->AttachToComponent(TargetActor->GetRootComponent(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+        NewComponent->AttachToComponent(TargetActor->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
     }
 
     NewComponent->RegisterComponent();

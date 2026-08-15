@@ -24,7 +24,7 @@ static constexpr float UEUnitsToSource = 1.0f / 100.0f;
 FVector UJsonSceneExporter::ConvertPositionBack(const FVector& UEPos)
 {
 
-	return FVector(UEPos.X, UEPos.Z, UEPos.Y) * UEUnitsToSource;
+	return FVector(-UEPos.X, UEPos.Z, UEPos.Y) * UEUnitsToSource;
 }
 
 FVector UJsonSceneExporter::ConvertScaleBack(const FVector& UEScale)
@@ -84,25 +84,41 @@ bool UJsonSceneExporter::ExportCurrentLevelToJson(const FString& FilePath)
 		EntityObj->SetObjectField(TEXT("TagComponent"), TagObj);
 
 		{
-			FTransform T = Actor->GetActorTransform();
-			FVector Pos = ConvertPositionBack(T.GetLocation());
-			FVector Rot = ConvertRotationBack(T.GetRotation());
-			FVector Scale = ConvertScaleBack(T.GetScale3D());
-
-			auto MakeVecArray = [](const FVector& V)
+			FString PrimitiveType = GuessPrimitiveTypeFromMesh(MeshComp->GetStaticMesh());
+			if (!PrimitiveType.IsEmpty())
+			{
+			
+				FTransform T = Actor->GetActorTransform();
+				FVector Scale;
+				if (PrimitiveType == "Plane")
 				{
-					TArray<TSharedPtr<FJsonValue>> Arr;
-					Arr.Add(MakeShared<FJsonValueNumber>(V.X));
-					Arr.Add(MakeShared<FJsonValueNumber>(V.Y));
-					Arr.Add(MakeShared<FJsonValueNumber>(V.Z));
-					return Arr;
-				};
+					Scale = T.GetScale3D();
+					Scale.X /= 10.f;
+					Scale.Y /= 10.f;
+				}
+				else
+				{
+					Scale = T.GetScale3D();
+				}
+				Scale = ConvertScaleBack(Scale);
+				FVector Pos = ConvertPositionBack(T.GetLocation());
+				FVector Rot = ConvertRotationBack(T.GetRotation());
 
-			TSharedPtr<FJsonObject> XformObj = MakeShared<FJsonObject>();
-			XformObj->SetArrayField(TEXT("Translation"), MakeVecArray(Pos));
-			XformObj->SetArrayField(TEXT("Rotation"), MakeVecArray(Rot));
-			XformObj->SetArrayField(TEXT("Scale"), MakeVecArray(Scale));
-			EntityObj->SetObjectField(TEXT("TransformComponent"), XformObj);
+				auto MakeVecArray = [](const FVector& V)
+					{
+						TArray<TSharedPtr<FJsonValue>> Arr;
+						Arr.Add(MakeShared<FJsonValueNumber>(V.X));
+						Arr.Add(MakeShared<FJsonValueNumber>(V.Y));
+						Arr.Add(MakeShared<FJsonValueNumber>(V.Z));
+						return Arr;
+					};
+
+				TSharedPtr<FJsonObject> XformObj = MakeShared<FJsonObject>();
+				XformObj->SetArrayField(TEXT("Translation"), MakeVecArray(Pos));
+				XformObj->SetArrayField(TEXT("Rotation"), MakeVecArray(Rot));
+				XformObj->SetArrayField(TEXT("Scale"), MakeVecArray(Scale));
+				EntityObj->SetObjectField(TEXT("TransformComponent"), XformObj);
+			}
 		}
 
 		{

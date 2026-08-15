@@ -28,7 +28,7 @@ private:
 	static void WriteColliderAttribute(UInterchangeSceneNode* SceneNode, const TSharedPtr<FJsonObject>& EntityObj, const FString& ComponentKey, const FString& ColliderTypeName);
 	static FVector ConvertPosition(const FVector& sourceUp)
 	{
-		return FVector(sourceUp.X * 100.f, sourceUp.Z * 100.f, sourceUp.Y * 100.f);
+		return FVector(-sourceUp.X * 100.f, sourceUp.Z * 100.f, sourceUp.Y * 100.f);
 	}
 	static FVector ConvertScale(const FVector& sourceUp)
 	{

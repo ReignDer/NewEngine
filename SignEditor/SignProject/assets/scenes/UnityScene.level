@@ -1,0 +1,258 @@
+{
+  "Entities" :
+  [
+    {
+      "CapsuleColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Height": 2.0,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Radius": 0.5,
+          "Restitution": 0.0
+      },
+      "Entity" : 18446744073709547574,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Capsule",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Capsule"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              0.406581312417984,
+              0.5492987036705017,
+              1.2133036851882935
+          ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Restitution": 0.0,
+          "Size": [
+              5.0,
+              0.0010000000474974514,
+              5.0
+          ]
+      },
+      "Entity" : 18446744073709547418,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Plane",
+          "SourceType": "Primitive"
+      },
+      "RigidBody3DComponent" : {
+          "Type": "Static"
+      },
+      "TagComponent" : {
+          "Tag": "Plane"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              1.0,
+              1.0,
+              1.0
+          ],
+          "Translation": [
+              0.406581312417984,
+              -1.6799999475479127,
+              1.2133036851882935
+          ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Restitution": 0.0,
+          "Size": [
+              0.5,
+              0.5,
+              0.5
+          ]
+      },
+      "Entity" : 18446744073709547078,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Cube",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Cube"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              10.718000411987305,
+              10.801319122314454,
+              0.15686999261379243
+          ],
+          "Translation": [
+              0.40658000111579897,
+              -1.4800000190734864,
+              6.170000076293945
+          ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Restitution": 0.0,
+          "Size": [
+              0.5,
+              0.5,
+              0.5
+          ]
+      },
+      "Entity" : 18446744073709546930,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Cube",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Cube (1)"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              0.2902199923992157,
+              7.2564921379089359,
+              12.145000457763672
+          ],
+          "Translation": [
+              -4.539999961853027,
+              -1.6799999475479127,
+              1.2133036851882935
+          ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Restitution": 0.0,
+          "Size": [
+              0.5,
+              0.5,
+              0.5
+          ]
+      },
+      "Entity" : 18446744073709546850,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Cube",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Cube (2)"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              13.16185188293457,
+              7.37734317779541,
+              0.25317999720573428
+          ],
+          "Translation": [
+              0.40658000111579897,
+              -1.7599999904632569,
+              -3.9800000190734865
+          ]
+      }
+    },
+    {
+      "Box3DColliderComponent" : {
+          "Density": 1.0,
+          "Friction": 0.6000000238418579,
+          "Offset": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Restitution": 0.0,
+          "Size": [
+              0.5,
+              0.5,
+              0.5
+          ]
+      },
+      "Entity" : 18446744073709546770,
+      "MeshRendererComponent" : {
+          "PrimitiveType": "Cube",
+          "SourceType": "Primitive"
+      },
+      "TagComponent" : {
+          "Tag": "Cube (3)"
+      },
+      "TransformComponent" : {
+          "Rotation": [
+              0.0,
+              0.0,
+              0.0
+          ],
+          "Scale": [
+              0.18192000687122346,
+              11.997299194335938,
+              10.70199966430664
+          ],
+          "Translation": [
+              5.980000019073486,
+              -1.8899999856948853,
+              1.2133036851882935
+          ]
+      }
+    }
+  ],
+  "Scene" : "UnityScene"
+}

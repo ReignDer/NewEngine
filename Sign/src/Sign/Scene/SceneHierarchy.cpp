@@ -2,7 +2,7 @@
 #include "SceneHierarchy.h"
 #include <imgui.h>
 #include <imgui_internal.h>
-
+#include <reactphysics3d/reactphysics3d.h>
 #include "Sign/Asset/AssetManager.h"
 #include "Sign/Project/Project.h"
 #include "Sign/Renderer/Primitive3D.h"
@@ -82,9 +82,9 @@ namespace Sign {
 					mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);
 					
 				}
-				if (ImGui::MenuItem("Create 20 Rigidibody Cubes"))
+				if (ImGui::MenuItem("Create 50 Rigidibody Cubes"))
 				{
-					for (int i = 0; i < 20; i++) {
+					for (int i = 0; i < 50; i++) {
 						EntityECS entity = m_Context->CreateEntity();
 						entity.AddComponent<MeshRendererComponent>();
 						auto& tc = entity.GetComponent<TagComponent>();
@@ -92,13 +92,21 @@ namespace Sign {
 						tc.Tag = "Cube";
 						mrc.Type = MeshRendererComponent::SourceType::Primitive;
 						mrc.PType = MeshRendererComponent::PrimitiveType::Cube;
+						auto& tfc = entity.GetComponent<TransformComponent>();
+						tfc.Scale = tfc.Scale * 0.25f;
+						tfc.Rotation.x = MathUtils::Random_Float(-180, 180);
+						tfc.Rotation.z = MathUtils::Random_Float(-180, 180);
+						
+						tfc.Translation.x = MathUtils::Random_Float(-0.1, 0.1);
+						tfc.Translation.y = MathUtils::Random_Float(-0.1, 0.1);
+						tfc.Translation.z = MathUtils::Random_Float(-0.1, 0.1);
 						
 
 						entity.AddComponent<RigidBody3D>();
 						auto& rbc = entity.GetComponent<RigidBody3D>();
 						rbc.Type = RigidBody3D::BodyType::Dynamic;
 						entity.AddComponent<Box3DColliderComponent>();
-
+						auto& bc3d = entity.GetComponent<Box3DColliderComponent>();
 						
 						auto& mesh = entity.GetComponent<MeshRendererComponent>();
 						mesh.MeshA = Project::GetActive()->GetEditorAssetManager()->CreatePrimitiveAsset(PrimitiveTypes::Cube);

@@ -1,12 +1,80 @@
 AssetRegistry:
+  - Handle: 779153829487031170
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 1060560392937999941
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 1184688084933760944
     FilePath: teapot.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 1380601715891163304
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 1434150564253194489
     FilePath: armadillo.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 1860366456070402953
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2158521967168595434
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2169899654940677285
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2273290481769979873
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2394610888221465883
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2487331666736120057
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2490421667255304451
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2732338853621005248
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2849441674782848402
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2895098018503168175
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 2998575923542760066
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 3082568256883156597
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 3134703935252356925
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 3280403805937749632
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 3325361189065655775
     FilePath: ""
     Type: AssetType::Mesh
@@ -15,55 +83,407 @@ AssetRegistry:
     FilePath: bunny.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 3407474232077350258
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 3723492820540979980
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 3815461854495296650
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 4427583556165651056
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 4467604905771463173
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 4838417312251670078
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 4907883173938509685
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5071307851894075833
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5102241719372298101
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5111261254588432040
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5137401540552535692
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5255304953382770415
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5287014252666593218
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 5506250733194284393
     FilePath: hydrant_low.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 5612191099975412841
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5689281569005218560
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5704306228040696286
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 5737237004711621422
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 5748108147533948799
     FilePath: lucy.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 6085227594390202859
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 6222722058162616660
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 6415431203827271374
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 6416377775953205954
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 6466305303294475071
     FilePath: Brick.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 6618527232322187062
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
+  - Handle: 6723996696840025186
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 6742171803969235411
     FilePath: dlsu-logo.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 7132843347144564945
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 7339165140147407089
     FilePath: chair.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 7607966562784644513
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 7613456653029770143
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 7646302575359759611
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 7651249252879713697
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 7798843059542560102
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 8007584704871073668
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 8026957936042491493
     FilePath: partenza.jpg
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 8124832247542664143
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 8195159873108630229
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 8323030398761482411
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 8448625053096137121
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 8938027422265273504
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9209054953939598753
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9344158917385901376
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9385838742905794511
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9773454430710252637
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9861490019163467393
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9871786767081279648
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 9999836850846570836
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10391179543573267424
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10511941044417446172
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10547280753451332857
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10647687312820602036
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10688969816626918341
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10836193309538074254
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 10886023933605904212
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 11038100935407313493
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 11068066192013288600
     FilePath: brick.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 11134967989390736923
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 11161053610284389379
     FilePath: hydrant_BaseColor.png
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 11490864328307805395
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 11551559114504987211
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 11816304221815827878
     FilePath: ""
     Type: AssetType::Mesh
     PrimitiveType: Sphere
+  - Handle: 12069573649268365117
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 12168947162974994137
     FilePath: ""
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 12293151915160837889
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 12348598930682507497
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 12462694391299491517
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 12576195532322095211
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 12635991980412786565
     FilePath: djSword.obj
     Type: AssetType::Mesh
     PrimitiveType: None
+  - Handle: 12749716240995314016
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 12810127105784665302
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 12841572236143333521
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13007996725589646407
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13471794568844162196
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13477437754341462510
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
+  - Handle: 13544688981585884914
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13557155414999123966
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13843214008677616509
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13995778324401472720
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 13997625463721893705
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 14362777378270029586
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 14585717198661982494
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 14664780984166464755
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 15137136350283996988
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Plane
+  - Handle: 15378680664161858478
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 15675925713091269101
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 15725194734440234395
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 15803875567066180592
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 15825783758227123438
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 16014764443815503752
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 16316030685209609596
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 16425906494032481207
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 16984808572856409199
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 17027990657618594957
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 17460089137183365297
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 17503846126538621877
     FilePath: brickwall.jpg
     Type: AssetType::Texture2D
     PrimitiveType: None
+  - Handle: 17631593403438498539
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 17966395713780336355
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
   - Handle: 18012152334118153984
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 18023478424057879674
+    FilePath: ""
+    Type: AssetType::Mesh
+    PrimitiveType: Cube
+  - Handle: 18348893275364541604
     FilePath: ""
     Type: AssetType::Mesh
     PrimitiveType: Cube

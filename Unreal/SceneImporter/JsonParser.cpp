@@ -67,7 +67,13 @@ bool UJsonParser::Translate(UInterchangeBaseNodeContainer& BaseNodeContainer) co
 			return false;
 		}
 
-		uint64 EntityUUID = EntityObj->GetIntegerField(TEXT("Entity"));
+		FString UUIDString;
+		if (!EntityObj->TryGetStringField(TEXT("Entity"), UUIDString))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("JsonParser: entity missing UUID, skipping"));
+			continue; // don't abort the whole array
+		}
+		uint64 EntityUUID = FCString::Strtoui64(*UUIDString, nullptr, 10);
 		FString Tag = TEXT("ENTITY");
 		const TSharedPtr<FJsonObject>* TagComp;
 
@@ -89,15 +95,21 @@ bool UJsonParser::Translate(UInterchangeBaseNodeContainer& BaseNodeContainer) co
 			if (EntityObj->TryGetObjectField(TEXT("MeshRendererComponent"), MeshComponent))
 			{
 				FString PrimitiveType;
-
+				(*MeshComponent)->TryGetStringField(TEXT("PrimitiveType"), PrimitiveType);
 				FVector Translation = ReadVec3(*TransformComponent, TEXT("Translation"));
 				FVector Rotation = ReadVec3(*TransformComponent, TEXT("Rotation"));
 				FVector Scale = ReadVec3(*TransformComponent, TEXT("Scale"));
+				FVector FinalScale = ConvertScale(Scale);
+				if (PrimitiveType == "Plane")
+				{
+					FinalScale.X *= 10.f;
+					FinalScale.Y *= 10.f;
+				}
 
 				FTransform LocalTransform;
 				LocalTransform.SetTranslation(ConvertPosition(Translation));
 				LocalTransform.SetRotation(ConvertRotation(Rotation));
-				LocalTransform.SetScale3D(ConvertScale(Scale));
+				LocalTransform.SetScale3D(FinalScale);
 
 				SceneNode->SetCustomLocalTransform(&BaseNodeContainer, LocalTransform);
 			}
