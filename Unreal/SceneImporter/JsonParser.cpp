@@ -71,7 +71,7 @@ bool UJsonParser::Translate(UInterchangeBaseNodeContainer& BaseNodeContainer) co
 		if (!EntityObj->TryGetStringField(TEXT("Entity"), UUIDString))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("JsonParser: entity missing UUID, skipping"));
-			continue; // don't abort the whole array
+			continue; 
 		}
 		uint64 EntityUUID = FCString::Strtoui64(*UUIDString, nullptr, 10);
 		FString Tag = TEXT("ENTITY");

@@ -202,8 +202,8 @@ bool UJsonSceneExporter::ExportCurrentLevelToJsonWithDialog()
 	const bool bSaved = DesktopPlatform->SaveFileDialog(
 		ParentWindowHandle,
 		TEXT("Export Scene"),
-		TEXT(""),                 // default path
-		TEXT("scene.level"),       // default filename
+		TEXT(""),            
+		TEXT("scene.level"),       
 		TEXT("JSON Files (*.level)|*.level"),
 		EFileDialogFlags::None,
 		OutFilenames

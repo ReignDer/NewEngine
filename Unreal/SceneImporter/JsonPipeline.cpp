@@ -41,8 +41,7 @@ void UJsonPipeline::ExecutePostFactoryPipeline(
         return;
     }
 
-    // The generic level pipeline links factory node -> original scene node via
-    // AddTargetNodeUid(SceneNode->GetUniqueID()) even when TranslatedAssetNode was null.
+
     TArray<FString> TargetNodeUids;
     ActorFactoryNode->GetTargetNodeUids(TargetNodeUids);
     if (TargetNodeUids.Num() == 0)
@@ -58,7 +57,7 @@ void UJsonPipeline::ExecutePostFactoryPipeline(
     }
 
     FString MeshPath;
-    if (!SceneNode->GetStringAttribute(TEXT("CustomPrimitivePath"), MeshPath)) // <-- corrected key
+    if (!SceneNode->GetStringAttribute(TEXT("CustomPrimitivePath"), MeshPath))
     {
         return;
     }
@@ -125,20 +124,15 @@ void UJsonPipeline::ApplyPhysics(const UInterchangeSceneNode* SceneNode, UPrimit
 
         if (UPhysicalMaterial* PhysMat = BodySetup->PhysMaterial)
         {
-            // If you have a shared physical material asset, set Friction/Restitution
-            // on it here. Since these values differ per-entity in your JSON, an
-            // instance-level override on the component is more accurate than
-            // mutating a shared PhysicalMaterial asset (which would affect every
-            // actor using it). Consider creating a transient UPhysicalMaterial
-            // per unique Friction/Restitution combo if per-entity accuracy matters.
+
         }
     }
 
-    // --- Collider shape/size ---
+
     FString ColliderType;
     if (!SceneNode->GetStringAttribute(TEXT("Physics_ColliderType"), ColliderType) || ColliderType.IsEmpty())
     {
-        return; // no collider component (matches entities like your sample's plain spheres/planes with only render mesh)
+        return;
     }
 
     float OffsetX = 0.f, OffsetY = 0.f, OffsetZ = 0.f;
@@ -161,7 +155,7 @@ void UJsonPipeline::ApplyPhysics(const UInterchangeSceneNode* SceneNode, UPrimit
         SceneNode->GetFloatAttribute(TEXT("Physics_ColliderSize_Z"), SizeZ);
 
         UBoxComponent* BoxComp = NewObject<UBoxComponent>(Owner, TEXT("ColliderBox"));
-        BoxComp->SetBoxExtent(FVector(SizeX, SizeY, SizeZ) * 0.5f); // extent is half-size
+        BoxComp->SetBoxExtent(FVector(SizeX, SizeY, SizeZ) * 0.5f);
         BoxComp->SetRelativeLocation(ColliderOffset);
         BoxComp->AttachToComponent(PrimComp, FAttachmentTransformRules::KeepRelativeTransform);
         BoxComp->RegisterComponent();
@@ -186,7 +180,7 @@ void UJsonPipeline::ApplyPhysics(const UInterchangeSceneNode* SceneNode, UPrimit
         SceneNode->GetFloatAttribute(TEXT("Physics_ColliderHeight"), Height);
 
         UCapsuleComponent* CapsuleComp = NewObject<UCapsuleComponent>(Owner, TEXT("ColliderCapsule"));
-        CapsuleComp->SetCapsuleSize(Radius, Height * 0.5f); // half-height
+        CapsuleComp->SetCapsuleSize(Radius, Height * 0.5f);
         CapsuleComp->SetRelativeLocation(ColliderOffset);
         CapsuleComp->AttachToComponent(PrimComp, FAttachmentTransformRules::KeepRelativeTransform);
         CapsuleComp->RegisterComponent();
